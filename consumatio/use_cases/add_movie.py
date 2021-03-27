@@ -5,7 +5,7 @@ import uuid
 def add_movie(repo, dict):
     repo.add_movie(Movie.from_dict(dict).to_dict())
 
-repo = Database()
+#repo = Database()
 
 #add_movie(repo=repo, dict=Movie.from_dict(
 #    {
