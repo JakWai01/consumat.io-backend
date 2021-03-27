@@ -17,8 +17,9 @@ class Database():
         con = sqlite3.connect('data.db')
         cur = con.cursor()
 
-        cur.execute('''CREATE TABLE movies(code text, title text, year real, regisseur text, rating real)''')
-        
+        # only execute if the table does not exist
+        cur.execute('''CREATE TABLE if not exists movies(code text, title text, year real, regisseur text, rating real)''')
+
         code = dict.get('code')
         title = dict.get('title')
         year = dict.get('year')
