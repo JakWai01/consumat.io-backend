@@ -27,7 +27,8 @@ class Query(ObjectType):
         return f'Added {title}'
 
     def resolve_hello(root, info):
-        return "Hello"
+        dict = {"num1": 1, "num2": 2, "name": "Jakob"}
+        return dict
 
 schema = Schema(query=Query)
 
