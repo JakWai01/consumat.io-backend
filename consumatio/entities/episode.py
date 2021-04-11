@@ -4,14 +4,15 @@ import dataclasses
 @dataclasses.dataclass
 class Episode():
     code: int
-    title: str
+    name: str
     episode_number: int
     season_number: int
     overview: str
-    release_date: str
+    air_date: str
     vote_average: float
     vote_count: int
-    stills: dict
+    watch_status: str
+    still_path: dict
 
     @classmethod
     def from_dict(self, dict):
