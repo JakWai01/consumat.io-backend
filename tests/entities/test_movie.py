@@ -2,7 +2,7 @@ from consumatio.entities.movie import Movie
 
 def test_movie():
     movie = Movie(
-        id = 550,
+        code = 550,
         title = "Fight Club",
         genres = [
             {
@@ -104,7 +104,7 @@ def test_movie():
         favorite = True
     )
 
-    assert movie.id == 550
+    assert movie.code == 550
     assert movie.title == "Fight Club"
     assert movie.genres == [
         {
@@ -128,6 +128,7 @@ def test_movie():
             "width": 1280
         }
     ]
+
     assert movie.posters == [
         {
             "aspect_ratio": 0.666666666666667,
@@ -207,7 +208,7 @@ def test_movie():
 
 def test_movie_from_dict():
     dict = {
-        "id": 550,
+        "code": 550,
         "title": "Fight Club",
         "genres": [
             {
@@ -311,7 +312,7 @@ def test_movie_from_dict():
 
     movie = Movie.from_dict(dict)
 
-    assert movie.id == 550
+    assert movie.code == 550
     assert movie.title == "Fight Club"
     assert movie.genres == [
         {
@@ -415,7 +416,7 @@ def test_movie_from_dict():
     
 def test_movie_to_dict():
     dict = {
-        "id": 550,
+        "code": 550,
         "title": "Fight Club",
         "genres": [
             {
@@ -523,7 +524,7 @@ def test_movie_to_dict():
 
 def test_movie_model_comparison():
     dict = {
-        "id": 550,
+        "code": 550,
         "title": "Fight Club",
         "genres": [
             {
