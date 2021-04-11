@@ -10,7 +10,7 @@ def test_episode():
         code=63056,
         season_number=1,
         still_path="/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        vote_averag=7.11904761904762,
+        vote_average=7.11904761904762,
         vote_count=21,
         watch_status="WATCHED"
     )
@@ -36,7 +36,7 @@ def test_movie_from_dict():
         "code": 63056,
         "season_number": 1,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "vote_averag": 7.11904761904762,
+        "vote_average": 7.11904761904762,
         "vote_count": 21,
         "watch_status": "WATCHED"
     }
@@ -64,7 +64,7 @@ def test_episode_to_dict():
         "code": 63056,
         "season_number": 1,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "vote_averag": 7.11904761904762,
+        "vote_average": 7.11904761904762,
         "vote_count": 21,
         "watch_status": "WATCHED"
     }
@@ -83,7 +83,7 @@ def test_episode_model_comparison():
         "code": 63056,
         "season_number": 1,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "vote_averag": 7.11904761904762,
+        "vote_average": 7.11904761904762,
         "vote_count": 21,
         "watch_status": "WATCHED"
     }
