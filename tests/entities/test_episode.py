@@ -27,7 +27,7 @@ def test_episode():
     assert episode.watch_status == "WATCHED"
 
 
-def test_movie_from_dict():
+def test_episode_from_dict():
     dict = {
         "air_date": "2011-04-17",
         "episode_number": 1,
