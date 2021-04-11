@@ -6,14 +6,13 @@ class Movie():
     title: str
     genres: dict
     overview: str
-    popularity: int
-    vote_average: int
+    popularity: float
     release_date: str
     runtime: int
     status: str
     # Possibility to request different image sizes (not from api)
     backdrop: dict
-    poster: dict
+    posters: dict
     # Possibility to get providers according to provided country
     providers: dict 
     watch_status: str
