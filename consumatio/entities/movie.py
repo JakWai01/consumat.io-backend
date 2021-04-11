@@ -2,19 +2,19 @@ import dataclasses
 
 @dataclasses.dataclass
 class Movie():
-    id: int 
+    code: int 
     title: str
-    genres: dict
+    genres: list
     overview: str
     popularity: float
     release_date: str
     runtime: int
     status: str
     # Possibility to request different image sizes (not from api)
-    backdrops: dict
-    posters: dict
+    backdrops: list
+    posters: list
     # Possibility to get providers according to provided country
-    providers: dict 
+    providers: list
     watch_status: str
     rating: float
     favorite: bool
