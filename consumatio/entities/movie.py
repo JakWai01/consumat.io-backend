@@ -11,7 +11,7 @@ class Movie():
     runtime: int
     status: str
     # Possibility to request different image sizes (not from api)
-    backdrop: dict
+    backdrops: dict
     posters: dict
     # Possibility to get providers according to provided country
     providers: dict 
