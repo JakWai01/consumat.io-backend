@@ -2,12 +2,11 @@ import dataclasses
 
 @dataclasses.dataclass
 class Season():
-    id: int
-    tv_id: int
+    code: int
+    tv_code: int
     season_number: int
     name: str
     overview: str
-    # images endpoint
     posters: dict 
     watch_status: str
     rating: float
