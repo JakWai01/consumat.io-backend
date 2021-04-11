@@ -2,7 +2,7 @@ import dataclasses
 
 @dataclasses.dataclass
 class TV():
-    id: int 
+    code: int 
     name: str
     genres: dict
     overview: str
@@ -11,10 +11,8 @@ class TV():
     first_air_date: str
     last_air_date: int
     status: str
-    # Possibility to request different image sizes (not from api)
     backdrops: dict
     posters: dict
-    # Possibility to get providers according to provided country
     providers: dict 
     watch_status: str
     rating: float
