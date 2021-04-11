@@ -1,4 +1,5 @@
 import dataclasses
+from typing import Any
 
 @dataclasses.dataclass
 class Movie():
@@ -10,10 +11,8 @@ class Movie():
     release_date: str
     runtime: int
     status: str
-    # Possibility to request different image sizes (not from api)
     backdrops: list
     posters: list
-    # Possibility to get providers according to provided country
     providers: list
     watch_status: str
     rating: float
