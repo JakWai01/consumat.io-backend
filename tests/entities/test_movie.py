@@ -12,6 +12,7 @@ def test_movie():
         ],
         overview = "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         popularity = 0.5,
+        vote_average = 5.7,
         release_date = "1999-10-12",
         runtime = 139,
         status = "Released",
@@ -114,6 +115,7 @@ def test_movie():
     ]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
+    assert movie.vote_average == 5.7
     assert movie.release_date == "1999-10-12"
     assert movie.runtime == 139
     assert movie.status == "Released"
@@ -218,6 +220,7 @@ def test_movie_from_dict():
         ],
         "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity": 0.5,
+        "vote_average" : 5.7,
         "release_date": "1999-10-12",
         "runtime": 139,
         "status": "Released",
@@ -322,6 +325,7 @@ def test_movie_from_dict():
     ]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
+    assert movie.vote_average == 5.7
     assert movie.release_date == "1999-10-12"
     assert movie.runtime == 139
     assert movie.status == "Released"
@@ -426,6 +430,7 @@ def test_movie_to_dict():
         ],
         "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity": 0.5,
+        "vote_average": 5.7,
         "release_date": "1999-10-12",
         "runtime": 139,
         "status": "Released",
@@ -534,6 +539,7 @@ def test_movie_model_comparison():
         ],
         "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity": 0.5,
+        "vote_average": 5.7,
         "release_date": "1999-10-12",
         "runtime": 139,
         "status": "Released",

@@ -8,6 +8,7 @@ class Movie():
     genres: list
     overview: str
     popularity: float
+    vote_average: float
     release_date: str
     runtime: int
     status: str
