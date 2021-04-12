@@ -20,6 +20,7 @@ class Query(ObjectType):
     movie_details = Field(Movie, id=Decimal())
 
     def resolve_movie_details(root, info, id):
+        # replace this part by usecase
         tmdb = Tmdb()
         dict = tmdb.get_movie_details(id)
         return Movie(code=dict.get("code"), title=dict.get("title"), genres=dict.get("genres"), overview=dict.get("overview"), popularity=dict.get("popularity"), vote_average=dict.get("vote_average"), release_date=dict.get("release_date"), runtime=dict.get("runtime"), status=dict.get("status"))
