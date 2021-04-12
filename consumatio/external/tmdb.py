@@ -3,6 +3,7 @@ from consumatio.gateways.movie_details_to_dict import *
 from consumatio.gateways.movie_providers_to_dict import * 
 from consumatio.gateways.movie_images_to_dict import *
 from consumatio.gateways.tv_details_to_dict import *
+from consumatio.gateways.tv_providers_to_dict import *
 
 class Tmdb():
     
@@ -24,8 +25,10 @@ class Tmdb():
         data = requests.get(f'https://api.themoviedb.org/3/tv/{tv_id}?api_key=c4bd02adee6e73c4d17e69b039267c90&language=en-US').json()
         return tv_details_to_dict(data)
 
-    def get_tv_providers(self):
-        pass
+    def get_tv_providers(self, tv_id, country):
+        data = requests.get(f'https://api.themoviedb.org/3/tv/{tv_id}/watch/providers?api_key=c4bd02adee6e73c4d17e69b039267c90').json()
+        data = data['results'][country]
+        return tv_providers_to_dict(data)
 
     def get_tv_images(self):    
         pass
@@ -43,7 +46,4 @@ class Tmdb():
         pass
 
 tmdb = Tmdb()
-print(tmdb.get_movie_details(12))
-print(tmdb.get_movie_providers(12, "AR"))
-print(tmdb.get_movie_images(12))
-print(tmdb.get_tv_details(1399))
+print(tmdb.get_tv_providers(1399, "AR"))
