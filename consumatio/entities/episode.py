@@ -10,9 +10,10 @@ class Episode():
     overview: str
     air_date: str
     vote_average: float
-    vote_count: int
+    stills: list
     watch_status: str
-    still_path: dict
+    rating: float
+    favorite: bool
 
     @classmethod
     def from_dict(self, dict):
