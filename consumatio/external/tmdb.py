@@ -1,6 +1,7 @@
 import requests
 from consumatio.gateways.movie_details_to_dict import * 
 from consumatio.gateways.movie_providers_to_dict import * 
+from consumatio.gateways.movie_images_to_dict import *
 
 class Tmdb():
     
@@ -13,8 +14,10 @@ class Tmdb():
         data = data['results'][country]
         return movie_providers_to_dict(data)
 
-    def get_movie_images(self):
-        pass
+    # add possibility to specify size
+    def get_movie_images(self, movie_id):
+        data = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=c4bd02adee6e73c4d17e69b039267c90').json()
+        return movie_images_to_dict(data)
 
     def get_tv_details(self):
         pass
@@ -40,3 +43,4 @@ class Tmdb():
 tmdb = Tmdb()
 print(tmdb.get_movie_details(12))
 print(tmdb.get_movie_providers(12, "AR"))
+print(tmdb.get_movie_images(12))
