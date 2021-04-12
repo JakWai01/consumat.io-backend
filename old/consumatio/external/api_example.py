@@ -11,6 +11,9 @@ class Query(graphene.ObjectType):
     
     def resolve_patron(root, info, code):
         print(code)
+        #tmdb = Tmdb()
+        #dict = tmdb.get_movie_details(id)
+        #return Patron(id = dict['code'], name = dict['name'], age = dict['age'])
         return Patron(id=1, name="Syrus", age=27)
 
 schema = graphene.Schema(query=Query)
@@ -19,6 +22,7 @@ query = """
         patron(code: "3") {
             id
             name
+            age
         }
     }
 """
