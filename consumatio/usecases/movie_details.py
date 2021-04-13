@@ -5,10 +5,6 @@ def movie_details(tmdb, code, country):
     dict_movie_images = tmdb.get_movie_images(code)
     dict_movie_providers = tmdb.get_movie_providers(code, country)
 
-    providers = []
-    for provider in range(len(dict_movie_providers.get("providers").get("flatrate"))):
-        providers.append(dict_movie_providers.get("providers").get("flatrate")[provider].get("provider_name"))
-
     dict = {
         "code": dict_movie_details.get("code"),
         "title": dict_movie_details.get("title"),
@@ -21,13 +17,12 @@ def movie_details(tmdb, code, country):
         "status": dict_movie_details.get("status"),
         "backdrops": dict_movie_images.get("backdrops"),
         "posters": dict_movie_images.get("posters"),
-        "providers": providers,
+        "providers":dict_movie_providers.get("providers"), 
         "watch_status": None,
         "rating": None,
         "favorite": None
     }
 
-    print(dict.get("release_date"))
     movie = Movie.from_dict(dict)
 
     return movie.to_dict()
