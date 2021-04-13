@@ -5,6 +5,7 @@ from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
+from consumatio.usecases.episode_details import *
 import dataclasses
 
 app = Flask(__name__)
@@ -66,10 +67,28 @@ class Season(ObjectType):
     def from_dict(self, dict):
         return self(**dict)
 
+class Episode(ObjectType):
+    code = Int()
+    name = String()
+    episode_number = Int()
+    season_number = Int()
+    overview = String()
+    air_date = String()
+    vote_average = Float()
+    stills = List(String)
+    watch_status = String()
+    rating = Float()
+    favorite = Boolean()
+
+    @classmethod 
+    def from_dict(self, dict):
+        return self(**dict)
+
 class Query(ObjectType):
     movie_details = Field(Movie, code=Decimal(), country=String())
     tv_details = Field(TV, code=Decimal(), country=String())
     season_details = Field(Season, code=Decimal(), season_number=Decimal())
+    episode_details = Field(Episode, code=Decimal(), season_number=Decimal(), episode_number=Decimal())
 
     def resolve_movie_details(root, info, code, country):
         tmdb = Tmdb()
@@ -82,6 +101,10 @@ class Query(ObjectType):
     def resolve_season_details(root, info, code, season_number):
         tmdb = Tmdb()
         return Season.from_dict(season_details(tmdb, code, season_number))
+
+    def resolve_episode_details(root, info, code, season_number, episode_number):
+        tmdb = Tmdb()
+        return Episode.from_dict(episode_details(tmdb, code, season_number, episode_number))
 
 schema = Schema(query=Query)
 
