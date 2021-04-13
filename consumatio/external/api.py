@@ -1,29 +1,39 @@
-from graphene import ObjectType, String, Schema, Decimal, Int, List, Field
+from graphene import ObjectType, String, Schema, Decimal, Int, List, Field, Boolean, Float
 from flask import Flask, request
 import json
 from consumatio.external.tmdb import Tmdb
+from consumatio.usecases.movie_details import *
 
 app = Flask(__name__)
 
 class Movie(ObjectType):
-    code = Int()
-    title = String() 
-    genres = List(String)
-    overview = String()
-    popularity = Decimal()
-    vote_average = Decimal()
+    code = Int() #
+    title = String() #
+    genres = List(String) #
+    overview = String() #
+    popularity = Float() #
+    vote_average = Float()
     release_date = String()
-    runtime = Int()
-    status = String()
+    runtime = Int() #
+    status = String() #
+    backdrops = List(String) #
+    posters = List(String) #
+    providers = List(String) #
+    watch_status = String()
+    rating = Float() #
+    favorite = Boolean() #
+
+    @classmethod 
+    def from_dict(self, dict):
+        return self(**dict)
 
 class Query(ObjectType):
-    movie_details = Field(Movie, id=Decimal())
+    movie_details = Field(Movie, code=Decimal(), country=String())
 
-    def resolve_movie_details(root, info, id):
+    def resolve_movie_details(root, info, code, country):
         # replace this part by usecase
         tmdb = Tmdb()
-        dict = tmdb.get_movie_details(id)
-        return Movie(code=dict.get("code"), title=dict.get("title"), genres=dict.get("genres"), overview=dict.get("overview"), popularity=dict.get("popularity"), vote_average=dict.get("vote_average"), release_date=dict.get("release_date"), runtime=dict.get("runtime"), status=dict.get("status"))
+        return Movie.from_dict(movie_details(tmdb, code, country))
 
 schema = Schema(query=Query)
 
