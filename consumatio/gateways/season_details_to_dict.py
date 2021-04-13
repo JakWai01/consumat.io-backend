@@ -8,6 +8,4 @@ def season_details_to_dict(data, tv_id):
         "overview": data["overview"]
     }
 
-    print(data["id"])
-
     return dict
