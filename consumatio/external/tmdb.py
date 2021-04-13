@@ -21,7 +21,6 @@ class Tmdb():
         data = data['results'][country]
         return movie_providers_to_dict(data)
 
-    # add possibility to specify size
     def get_movie_images(self, movie_id):
         data = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=c4bd02adee6e73c4d17e69b039267c90').json()
         return movie_images_to_dict(data)

@@ -1,4 +1,5 @@
 def season_details_to_dict(data, tv_id):
+
     dict = {
         "code": data["id"],
         "tv_code": tv_id,
@@ -6,5 +7,7 @@ def season_details_to_dict(data, tv_id):
         "name": data["name"],
         "overview": data["overview"]
     }
+
+    print(data["id"])
 
     return dict
