@@ -9,7 +9,7 @@ class TV():
     popularity: float
     vote_average: float
     first_air_date: str
-    last_air_date: int
+    last_air_date: str
     status: str
     backdrops: dict
     posters: dict
