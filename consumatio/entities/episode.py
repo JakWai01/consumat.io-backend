@@ -1,6 +1,5 @@
 import dataclasses
 
-
 @dataclasses.dataclass
 class Episode():
     code: int
