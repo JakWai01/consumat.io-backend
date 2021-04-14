@@ -85,10 +85,10 @@ class Episode(ObjectType):
         return self(**dict)
 
 class Query(ObjectType):
-    movie_details = Field(Movie, code=Decimal(), country=String())
-    tv_details = Field(TV, code=Decimal(), country=String())
-    season_details = Field(Season, code=Decimal(), season_number=Decimal())
-    episode_details = Field(Episode, code=Decimal(), season_number=Decimal(), episode_number=Decimal())
+    movie_details = Field(Movie, code=Int(), country=String())
+    tv_details = Field(TV, code=Int(), country=String())
+    season_details = Field(Season, code=Int(), season_number=Int())
+    episode_details = Field(Episode, code=Int(), season_number=Int(), episode_number=Int())
 
     def resolve_movie_details(root, info, code, country):
         tmdb = Tmdb()
@@ -108,7 +108,7 @@ class Query(ObjectType):
 
 schema = Schema(query=Query)
 
-@app.route('/graphql', methods=['GET'])
+@app.route('/graphql', methods=['POST', 'GET'])
 def graphql():
     data = json.loads(request.data)
     return json.dumps(schema.execute(data['query']).data)
