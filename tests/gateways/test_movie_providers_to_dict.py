@@ -53,7 +53,6 @@ def test_movie_providers_to_dict():
       ]
     }
 
-    print(movie_providers_to_dict(json))
     dict = {
         'providers': [
             'Amazon Prime Video', 
