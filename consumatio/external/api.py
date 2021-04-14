@@ -7,8 +7,10 @@ from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 import dataclasses
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 class Movie(ObjectType):
     code = Int()
