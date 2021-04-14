@@ -28,7 +28,6 @@ def test_movie_images_to_dict():
   ]
 }
 
-    print(movie_images_to_dict(json))
     dict = {
         'backdrops': [
             {'aspect_ratio': 1.77777777777778, 'file_path': '/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg', 'height': 720, 'iso_639_1': None, 'vote_average': 0, 'vote_count': 0, 'width': 1280}
