@@ -1,7 +1,7 @@
 def tv_images_to_dict(data):
     dict = {
-        "backdrops": data['backdrops'],
-        "posters": data['posters']
+        "backdrops": str(data['backdrops']),
+        "posters": str(data['posters'])
     }
 
     return dict
