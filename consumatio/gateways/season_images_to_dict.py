@@ -1,6 +1,6 @@
 def season_images_to_dict(data):
     dict = {
-        "posters": data["posters"]
+        "posters": str(data["posters"])
     }
 
     return dict

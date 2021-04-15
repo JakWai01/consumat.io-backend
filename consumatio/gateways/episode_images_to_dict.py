@@ -1,5 +1,5 @@
 def episode_images_to_dict(data):
     dict = {
-        "stills": data["stills"]
+        "stills": str(data["stills"])
     }
     return dict

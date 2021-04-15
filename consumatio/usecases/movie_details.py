@@ -11,18 +11,16 @@ def movie_details(tmdb, code, country):
         "genres": dict_movie_details.get("genres"),
         "overview": dict_movie_details.get("overview"),
         "popularity": dict_movie_details.get("popularity"),
-        "vote_average": dict_movie_details.get("vote_average"),
-        "release_date": dict_movie_details.get("release_date"),
+        "voteAverage": dict_movie_details.get("vote_average"),
+        "releaseDate": dict_movie_details.get("release_date"),
         "runtime": dict_movie_details.get("runtime"),
         "status": dict_movie_details.get("status"),
         "backdrops": dict_movie_images.get("backdrops"),
         "posters": dict_movie_images.get("posters"),
         "providers":dict_movie_providers.get("providers"), 
-        "watch_status": None,
+        "watchStatus": None,
         "rating": None,
         "favorite": None
     }
 
-    movie = Movie.from_dict(dict)
-
-    return movie.to_dict()
+    return dict
