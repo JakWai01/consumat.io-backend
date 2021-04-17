@@ -1,10 +1,12 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema
-from ariadne.asgi import GraphQL
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import * 
 from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
+from flask import Flask, request, jsonify
+from ariadne.constants import PLAYGROUND_HTML
+import os
 
 type_defs = gql("""
     type Query {
@@ -77,6 +79,7 @@ type_defs = gql("""
     }
 """)
 
+app = Flask(__name__)
 
 query = QueryType()
 
@@ -110,4 +113,25 @@ episode = ObjectType("Episode")
 
 schema = make_executable_schema(type_defs, query, movie, tv, season)
 
-app = GraphQL(schema, debug=True)
+@app.route("/graphql", methods=["GET"])
+def graphql_playground():
+    return PLAYGROUND_HTML, 200
+
+@app.route("/graphql", methods=["POST"])
+def graphql_server():
+    data = request.get_json()
+
+    success, result = graphql_sync(
+        schema,
+        data,
+        context_value=request,
+        debug=app.debug
+    )
+
+    status_code = 200 if success else 400
+    return jsonify(result), status_code
+
+port = int(os.environ['PORT'])
+
+if __name__ == "__main__":
+    app.run(debug=True, port=port, host="0.0.0.0")
