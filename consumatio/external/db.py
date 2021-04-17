@@ -25,7 +25,7 @@ def is_cached(query):
 
     last_changed = result[0][2]
 
-    if len(result) != 0 and datetime.date.today() - datetime.timedelta(days = 10) > datetime.datetime.strptime(last_changed, '%Y-%m-%d').date():
+    if len(result) != 0 and datetime.date.today() - datetime.timedelta(days = 10) < datetime.datetime.strptime(last_changed, '%Y-%m-%d').date():
         con.commit()
         con.close()
         return True
@@ -33,3 +33,13 @@ def is_cached(query):
         con.commit()
         con.close()
         return False
+
+def get_from_cache(query):
+    con = sqlite3.connect('db.sqlite3')
+    cur = con.cursor()
+
+    cur.execute('SELECT body from cache WHERE query=:query', {"query": query})
+
+    result = cur.fetchall()
+
+    return result[0][0]
