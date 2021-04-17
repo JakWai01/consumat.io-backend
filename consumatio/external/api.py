@@ -6,6 +6,7 @@ from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from flask import Flask, request, jsonify
 from ariadne.constants import PLAYGROUND_HTML
+import os
 
 type_defs = gql("""
     type Query {
@@ -130,5 +131,8 @@ def graphql_server():
     status_code = 200 if success else 400
     return jsonify(result), status_code
 
+host = os.environ['HOST']
+port = os.environ['PORT']
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=port, host=host)
