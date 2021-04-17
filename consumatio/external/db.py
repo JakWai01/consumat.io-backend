@@ -23,9 +23,7 @@ def is_cached(query):
     result = cur.fetchall()
     print(result)
 
-    last_changed = result[0][2]
-
-    if len(result) != 0 and datetime.date.today() - datetime.timedelta(days = 10) < datetime.datetime.strptime(last_changed, '%Y-%m-%d').date():
+    if len(result) != 0 and datetime.date.today() - datetime.timedelta(days = 10) < datetime.datetime.strptime(result[0][2], '%Y-%m-%d').date():
         con.commit()
         con.close()
         return True
