@@ -15,7 +15,8 @@ To build and start a development version locally, run the following:
 ```shell
 $ git clone https://github.com/alphahorizonio/consumat.io-backend.git
 $ pip install -r requirements.txt
-$ uvicorn consumatio.external.api:app
+$ export FLASK_APP=./consumatio/external/api.py
+$ flask run
 ```
 
 The backend's GraphQL Playground should now be available on [http://localhost:8000/](http://localhost:8000/).
