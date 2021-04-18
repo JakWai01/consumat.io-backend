@@ -70,8 +70,9 @@ def get_data(query):
 
    if (db.is_cached(query)):
       data = eval(db.get_from_cache(query))
+      print("cached")
    else:
       data = requests.get(query).json() 
       db.cache(query, str(data))
-
+      print("requested")
    return data

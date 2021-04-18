@@ -29,6 +29,9 @@ class Database():
             con.close()
             return True
         else:
+            if len(result) != 0 and datetime.date.today() - datetime.timedelta(days = 10) > datetime.datetime.strptime(result[0][2], '%Y-%m-%d').date():
+                cur.execute('''DELETE FROM cache WHERE query=:query''', {"query": query})
+
             con.commit()
             con.close()
             return False
