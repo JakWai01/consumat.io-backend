@@ -6,6 +6,7 @@ from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from consumatio.usecases.search_details import *
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 import os
 
@@ -32,9 +33,12 @@ type_defs = gql("""
         releaseDate: String
         runtime: Int
         status: String
-        backdrops: String
-        posters: String
+        backdrop: String
+        poster: String
         providers: [String]
+        cast: [[String]]
+        directors: [[String]]
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -50,9 +54,14 @@ type_defs = gql("""
         firstAirDate: String
         lastAirDate: String
         status: String
-        backdrops: String
-        posters: String
+        backdrop: String
+        poster: String
         providers: [String]
+        creators: [[String]]
+        cast: [[String]]
+        numberOfEpisodes: Int
+        numberOfSeasons: Int
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -64,7 +73,7 @@ type_defs = gql("""
         seasonNumber: Int
         name: String
         overview: String
-        posters: String
+        poster: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -78,7 +87,7 @@ type_defs = gql("""
         overview: String
         airDate: String
         voteAverage: Float 
-        stills: String
+        still: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -86,13 +95,18 @@ type_defs = gql("""
 """)
 
 app = Flask(__name__)
+CORS(app)
 
 query = QueryType()
 
 
+def tmdb_client(api_key=os.getenv('TMDB_KEY')):
+    return Tmdb(api_key)
+
+
 @query.field("movie")
 def resolve_movie(*_, code, country):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return movie_details(tmdb, code, country)
 
 
@@ -101,7 +115,7 @@ movie = ObjectType("Movie")
 
 @query.field("tv")
 def resolve_tv(*_, code, country):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return tv_details(tmdb, code, country)
 
 
@@ -110,7 +124,7 @@ tv = ObjectType("TV")
 
 @query.field("season")
 def resolve_season(*_, code, seasonNumber):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return season_details(tmdb, code, seasonNumber)
 
 
@@ -119,7 +133,7 @@ season = ObjectType("Season")
 
 @query.field("episode")
 def resolve_episode(*_, code, seasonNumber, episodeNumber):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return episode_details(tmdb, code, seasonNumber, episodeNumber)
 
 
@@ -130,7 +144,7 @@ episode = ObjectType("Episode")
 # TODO @Danny: Implement minLength: 2
 #                         pattern:([a-z]{2})-([A-Z]{2})
 def resolve_search(*_, str):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return search_details(tmdb, str)
 
 
@@ -140,12 +154,12 @@ def resolve_search(*_, str):
 schema = make_executable_schema(type_defs, query, movie, tv, season)
 
 
-@app.route("/graphql", methods=["GET"])
+@app.route("/", methods=["GET"])
 def graphql_playground():
     return PLAYGROUND_HTML, 200
 
 
-@app.route("/graphql", methods=["POST"])
+@app.route("/", methods=["POST"])
 def graphql_server():
     data = request.get_json()
 
