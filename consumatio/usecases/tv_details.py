@@ -23,6 +23,7 @@ def tv_details(tmdb, code, country):
         "creators": dict_tv_details.get("creators"),
         "numberOfEpisodes": dict_tv_details.get("number_of_episodes"),
         "numberOfSeasons": dict_tv_details.get("number_of_seasons"),
+        "tmdb": f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
         "watchStatus": None,
         "rating": None,
         "favorite": None

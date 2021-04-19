@@ -21,6 +21,7 @@ def movie_details(tmdb, code, country):
         "providers":dict_movie_providers.get("providers"), 
         "cast": dict_movie_credits.get("cast"),
         "directors": dict_movie_credits.get("directors"),
+        "tmdb": f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
         "watchStatus": None,
         "rating": None,
         "favorite": None

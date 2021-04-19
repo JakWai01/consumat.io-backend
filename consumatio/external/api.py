@@ -32,6 +32,7 @@ type_defs = gql("""
         providers: [String]
         cast: [[String]]
         directors: [[String]]
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -54,6 +55,7 @@ type_defs = gql("""
         cast: [[String]]
         numberOfEpisodes: Int
         numberOfSeasons: Int
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
