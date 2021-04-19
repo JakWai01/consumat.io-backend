@@ -85,30 +85,34 @@ CORS(app)
 
 query = QueryType()
 
+
+def tmdb_client(api_key=os.getenv('TMDB_KEY')):
+    return Tmdb(api_key)
+    
 @query.field("movie")
 def resolve_movie(*_, code, country):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return  movie_details(tmdb, code, country)
 
 movie = ObjectType("Movie")
 
 @query.field("tv")
 def resolve_tv(*_, code, country):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return tv_details(tmdb, code, country)
 
 tv = ObjectType("TV")
 
 @query.field("season")
 def resolve_season(*_, code, seasonNumber):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return season_details(tmdb, code, seasonNumber)
 
 season = ObjectType("Season")
 
 @query.field("episode")
 def resolve_episode(*_, code, seasonNumber, episodeNumber):
-    tmdb = Tmdb()
+    tmdb = tmdb_client()
     return episode_details(tmdb, code, seasonNumber, episodeNumber)
 
 episode = ObjectType("Episode")
