@@ -1,8 +1,16 @@
 def tv_details_to_dict(data):
     genre_list = []
+    created_by_list = []
 
     for index in range(len(data["genres"])):
         genre_list.append(data["genres"][index].get("name"))
+
+    for creator in data["created_by"]:
+        creator_list = []
+        creator_list.append(creator["name"])
+        creator_list.append(creator["profile_path"])
+
+        created_by_list.append(creator_list)
 
     dict = {
         "code": data["id"],
@@ -13,7 +21,10 @@ def tv_details_to_dict(data):
         "vote_average": data["vote_average"],
         "first_air_date": data["first_air_date"],
         "last_air_date": data["last_air_date"],
-        "status": data["status"]
+        "status": data["status"],
+        "creators": created_by_list,
+        "number_of_episodes": data["number_of_episodes"],
+        "number_of_seasons": data["number_of_seasons"]
     }
 
     return dict
