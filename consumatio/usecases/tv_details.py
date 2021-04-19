@@ -4,6 +4,7 @@ def tv_details(tmdb, code, country):
     dict_tv_details = tmdb.get_tv_details(code)
     dict_tv_images = tmdb.get_tv_images(code)
     dict_tv_providers = tmdb.get_tv_providers(code, country)
+    dict_tv_credits = tmdb.get_tv_credits(code)
 
     dict = {
         "code": dict_tv_details.get("code"),
@@ -18,6 +19,10 @@ def tv_details(tmdb, code, country):
         "backdrops": dict_tv_images.get("backdrops"),
         "posters": dict_tv_images.get("posters"),
         "providers": dict_tv_providers.get("providers"),
+        "cast": dict_tv_credits.get("cast"),
+        "creators": dict_tv_details.get("creators"),
+        "numberOfEpisodes": dict_tv_details.get("number_of_episodes"),
+        "numberOfSeasons": dict_tv_details.get("number_of_seasons"),
         "watchStatus": None,
         "rating": None,
         "favorite": None

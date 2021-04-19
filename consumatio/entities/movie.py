@@ -14,6 +14,8 @@ class Movie():
     backdrops: list
     posters: list
     providers: list
+    cast: list
+    directors: list
     watch_status: str
     rating: float
     favorite: bool
