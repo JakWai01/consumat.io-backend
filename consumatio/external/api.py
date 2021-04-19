@@ -27,9 +27,12 @@ type_defs = gql("""
         releaseDate: String
         runtime: Int
         status: String
-        backdrops: String
-        posters: String
+        backdrop: String
+        poster: String
         providers: [String]
+        cast: [[String]]
+        directors: [[String]]
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -45,9 +48,14 @@ type_defs = gql("""
         firstAirDate: String
         lastAirDate: String
         status: String
-        backdrops: String
-        posters: String
+        backdrop: String
+        poster: String
         providers: [String]
+        creators: [[String]]
+        cast: [[String]]
+        numberOfEpisodes: Int
+        numberOfSeasons: Int
+        tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -59,7 +67,7 @@ type_defs = gql("""
         seasonNumber: Int
         name: String
         overview: String
-        posters: String
+        poster: String
         watchStatus: String
         rating: Float
         favorite: Boolean
@@ -73,7 +81,7 @@ type_defs = gql("""
         overview: String
         airDate: String
         voteAverage: Float 
-        stills: String
+        still: String
         watchStatus: String
         rating: Float
         favorite: Boolean

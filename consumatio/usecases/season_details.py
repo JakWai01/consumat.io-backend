@@ -10,7 +10,7 @@ def season_details(tmdb, code, season_number):
         "seasonNumber": dict_season_details.get("season_number"), 
         "name": dict_season_details.get("name"),
         "overview": dict_season_details.get("overview"),
-        "posters": dict_season_images.get("posters"),
+        "poster": dict_season_images.get("posters"),
         "watchStatus": None,
         "rating": None,
         "favorite": None

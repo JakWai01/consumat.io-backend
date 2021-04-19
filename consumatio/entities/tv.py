@@ -4,16 +4,20 @@ import dataclasses
 class TV():
     code: int 
     name: str
-    genres: dict
+    genres: list 
     overview: str
     popularity: float
     vote_average: float
     first_air_date: str
     last_air_date: str
     status: str
-    backdrops: dict
-    posters: dict
-    providers: dict 
+    backdrops: list 
+    posters: list    
+    providers: list 
+    creators: list
+    cast: list
+    number_of_episodes: int
+    number_of_seasons: int
     watch_status: str
     rating: float
     favorite: bool

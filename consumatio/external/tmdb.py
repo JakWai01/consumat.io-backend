@@ -2,6 +2,8 @@ import requests
 from consumatio.gateways.movie_details_to_dict import * 
 from consumatio.gateways.movie_providers_to_dict import * 
 from consumatio.gateways.movie_images_to_dict import *
+from consumatio.gateways.movie_credits_to_dict import *
+from consumatio.gateways.tv_credits_to_dict import *
 from consumatio.gateways.tv_details_to_dict import *
 from consumatio.gateways.tv_providers_to_dict import *
 from consumatio.gateways.tv_images_to_dict import *
@@ -34,6 +36,11 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return movie_images_to_dict(data)
 
+    def get_movie_credits(self, movie_id):
+        query = f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={self.api_key}'
+        data = self.get_data(query, self.db)
+        return movie_credits_to_dict(data)
+
     def get_tv_details(self, tv_id):
         query = f'https://api.themoviedb.org/3/tv/{tv_id}?api_key={self.api_key}&language=en-US'
         data = self.get_data(query, self.db)
@@ -49,6 +56,11 @@ class Tmdb():
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_images_to_dict(data)
+
+    def get_tv_credits(self, tv_id):
+        query = f'https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key={self.api_key}'
+        data = self.get_data(query, self.db)
+        return tv_credits_to_dict(data)
 
     def get_season_details(self, tv_id, season_number):
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}'
