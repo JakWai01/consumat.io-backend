@@ -5,6 +5,7 @@ from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 import os
 
@@ -80,6 +81,7 @@ type_defs = gql("""
 """)
 
 app = Flask(__name__)
+CORS(app)
 
 query = QueryType()
 
@@ -113,11 +115,11 @@ episode = ObjectType("Episode")
 
 schema = make_executable_schema(type_defs, query, movie, tv, season)
 
-@app.route("/graphql", methods=["GET"])
+@app.route("/", methods=["GET"])
 def graphql_playground():
     return PLAYGROUND_HTML, 200
 
-@app.route("/graphql", methods=["POST"])
+@app.route("/", methods=["POST"])
 def graphql_server():
     data = request.get_json()
 
