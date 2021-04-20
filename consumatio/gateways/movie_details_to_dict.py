@@ -2,7 +2,10 @@ def movie_details_to_dict(data):
        genre_list = []
 
        for index in range(len(data["genres"])):
-           genre_list.append(data["genres"][index].get("name"))
+           genre = {
+               "name": data["genres"][index].get("name")
+           }
+           genre_list.append(genre)
        
        dict = {
            "code": data["id"],
