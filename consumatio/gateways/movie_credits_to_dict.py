@@ -5,21 +5,22 @@ def movie_credits_to_dict(data):
     directors_list = []
 
     for castmember in cast:
-        member = []
-        member.append(castmember.get("name"))
-        member.append(castmember.get("character"))
-        member.append(castmember.get("profile_path"))
-        member.append(castmember.get("known_for_department"))
-
+        member = {
+            "name": castmember.get("name"),
+            "role": castmember.get("character"),
+            "image": castmember.get("profile_path"),
+            "job": castmember.get("known_for_department")
+        } 
+        
         cast_list.append(member)
 
     for crewmember in crew:
-        director = []
+        director = {
+            "name": crewmember.get("name"),
+            "image": crewmember.get("profile_path")
+        }
 
         if crewmember.get("job") == "Director":
-            director.append(crewmember.get("name"))
-            director.append(crewmember.get("profile_path"))
-
             directors_list.append(director)
 
     dict = {
