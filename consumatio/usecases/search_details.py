@@ -1,16 +1,17 @@
 
 def search_details(tmdb, str):
     dict_search_details = tmdb.get_search(str)
-
-    dict = {
-        "code": dict_search_details.get("code"),
-        "mediaType": dict_search_details.get("media_type"),
-        "title": dict_search_details.get("title"),
-        "overview": dict_search_details.get("overview"),
-        "releaseDate": dict_search_details.get("release_date"),
-        "posterPath": dict_search_details.get("poster_path"),
-        "seasonCount": dict_search_details.get("season_count"),
-        "watchStatus": dict_search_details.get("watch_status")
-    }
-
-    return dict_search_details
+    results = []
+    for result in dict_search_details:
+        dict = {
+            "code": result.get("code"),
+            "mediaType": result.get("media_type"),
+            "title": result.get("title"),
+            "overview": result.get("overview"),
+            "releaseDate": result.get("release_date"),
+            "posterPath": result.get("poster_path"),
+            "seasonCount": result.get("season_count"),
+            "watchStatus": result.get("watch_status")
+        }
+        results.append(dict)
+    return results
