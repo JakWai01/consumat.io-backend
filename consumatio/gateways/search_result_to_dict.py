@@ -34,26 +34,3 @@ def search_result_to_dict(data):
             }
         result_list.append(dict)
     return result_list
-
-    # for result in results_filtered:
-    #     cache = []
-    #     cache.append(result.get("id"))
-    #     cache.append(result.get("media_type"))
-    #     if result.get("media_type") == "tv":
-    #         cache.append(result.get("name"))
-    #     else:
-    #         cache.append(result.get("titel"))
-    #     cache.append(result.get("overview"))
-    #     if result.get("media_type") == "tv":
-    #         cache.append(result.get("first_air_date"))
-    #     else:
-    #         cache.append(result.get("release_date"))
-    #     cache.append(result.get("poster_path"))
-    #     if result.get("media_type") == "tv":
-    #         # cache.append(-1)
-    #         # must be implemented with another api request
-    #         tmp = Api.resolve_tv(code=result.get("id"), country="DE")
-    #         cache.append(tmp.get("season_number"))
-    #     result_list.append(cache)
-
-    # return result_list
