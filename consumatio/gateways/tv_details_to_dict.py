@@ -3,7 +3,10 @@ def tv_details_to_dict(data):
     created_by_list = []
 
     for index in range(len(data["genres"])):
-        genre_list.append(data["genres"][index].get("name"))
+        genre = {
+            "name": data["genres"][index].get("name")
+        }
+        genre_list.append(genre)
 
     for creator in data["created_by"]:
         creator_list = []
