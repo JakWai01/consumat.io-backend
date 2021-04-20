@@ -20,7 +20,22 @@ type_defs = gql("""
         tv(code: Int, country: String): TV!
         season(code: Int, seasonNumber: Int): Season!
         episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-        search(str: String): [[String]]!
+        search(str: String): [Result!]
+    }
+    
+        type Search {
+        results: [Result]
+    }
+    
+    type Result{
+        code: Int
+        mediaType: String
+        title: String
+        overview: String
+        releaseDate: String
+        posterPath: String
+        seasonCount: Int
+        watchStatus: String
     }
 
     type Movie {
@@ -148,10 +163,10 @@ def resolve_search(*_, str):
     return search_details(tmdb, str)
 
 
-#search = ObjectType("Search")
+search = ObjectType("Search")
 
 
-schema = make_executable_schema(type_defs, query, movie, tv, season)
+schema = make_executable_schema(type_defs, query, movie, tv, season, search)
 
 
 @app.route("/", methods=["GET"])
