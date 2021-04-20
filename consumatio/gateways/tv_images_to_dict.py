@@ -1,4 +1,5 @@
 def tv_images_to_dict(data):
+    print(data)
     posters = data['posters']
     backdrops = data['backdrops']
     poster_list = []
@@ -12,9 +13,15 @@ def tv_images_to_dict(data):
         if backdrop.get("iso_639_1") == "en":
             backdrop_list.append(backdrop)
 
+    backdrop = None
+    poster = None
+    if len(backdrop_list) != 0:
+        backdrop = str(backdrop_list[0].get("file_path"))
+    if len(poster_list) != 0:
+        poster = str(poster_list[0].get("file_path"))
     dict = {
-        "backdrops": str(backdrop_list[0].get("file_path")),
-        "posters": str(poster_list[0].get("file_path"))
+        "backdrops": backdrop,
+        "posters": poster
     }
 
     return dict
