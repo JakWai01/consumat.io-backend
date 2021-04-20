@@ -41,7 +41,7 @@ type_defs = gql("""
     type Movie {
         code: Int
         title: String
-        genres: [String]
+        genres: [Genre]
         overview: String
         popularity: Float
         voteAverage: Float
@@ -50,19 +50,39 @@ type_defs = gql("""
         status: String
         backdrop: String
         poster: String
-        providers: [String]
-        cast: [[String]]
-        directors: [[String]]
+        providers: [Provider]
+        cast: [Cast]
+        directors: [Director]
         tmdb: String
         watchStatus: String
         rating: Float
         favorite: Boolean
     }
 
+    type Provider {
+        name: String
+    }
+
+    type Genre {
+        name: String
+    }
+
+    type Director {
+        name: String
+        image: String
+    }
+
+    type Cast {
+        name: String
+        role: String
+        image: String
+        job: String
+    }
+
     type TV {
         code: Int
         name: String
-        genres: [String]
+        genres: [Genre]
         overview: String
         popularity: Float
         voteAverage: Float
@@ -71,9 +91,9 @@ type_defs = gql("""
         status: String
         backdrop: String
         poster: String
-        providers: [String]
-        creators: [[String]]
-        cast: [[String]]
+        providers: [Provider]
+        creators: [Director]
+        cast: [Cast]
         numberOfEpisodes: Int
         numberOfSeasons: Int
         tmdb: String

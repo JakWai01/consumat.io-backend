@@ -3,11 +3,12 @@ def tv_credits_to_dict(data):
     cast_list = []
 
     for castmember in cast: 
-        member = []
-        member.append(castmember.get("name"))
-        member.append(castmember.get("character"))
-        member.append(castmember.get("profile_path"))
-        member.append(castmember.get("known_for_department"))
+        member = {
+            "name": castmember.get("name"),
+            "role": castmember.get("character"),
+            "image": castmember.get("profile_path"),
+            "job": castmember.get("known_for_department")
+        }
 
         cast_list.append(member)
 
