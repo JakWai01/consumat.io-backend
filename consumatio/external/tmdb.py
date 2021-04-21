@@ -28,8 +28,8 @@ class Tmdb():
     def get_movie_providers(self, movie_id, country):
         query = f'https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?api_key={self.api_key}'
         data = self.get_data(query, self.db)
-        data = data['results'][country]
-        return movie_providers_to_dict(data)
+        # data = data['results'][country]
+        return movie_providers_to_dict(data, country)
 
     def get_movie_images(self, movie_id):
         query = f'https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={self.api_key}'
@@ -49,8 +49,8 @@ class Tmdb():
     def get_tv_providers(self, tv_id, country):
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/watch/providers?api_key={self.api_key}' 
         data = self.get_data(query, self.db)
-        data = data['results'][country]
-        return tv_providers_to_dict(data)
+        # data = data['results'][country]
+        return tv_providers_to_dict(data, country)
 
     def get_tv_images(self, tv_id):    
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={self.api_key}'
