@@ -1,5 +1,4 @@
 def tv_images_to_dict(data):
-    print(data)
     posters = data['posters']
     backdrops = data['backdrops']
     poster_list = []
