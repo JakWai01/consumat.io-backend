@@ -12,9 +12,19 @@ def movie_images_to_dict(data):
         if backdrop.get("iso_639_1") == "en":
             backdrop_list.append(backdrop)
 
+    poster = None
+
+    if len(poster_list) != 0:
+        poster = str(poster_list[0].get("file_path"))
+
+    backdrop = None
+
+    if len(backdrop_list) != 0:
+        backdrop = str(backdrop_list[0].get("file_path"))
+
     dict = {
-        "backdrops": str(backdrop_list[0].get("file_path")),
-        "posters": str(poster_list[0].get("file_path"))
+        "backdrops": backdrop,
+        "posters": poster
     }
 
     return dict
