@@ -1,7 +1,13 @@
-def movie_providers_to_dict(data):
-
+def movie_providers_to_dict(data, country):
     providers = []
-    
+
+    if country not in data['results']:
+        return {
+            "providers": providers
+        }
+    else:
+        data = data['results'][country]
+
     if "flatrate" not in data:
         return {
             "providers": providers
