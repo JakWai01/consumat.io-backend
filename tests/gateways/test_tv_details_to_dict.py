@@ -188,15 +188,30 @@ def test_tv_details_to_dict():
         'code': 1399, 
         'name': 'Game of Thrones', 
         'genres': [
-            'Sci-Fi & Fantasy', 
-            'Drama'
+            {
+               "name": "Sci-Fi & Fantasy"
+            },            
+            {
+               "name": "Drama"
+            }
         ], 
         'overview': "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
         'popularity': 369.594, 
         'vote_average': 8.3, 
         'first_air_date': '2011-04-17', 
         'last_air_date': '2019-05-19', 
-        'status': 'Ended'
+        'status': 'Ended',
+        'creators': [{
+            "name": "David Benioff",
+            "image": "/xvNN5huL0X8yJ7h3IZfGG4O2zBD.jpg"
+        },
+        {
+            "name": "D. B. Weiss",
+            "image": "/2RMejaT793U9KRk2IEbFfteQntE.jpg"
+        }],
+        "number_of_episodes": 73,
+        "number_of_seasons": 8
     }
 
+    print(tv_details_to_dict(json))
     assert tv_details_to_dict(json) == dict

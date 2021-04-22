@@ -11,13 +11,14 @@ class TV():
     first_air_date: str
     last_air_date: str
     status: str
-    backdrops: list 
-    posters: list    
+    backdrop: str 
+    poster: str   
     providers: list 
     creators: list
     cast: list
     number_of_episodes: int
     number_of_seasons: int
+    tmdb: str
     watch_status: str
     rating: float
     favorite: bool

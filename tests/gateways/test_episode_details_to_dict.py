@@ -44,5 +44,5 @@ def test_episode_details_to_dict():
         'air_date': '2011-04-17', 
         'vote_average': 7.11904761904762
     }
-
+    
     assert episode_details_to_dict(json) == dict

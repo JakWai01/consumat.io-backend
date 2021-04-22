@@ -9,11 +9,14 @@ def tv_details_to_dict(data):
         genre_list.append(genre)
 
     for creator in data["created_by"]:
-        creator_list = []
-        creator_list.append(creator["name"])
-        creator_list.append(creator["profile_path"])
-
-        created_by_list.append(creator_list)
+        #creator_list = []
+        #creator_list.append(creator["name"])
+        #creator_list.append(creator["profile_path"])
+        creator_dict = {
+            "name": creator["name"],
+            "image": creator["profile_path"]
+        }
+        created_by_list.append(creator_dict)
 
     dict = {
         "code": data["id"],
