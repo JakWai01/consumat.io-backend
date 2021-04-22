@@ -6,14 +6,19 @@ def episode_images_to_dict(data):
         }
 
     stills = data['stills']
+    still_list = []
 
     if len(data['stills']) == 0:
         return {
             "still": None
         }
+
+    for still in stills:
+        if still.get("iso_639_1") == "en" or still.get("iso_639_1") == None:
+            still_list.append(still)
     
     dict = {
-        "still": str(stills[0].get("file_path"))
+        "still": str(still_list[0].get("file_path"))
     }
 
     return dict

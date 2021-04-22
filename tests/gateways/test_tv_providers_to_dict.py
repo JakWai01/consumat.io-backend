@@ -33,5 +33,4 @@ def test_tv_providers_to_dict():
         }
         ]
     }
-    print(tv_providers_to_dict(json, "DE"))
     assert tv_providers_to_dict(json, "DE") == dict
