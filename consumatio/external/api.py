@@ -4,6 +4,7 @@ from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
+from consumatio.usecases.search_details import *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
@@ -15,6 +16,21 @@ type_defs = gql("""
         tv(code: Int, country: String): TV!
         season(code: Int, seasonNumber: Int): Season!
         episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
+        search(str: String): [Result!]
+    }
+    
+    type Search {
+        results: [Result]
+    }
+    
+    type Result{
+        code: Int
+        mediaType: String
+        title: String
+        overview: String
+        releaseDate: String
+        posterPath: String
+        watchStatus: String
     }
 
     type Movie {
@@ -153,7 +169,17 @@ def resolve_episode(*_, code, seasonNumber, episodeNumber):
 
 episode = ObjectType("Episode")
 
-schema = make_executable_schema(type_defs, query, movie, tv, season)
+
+@query.field("search")
+def resolve_search(*_, str):
+    tmdb = tmdb_client()
+    return search_details(tmdb, str)
+
+
+search = ObjectType("Search")
+
+schema = make_executable_schema(type_defs, query, movie, tv, season, search)
+
 
 
 @app.route("/", methods=["GET"])
