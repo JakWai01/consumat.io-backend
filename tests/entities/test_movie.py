@@ -5,12 +5,11 @@ def test_movie():
     movie = Movie(
         code=550,
         title="Fight Club",
-        genres=[
-            {
-                "name": "Drama"
-            }
-        ],
-        overview="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+        genres=[{
+            "name": "Drama"
+        }],
+        overview=
+        "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         popularity=0.5,
         vote_average=5.7,
         release_date="1999-10-12",
@@ -18,38 +17,27 @@ def test_movie():
         status="Released",
         backdrop="/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
         poster="/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
-        providers=[
-            {
-                "name": "Apple iTunes"
-            },
-            {
-                "name": "Google Play Movies"
-            },
-            {
-                "name": "Chili"
-            },
-            {
-                "name": "Sky Store"
-            },
-            {
-                "name": "Amazon Video"
-            },
-            {
-                "name": "YouTube"
-            },
-            {
-                "name": "maxdome Store"
-            },
-            {
-                "name": "Rakuten TV"
-            },
-            {
-                "name": "EntertainTV"
-            },
-            {
-                "name": "Microsoft Store"
-            }
-        ],
+        providers=[{
+            "name": "Apple iTunes"
+        }, {
+            "name": "Google Play Movies"
+        }, {
+            "name": "Chili"
+        }, {
+            "name": "Sky Store"
+        }, {
+            "name": "Amazon Video"
+        }, {
+            "name": "YouTube"
+        }, {
+            "name": "maxdome Store"
+        }, {
+            "name": "Rakuten TV"
+        }, {
+            "name": "EntertainTV"
+        }, {
+            "name": "Microsoft Store"
+        }],
         cast=[{
             "name": "Edward Norton",
             "role": "The Narrator",
@@ -62,16 +50,11 @@ def test_movie():
         tmdb="https://www.themoviedb.org/movie/508442",
         watch_status="WATCHED",
         rating=7.9,
-        favorite=True
-    )
+        favorite=True)
 
     assert movie.code == 550
     assert movie.title == "Fight Club"
-    assert movie.genres == [
-        {
-            "name": "Drama"
-        }
-    ]
+    assert movie.genres == [{"name": "Drama"}]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
     assert movie.vote_average == 5.7
@@ -80,47 +63,34 @@ def test_movie():
     assert movie.status == "Released"
     assert movie.backdrop == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
     assert movie.poster == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
-    assert movie.providers == [
-        {
-            "name": "Apple iTunes"
-        },
-        {
-            "name": "Google Play Movies"
-        },
-        {
-            "name": "Chili"
-        },
-        {
-            "name": "Sky Store"
-        },
-        {
-            "name": "Amazon Video"
-        },
-        {
-            "name": "YouTube"
-        },
-        {
-            "name": "maxdome Store"
-        },
-        {
-            "name": "Rakuten TV"
-        },
-        {
-            "name": "EntertainTV"
-        },
-        {
-            "name": "Microsoft Store"
-        }
-    ]
+    assert movie.providers == [{
+        "name": "Apple iTunes"
+    }, {
+        "name": "Google Play Movies"
+    }, {
+        "name": "Chili"
+    }, {
+        "name": "Sky Store"
+    }, {
+        "name": "Amazon Video"
+    }, {
+        "name": "YouTube"
+    }, {
+        "name": "maxdome Store"
+    }, {
+        "name": "Rakuten TV"
+    }, {
+        "name": "EntertainTV"
+    }, {
+        "name": "Microsoft Store"
+    }]
     assert movie.cast == [{
         "name": "Edward Norton",
         "role": "The Narrator",
         "image": "/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg",
         "job": "Acting"
     }]
-    assert movie.directors == [{
-        "name": "Christopher Nolan"
-    }]
+    assert movie.directors == [{"name": "Christopher Nolan"}]
     assert movie.tmdb == "https://www.themoviedb.org/movie/508442"
     assert movie.watch_status == "WATCHED"
     assert movie.rating == 7.9
@@ -129,53 +99,50 @@ def test_movie():
 
 def test_movie_from_dict():
     dict = {
-        "code": 550,
-        "title": "Fight Club",
-        "genres": [
-            {
-                "name": "Drama"
-            }
-        ],
-        "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
-        "popularity": 0.5,
-        "vote_average": 5.7,
-        "release_date": "1999-10-12",
-        "runtime": 139,
-        "status": "Released",
-        "backdrop": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster": "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
-        "providers": [
-            {
-                "name": "Apple iTunes"
-            },
-            {
-                "name": "Google Play Movies"
-            },
-            {
-                "name": "Chili"
-            },
-            {
-                "name": "Sky Store"
-            },
-            {
-                "name": "Amazon Video"
-            },
-            {
-                "name": "YouTube"
-            },
-            {
-                "name": "maxdome Store"
-            },
-            {
-                "name": "Rakuten TV"
-            },
-            {
-                "name": "EntertainTV"
-            },
-            {
-                "name": "Microsoft Store"
-            }
-        ],
+        "code":
+        550,
+        "title":
+        "Fight Club",
+        "genres": [{
+            "name": "Drama"
+        }],
+        "overview":
+        "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+        "popularity":
+        0.5,
+        "vote_average":
+        5.7,
+        "release_date":
+        "1999-10-12",
+        "runtime":
+        139,
+        "status":
+        "Released",
+        "backdrop":
+        "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+        "poster":
+        "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
+        "providers": [{
+            "name": "Apple iTunes"
+        }, {
+            "name": "Google Play Movies"
+        }, {
+            "name": "Chili"
+        }, {
+            "name": "Sky Store"
+        }, {
+            "name": "Amazon Video"
+        }, {
+            "name": "YouTube"
+        }, {
+            "name": "maxdome Store"
+        }, {
+            "name": "Rakuten TV"
+        }, {
+            "name": "EntertainTV"
+        }, {
+            "name": "Microsoft Store"
+        }],
         "cast": [{
             "name": "Edward Norton",
             "role": "The Narrator",
@@ -185,21 +152,21 @@ def test_movie_from_dict():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb": "https://www.themoviedb.org/movie/508442",
-        "watch_status": "WATCHED",
-        "rating": 7.9,
-        "favorite": True
+        "tmdb":
+        "https://www.themoviedb.org/movie/508442",
+        "watch_status":
+        "WATCHED",
+        "rating":
+        7.9,
+        "favorite":
+        True
     }
 
     movie = Movie.from_dict(dict)
 
     assert movie.code == 550
     assert movie.title == "Fight Club"
-    assert movie.genres == [
-        {
-            "name": "Drama"
-        }
-    ]
+    assert movie.genres == [{"name": "Drama"}]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
     assert movie.vote_average == 5.7
@@ -208,47 +175,34 @@ def test_movie_from_dict():
     assert movie.status == "Released"
     assert movie.backdrop == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
     assert movie.poster == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
-    assert movie.providers == [
-        {
-            "name": "Apple iTunes"
-        },
-        {
-            "name": "Google Play Movies"
-        },
-        {
-            "name": "Chili"
-        },
-        {
-            "name": "Sky Store"
-        },
-        {
-            "name": "Amazon Video"
-        },
-        {
-            "name": "YouTube"
-        },
-        {
-            "name": "maxdome Store"
-        },
-        {
-            "name": "Rakuten TV"
-        },
-        {
-            "name": "EntertainTV"
-        },
-        {
-            "name": "Microsoft Store"
-        }
-    ]
+    assert movie.providers == [{
+        "name": "Apple iTunes"
+    }, {
+        "name": "Google Play Movies"
+    }, {
+        "name": "Chili"
+    }, {
+        "name": "Sky Store"
+    }, {
+        "name": "Amazon Video"
+    }, {
+        "name": "YouTube"
+    }, {
+        "name": "maxdome Store"
+    }, {
+        "name": "Rakuten TV"
+    }, {
+        "name": "EntertainTV"
+    }, {
+        "name": "Microsoft Store"
+    }]
     assert movie.cast == [{
         "name": "Edward Norton",
         "role": "The Narrator",
         "image": "/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg",
         "job": "Acting"
     }]
-    assert movie.directors == [{
-        "name": "Christopher Nolan"
-    }]
+    assert movie.directors == [{"name": "Christopher Nolan"}]
     assert movie.tmdb == "https://www.themoviedb.org/movie/508442"
     assert movie.watch_status == "WATCHED"
     assert movie.rating == 7.9
@@ -257,53 +211,50 @@ def test_movie_from_dict():
 
 def test_movie_to_dict():
     dict = {
-        "code": 550,
-        "title": "Fight Club",
-        "genres": [
-            {
-                "name": "Drama"
-            }
-        ],
-        "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
-        "popularity": 0.5,
-        "vote_average": 5.7,
-        "release_date": "1999-10-12",
-        "runtime": 139,
-        "status": "Released",
-        "backdrop": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster": "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
-        "providers": [
-            {
-                "name": "Apple iTunes"
-            },
-            {
-                "name": "Google Play Movies"
-            },
-            {
-                "name": "Chili"
-            },
-            {
-                "name": "Sky Store"
-            },
-            {
-                "name": "Amazon Video"
-            },
-            {
-                "name": "YouTube"
-            },
-            {
-                "name": "maxdome Store"
-            },
-            {
-                "name": "Rakuten TV"
-            },
-            {
-                "name": "EntertainTV"
-            },
-            {
-                "name": "Microsoft Store"
-            }
-        ],
+        "code":
+        550,
+        "title":
+        "Fight Club",
+        "genres": [{
+            "name": "Drama"
+        }],
+        "overview":
+        "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+        "popularity":
+        0.5,
+        "vote_average":
+        5.7,
+        "release_date":
+        "1999-10-12",
+        "runtime":
+        139,
+        "status":
+        "Released",
+        "backdrop":
+        "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+        "poster":
+        "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
+        "providers": [{
+            "name": "Apple iTunes"
+        }, {
+            "name": "Google Play Movies"
+        }, {
+            "name": "Chili"
+        }, {
+            "name": "Sky Store"
+        }, {
+            "name": "Amazon Video"
+        }, {
+            "name": "YouTube"
+        }, {
+            "name": "maxdome Store"
+        }, {
+            "name": "Rakuten TV"
+        }, {
+            "name": "EntertainTV"
+        }, {
+            "name": "Microsoft Store"
+        }],
         "cast": [{
             "name": "Edward Norton",
             "role": "The Narrator",
@@ -313,10 +264,14 @@ def test_movie_to_dict():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb": "https://www.themoviedb.org/movie/508442",
-        "watch_status": "WATCHED",
-        "rating": 7.9,
-        "favorite": True
+        "tmdb":
+        "https://www.themoviedb.org/movie/508442",
+        "watch_status":
+        "WATCHED",
+        "rating":
+        7.9,
+        "favorite":
+        True
     }
 
     movie = Movie.from_dict(dict)
@@ -326,53 +281,50 @@ def test_movie_to_dict():
 
 def test_movie_model_comparison():
     dict = {
-        "code": 550,
-        "title": "Fight Club",
-        "genres": [
-            {
-                "name": "Drama"
-            }
-        ],
-        "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
-        "popularity": 0.5,
-        "vote_average": 5.7,
-        "release_date": "1999-10-12",
-        "runtime": 139,
-        "status": "Released",
-        "backdrop": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster": "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
-        "providers": [
-            {
-                "name": "Apple iTunes"
-            },
-            {
-                "name": "Google Play Movies"
-            },
-            {
-                "name": "Chili"
-            },
-            {
-                "name": "Sky Store"
-            },
-            {
-                "name": "Amazon Video"
-            },
-            {
-                "name": "YouTube"
-            },
-            {
-                "name": "maxdome Store"
-            },
-            {
-                "name": "Rakuten TV"
-            },
-            {
-                "name": "EntertainTV"
-            },
-            {
-                "name": "Microsoft Store"
-            }
-        ],
+        "code":
+        550,
+        "title":
+        "Fight Club",
+        "genres": [{
+            "name": "Drama"
+        }],
+        "overview":
+        "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+        "popularity":
+        0.5,
+        "vote_average":
+        5.7,
+        "release_date":
+        "1999-10-12",
+        "runtime":
+        139,
+        "status":
+        "Released",
+        "backdrop":
+        "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+        "poster":
+        "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
+        "providers": [{
+            "name": "Apple iTunes"
+        }, {
+            "name": "Google Play Movies"
+        }, {
+            "name": "Chili"
+        }, {
+            "name": "Sky Store"
+        }, {
+            "name": "Amazon Video"
+        }, {
+            "name": "YouTube"
+        }, {
+            "name": "maxdome Store"
+        }, {
+            "name": "Rakuten TV"
+        }, {
+            "name": "EntertainTV"
+        }, {
+            "name": "Microsoft Store"
+        }],
         "cast": [{
             "name": "Edward Norton",
             "role": "The Narrator",
@@ -382,10 +334,14 @@ def test_movie_model_comparison():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb": "https://www.themoviedb.org/movie/508442",
-        "watch_status": "WATCHED",
-        "rating": 7.9,
-        "favorite": True
+        "tmdb":
+        "https://www.themoviedb.org/movie/508442",
+        "watch_status":
+        "WATCHED",
+        "rating":
+        7.9,
+        "favorite":
+        True
     }
 
     movie1 = Movie.from_dict(dict)

@@ -1,5 +1,6 @@
 from consumatio.entities.tv import TV
 
+
 def tv_details(tmdb, code, country):
     dict_tv_details = tmdb.get_tv_details(code)
     dict_tv_images = tmdb.get_tv_images(code)
@@ -29,4 +30,4 @@ def tv_details(tmdb, code, country):
         "favorite": None
     }
 
-    return dict 
+    return dict

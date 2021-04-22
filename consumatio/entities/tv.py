@@ -1,19 +1,20 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class TV():
-    code: int 
+    code: int
     name: str
-    genres: list 
+    genres: list
     overview: str
     popularity: float
     vote_average: float
     first_air_date: str
     last_air_date: str
     status: str
-    backdrop: str 
-    poster: str   
-    providers: list 
+    backdrop: str
+    poster: str
+    providers: list
     creators: list
     cast: list
     number_of_episodes: int

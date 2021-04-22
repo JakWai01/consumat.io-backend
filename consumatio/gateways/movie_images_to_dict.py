@@ -4,12 +4,13 @@ def movie_images_to_dict(data):
     poster_list = []
     backdrop_list = []
 
-    for poster in posters: 
+    for poster in posters:
         if poster.get("iso_639_1") == "en" or poster.get("iso_639_1") == None:
             poster_list.append(poster)
 
     for backdrop in backdrops:
-        if backdrop.get("iso_639_1") == "en" or backdrop.get("iso_639_1") == None:
+        if backdrop.get("iso_639_1") == "en" or backdrop.get(
+                "iso_639_1") == None:
             backdrop_list.append(backdrop)
 
     poster = None
@@ -22,9 +23,6 @@ def movie_images_to_dict(data):
     if len(backdrop_list) != 0:
         backdrop = str(backdrop_list[0].get("file_path"))
 
-    dict = {
-        "backdrop": backdrop,
-        "poster": poster
-    }
+    dict = {"backdrop": backdrop, "poster": poster}
 
     return dict
