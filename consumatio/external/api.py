@@ -19,7 +19,7 @@ type_defs = gql("""
         search(str: String): [Result!]
     }
     
-        type Search {
+    type Search {
         results: [Result]
     }
     
@@ -178,7 +178,6 @@ def resolve_search(*_, str):
 
 search = ObjectType("Search")
 
-
 schema = make_executable_schema(type_defs, query, movie, tv, season, search)
 
 
@@ -191,12 +190,10 @@ def graphql_playground():
 def graphql_server():
     data = request.get_json()
 
-    success, result = graphql_sync(
-        schema,
-        data,
-        context_value=request,
-        debug=app.debug
-    )
+    success, result = graphql_sync(schema,
+                                   data,
+                                   context_value=request,
+                                   debug=app.debug)
 
     status_code = 200 if success else 400
     return jsonify(result), status_code

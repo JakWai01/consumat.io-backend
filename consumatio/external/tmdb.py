@@ -17,7 +17,6 @@ import json
 
 
 class Tmdb():
-
     def __init__(self, tmdb_key: str):
         self.db = Database()
         self.api_key = tmdb_key

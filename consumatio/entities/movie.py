@@ -1,8 +1,9 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class Movie():
-    code: int 
+    code: int
     title: str
     genres: list
     overview: str
