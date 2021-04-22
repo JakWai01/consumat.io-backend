@@ -3,34 +3,35 @@ from consumatio.gateways.tv_providers_to_dict import *
 
 def test_tv_providers_to_dict():
     json = {
-        "link": "https://www.themoviedb.org/tv/1399-game-of-thrones/watch?locale=AR",
-        "flatrate": [
-            {
-                "display_priority": 4,
-                "logo_path": "/2slPVV21kaPDx0NwjVtcUjdvzXz.jpg",
-                "provider_id": 31,
-                "provider_name": "HBO Go"
-            },
-            {
-                "display_priority": 7,
-                "logo_path": "/rgbalNWbAuhWklHH5JAnF53Wjey.jpg",
-                "provider_id": 339,
-                "provider_name": "Movistar Play"
-            },
-            {
-                "display_priority": 14,
-                "logo_path": "/lUv4RMq0WDcsePlqKPDwIDS1vCB.jpg",
-                "provider_id": 467,
-                "provider_name": "DIRECTV GO"
+        "id": 1399,
+        "results": {
+            "DE": {
+                "link": "https://www.themoviedb.org/tv/1399-game-of-thrones/watch?locale=DE",
+                "buy": [
+                    {
+                        "display_priority": 2,
+                        "logo_path": "/q6tl6Ib6X5FT80RMlcDbexIo4St.jpg",
+                        "provider_id": 2,
+                        "provider_name": "Apple iTunes"
+                    }
+                ],
+                "flatrate": [
+                    {
+                        "display_priority": 8,
+                        "logo_path": "/zLX0ExkHc8xJ9W4u9JgnldDQLKv.jpg",
+                        "provider_id": 29,
+                        "provider_name": "Sky Go"
+                    }
+                ]
             }
-        ]
+        }
     }
 
     dict = {
-        'providers': [
-            'HBO Go', 'Movistar Play',
-            'DIRECTV GO'
+        'providers': [{
+            "name": "Sky Go"
+        }
         ]
     }
-
-    assert tv_providers_to_dict(json) == dict
+    print(tv_providers_to_dict(json, "DE"))
+    assert tv_providers_to_dict(json, "DE") == dict

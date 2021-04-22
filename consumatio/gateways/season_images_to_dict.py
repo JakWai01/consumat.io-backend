@@ -3,7 +3,7 @@ def season_images_to_dict(data):
     poster_list = []
 
     for poster in posters:
-        if poster.get("iso_639_1") == "en":
+        if poster.get("iso_639_1") == "en" or poster.get("iso_639_1") == None:
             poster_list.append(poster)
 
     poster = None
@@ -12,7 +12,7 @@ def season_images_to_dict(data):
         poster =  str(poster_list[0].get("file_path"))
 
     dict = {
-        "posters": poster
+        "poster": poster
     }
 
     return dict
