@@ -1,5 +1,6 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class Episode():
     code: int
@@ -9,7 +10,7 @@ class Episode():
     overview: str
     air_date: str
     vote_average: float
-    still: str 
+    still: str
     watch_status: str
     rating: float
     favorite: bool

@@ -1,5 +1,6 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class Season():
     code: int
@@ -7,13 +8,13 @@ class Season():
     season_number: int
     name: str
     overview: str
-    poster: str 
+    poster: str
     watch_status: str
     rating: float
     favorite: bool
 
     @classmethod
-    def from_dict(self,dict):
+    def from_dict(self, dict):
         return self(**dict)
 
     def to_dict(self):

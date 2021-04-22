@@ -1,8 +1,9 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class Movie():
-    code: int 
+    code: int
     title: str
     genres: list
     overview: str
@@ -12,7 +13,7 @@ class Movie():
     runtime: int
     status: str
     backdrop: str
-    poster: str 
+    poster: str
     providers: list
     cast: list
     directors: list

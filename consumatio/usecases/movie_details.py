@@ -1,5 +1,6 @@
 from consumatio.entities.movie import Movie
 
+
 def movie_details(tmdb, code, country):
     dict_movie_details = tmdb.get_movie_details(code)
     dict_movie_images = tmdb.get_movie_images(code)
@@ -18,10 +19,11 @@ def movie_details(tmdb, code, country):
         "status": dict_movie_details.get("status"),
         "backdrop": dict_movie_images.get("backdrop"),
         "poster": dict_movie_images.get("poster"),
-        "providers":dict_movie_providers.get("providers"), 
+        "providers": dict_movie_providers.get("providers"),
         "cast": dict_movie_credits.get("cast"),
         "directors": dict_movie_credits.get("directors"),
-        "tmdb": f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
+        "tmdb":
+        f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
         "watchStatus": None,
         "rating": None,
         "favorite": None
