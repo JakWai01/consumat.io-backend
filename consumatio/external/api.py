@@ -171,8 +171,6 @@ episode = ObjectType("Episode")
 
 
 @query.field("search")
-# TODO @Danny: Implement minLength: 2
-#                         pattern:([a-z]{2})-([A-Z]{2})
 def resolve_search(*_, str):
     tmdb = tmdb_client()
     return search_details(tmdb, str)
