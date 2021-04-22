@@ -22,9 +22,6 @@ def tv_images_to_dict(data):
     if len(backdrop_list) != 0:
         backdrop = str(backdrop_list[0].get("file_path"))
 
-    dict = {
-        "backdrops": backdrop,
-        "posters": poster
-    }
+    dict = {"backdrops": backdrop, "posters": poster}
 
     return dict

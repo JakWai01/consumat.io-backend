@@ -1,5 +1,6 @@
 from consumatio.entities.tv import TV
 
+
 def tv_details(tmdb, code, country):
     dict_tv_details = tmdb.get_tv_details(code)
     dict_tv_images = tmdb.get_tv_images(code)
@@ -8,12 +9,12 @@ def tv_details(tmdb, code, country):
 
     creators = []
     for index in range(len(dict_tv_details.get("creators"))):
-       creator = {
-           "name": dict_tv_details.get("creators")[index][0],
-           "image": dict_tv_details.get("creators")[index][1]
-       } 
+        creator = {
+            "name": dict_tv_details.get("creators")[index][0],
+            "image": dict_tv_details.get("creators")[index][1]
+        }
 
-       creators.append(creator)
+        creators.append(creator)
 
     dict = {
         "code": dict_tv_details.get("code"),
@@ -38,4 +39,4 @@ def tv_details(tmdb, code, country):
         "favorite": None
     }
 
-    return dict 
+    return dict

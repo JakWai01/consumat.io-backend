@@ -1,4 +1,3 @@
-
 def search_details(tmdb, str):
     dict_search_details = tmdb.get_search(str)
     results = []
