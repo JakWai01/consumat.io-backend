@@ -11,6 +11,7 @@ from consumatio.gateways.season_details_to_dict import *
 from consumatio.gateways.season_images_to_dict import *
 from consumatio.gateways.episode_details_to_dict import *
 from consumatio.gateways.episode_images_to_dict import *
+from consumatio.gateways.search_result_to_dict import *
 from consumatio.external.db import Database
 import json
 
@@ -81,6 +82,11 @@ class Tmdb():
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/episode/{episode_number}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
+
+    def get_search(self, str):
+        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={str}&page=1&include_adult=false'
+        data = self.get_data(query, self.db)
+        return search_result_to_dict(data)
 
     def get_data(self, query, db):
         if (db.is_cached(query)):
