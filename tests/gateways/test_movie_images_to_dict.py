@@ -33,6 +33,4 @@ def test_movie_images_to_dict():
         'poster': '/fpemzjF623QVTe98pCVlwwtFC5N.jpg'
     }
 
-    print(movie_images_to_dict(json))
-    
     assert movie_images_to_dict(json) == dict
