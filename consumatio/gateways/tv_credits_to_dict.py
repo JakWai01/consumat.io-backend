@@ -2,7 +2,7 @@ def tv_credits_to_dict(data):
     cast = data["cast"]
     cast_list = []
 
-    for castmember in cast: 
+    for castmember in cast:
         member = {
             "name": castmember.get("name"),
             "role": castmember.get("character"),
@@ -12,8 +12,6 @@ def tv_credits_to_dict(data):
 
         cast_list.append(member)
 
-    dict = {
-        "cast": cast_list
-    }
+    dict = {"cast": cast_list}
 
     return dict
