@@ -10,10 +10,6 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 import os
 
-
-# TODO @Danny: Fix the error which is probably caused because we get
-#              a list with objects
-
 type_defs = gql("""
     type Query {
         movie(code: Int, country: String): Movie!

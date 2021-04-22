@@ -3,7 +3,7 @@ import consumatio.external.api as Api
 
 def search_result_to_dict(data):
 
-    # TODO @Danny: check if enumeration of api-data works
+    # TODO @Danny: implement concurrent.futures and benchmark
     results = data["results"]
     result_list = []
 
