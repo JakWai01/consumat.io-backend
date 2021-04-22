@@ -10,7 +10,6 @@ def search_details(tmdb, str):
             "overview": result.get("overview"),
             "releaseDate": result.get("release_date"),
             "posterPath": result.get("poster_path"),
-            "seasonCount": result.get("season_count"),
             "watchStatus": result.get("watch_status")
         }
         results.append(dict)

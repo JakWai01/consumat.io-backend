@@ -34,7 +34,6 @@ type_defs = gql("""
         overview: String
         releaseDate: String
         posterPath: String
-        seasonCount: Int
         watchStatus: String
     }
 
