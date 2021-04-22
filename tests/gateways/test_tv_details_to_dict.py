@@ -213,5 +213,4 @@ def test_tv_details_to_dict():
         "number_of_seasons": 8
     }
 
-    print(tv_details_to_dict(json))
     assert tv_details_to_dict(json) == dict

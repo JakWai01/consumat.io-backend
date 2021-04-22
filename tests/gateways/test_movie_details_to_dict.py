@@ -68,5 +68,4 @@ def test_movie_details_to_dict():
         "status": "Released"
     }
 
-    print(movie_details_to_dict(json))
     assert movie_details_to_dict(json) == dict

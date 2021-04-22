@@ -32,5 +32,4 @@ def test_tv_images_to_dict():
         'backdrop': '/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg',
         'poster': '/hDd5Zd9VMOqBeHa2agbnHZ98WWr.jpg' 
     }
-    print(tv_images_to_dict(json))
     assert tv_images_to_dict(json) == dict
