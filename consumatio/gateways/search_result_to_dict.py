@@ -1,6 +1,3 @@
-import consumatio.external.api as Api
-
-
 def search_result_to_dict(data):
 
     if "results" not in data:
