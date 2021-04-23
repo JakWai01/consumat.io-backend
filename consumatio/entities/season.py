@@ -8,7 +8,7 @@ class Season():
     season_number: int
     name: str
     overview: str
-    posters: dict
+    poster: str
     watch_status: str
     rating: float
     favorite: bool
