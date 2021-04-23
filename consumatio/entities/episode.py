@@ -10,7 +10,7 @@ class Episode():
     overview: str
     air_date: str
     vote_average: float
-    stills: list
+    still: str
     watch_status: str
     rating: float
     favorite: bool

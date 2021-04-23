@@ -181,6 +181,7 @@ search = ObjectType("Search")
 schema = make_executable_schema(type_defs, query, movie, tv, season, search)
 
 
+
 @app.route("/", methods=["GET"])
 def graphql_playground():
     return PLAYGROUND_HTML, 200

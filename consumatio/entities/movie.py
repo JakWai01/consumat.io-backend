@@ -12,11 +12,12 @@ class Movie():
     release_date: str
     runtime: int
     status: str
-    backdrops: list
-    posters: list
+    backdrop: str
+    poster: str
     providers: list
     cast: list
     directors: list
+    tmdb: str
     watch_status: str
     rating: float
     favorite: bool

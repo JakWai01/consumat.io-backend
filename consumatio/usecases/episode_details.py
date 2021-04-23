@@ -15,7 +15,7 @@ def episode_details(tmdb, code, season_number, episode_number):
         "overview": dict_episode_details.get("overview"),
         "airDate": dict_episode_details.get("air_date"),
         "voteAverage": dict_episode_details.get("vote_average"),
-        "still": dict_episode_images.get("stills"),
+        "still": dict_episode_images.get("still"),
         "watchStatus": None,
         "rating": None,
         "favorite": None,
