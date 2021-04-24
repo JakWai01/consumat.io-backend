@@ -1,4 +1,4 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
@@ -10,119 +10,8 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 import os
 
-type_defs = gql("""
-    type Query {
-        movie(code: Int, country: String): Movie!
-        tv(code: Int, country: String): TV!
-        season(code: Int, seasonNumber: Int): Season!
-        episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-        search(str: String): [Result!]
-    }
-    
-    type Search {
-        results: [Result]
-    }
-    
-    type Result{
-        code: Int
-        mediaType: String
-        title: String
-        overview: String
-        releaseDate: String
-        posterPath: String
-        watchStatus: String
-    }
-
-    type Movie {
-        code: Int
-        title: String
-        genres: [Genre]
-        overview: String
-        popularity: Float
-        voteAverage: Float
-        releaseDate: String
-        runtime: Int
-        status: String
-        backdrop: String
-        poster: String
-        providers: [Provider]
-        cast: [Cast]
-        directors: [Director]
-        tmdb: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type Provider {
-        name: String
-    }
-
-    type Genre {
-        name: String
-    }
-
-    type Director {
-        name: String
-        image: String
-    }
-
-    type Cast {
-        name: String
-        role: String
-        image: String
-        job: String
-    }
-
-    type TV {
-        code: Int
-        name: String
-        genres: [Genre]
-        overview: String
-        popularity: Float
-        voteAverage: Float
-        firstAirDate: String
-        lastAirDate: String
-        status: String
-        backdrop: String
-        poster: String
-        providers: [Provider]
-        creators: [Director]
-        cast: [Cast]
-        numberOfEpisodes: Int
-        numberOfSeasons: Int
-        tmdb: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type Season {
-        code: Int
-        tvCode: Int
-        seasonNumber: Int
-        name: String
-        overview: String
-        poster: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type Episode {
-        code: Int
-        name: String
-        episodeNumber: Int
-        seasonNumber: Int
-        overview: String
-        airDate: String
-        voteAverage: Float 
-        still: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-""")
+# load schema from file...
+type_defs = load_schema_from_path("consumatio/external/api.schema")
 
 app = Flask(__name__)
 CORS(app)
@@ -179,7 +68,6 @@ def resolve_search(*_, str):
 search = ObjectType("Search")
 
 schema = make_executable_schema(type_defs, query, movie, tv, season, search)
-
 
 
 @app.route("/", methods=["GET"])
