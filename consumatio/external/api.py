@@ -10,9 +10,6 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 import os
 
-# load schema from file...
-type_defs = load_schema_from_path("consumatio/external/api.schema")
-
 app = Flask(__name__)
 CORS(app)
 
@@ -67,6 +64,7 @@ def resolve_search(*_, str):
 
 search = ObjectType("Search")
 
+type_defs = load_schema_from_path("consumatio/external/api.schema")
 schema = make_executable_schema(type_defs, query, movie, tv, season, search)
 
 
