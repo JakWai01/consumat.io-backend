@@ -1,8 +1,8 @@
 import dataclasses
-
+from consumatio.entities.entity import Entity
 
 @dataclasses.dataclass
-class TV():
+class TV(Entity):
     code: int
     name: str
     genres: list
