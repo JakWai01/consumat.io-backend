@@ -1,17 +1,17 @@
 import requests
-from consumatio.gateways.movie_details_to_dict import *
-from consumatio.gateways.movie_providers_to_dict import *
-from consumatio.gateways.movie_images_to_dict import *
-from consumatio.gateways.movie_credits_to_dict import *
-from consumatio.gateways.tv_credits_to_dict import *
-from consumatio.gateways.tv_details_to_dict import *
-from consumatio.gateways.tv_providers_to_dict import *
-from consumatio.gateways.tv_images_to_dict import *
-from consumatio.gateways.season_details_to_dict import *
-from consumatio.gateways.season_images_to_dict import *
-from consumatio.gateways.episode_details_to_dict import *
-from consumatio.gateways.episode_images_to_dict import *
-from consumatio.gateways.search_result_to_dict import *
+from consumatio.gateways.movie_gateways.movie_details_to_dict import *
+from consumatio.gateways.movie_gateways.movie_providers_to_dict import *
+from consumatio.gateways.movie_gateways.movie_images_to_dict import *
+from consumatio.gateways.movie_gateways.movie_credits_to_dict import *
+from consumatio.gateways.tv_gateways.tv_credits_to_dict import *
+from consumatio.gateways.tv_gateways.tv_details_to_dict import *
+from consumatio.gateways.tv_gateways.tv_providers_to_dict import *
+from consumatio.gateways.tv_gateways.tv_images_to_dict import *
+from consumatio.gateways.season_gateways.season_details_to_dict import *
+from consumatio.gateways.season_gateways.season_images_to_dict import *
+from consumatio.gateways.episode_gateways.episode_details_to_dict import *
+from consumatio.gateways.episode_gateways.episode_images_to_dict import *
+from consumatio.gateways.search_gateways.search_result_to_dict import *
 from consumatio.external.db import Database
 import json
 
