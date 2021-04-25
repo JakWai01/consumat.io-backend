@@ -1,8 +1,8 @@
 import dataclasses
-
+from consumatio.entities.entity import Entity
 
 @dataclasses.dataclass
-class Episode():
+class Episode(Entity):
     code: int
     name: str
     episode_number: int
