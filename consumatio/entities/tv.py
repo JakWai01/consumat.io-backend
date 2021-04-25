@@ -1,6 +1,7 @@
 import dataclasses
 from consumatio.entities.entity import Entity
 
+
 @dataclasses.dataclass
 class TV(Entity):
     code: int
