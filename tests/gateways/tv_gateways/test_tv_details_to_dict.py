@@ -1,4 +1,4 @@
-from consumatio.gateways.tv_details_to_dict import *
+from consumatio.gateways.tv_gateways.tv_details_to_dict import *
 
 
 def test_tv_details_to_dict():

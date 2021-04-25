@@ -1,9 +1,9 @@
-from consumatio.gateways.movie_providers_to_dict import *
+from consumatio.gateways.tv_gateways.tv_providers_to_dict import *
 
 
-def test_movie_providers_to_dict():
+def test_tv_providers_to_dict():
     json = {
-        "id": 12,
+        "id": 1399,
         "results": {
             "DE": {
                 "link":
@@ -25,4 +25,4 @@ def test_movie_providers_to_dict():
     }
 
     dict = {'providers': [{"name": "Sky Go"}]}
-    assert movie_providers_to_dict(json, "DE") == dict
+    assert tv_providers_to_dict(json, "DE") == dict
