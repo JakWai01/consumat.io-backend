@@ -1,8 +1,9 @@
 import dataclasses
+from consumatio.entities.entity import Entity
 
 
 @dataclasses.dataclass
-class Movie():
+class Movie(Entity):
     code: int
     title: str
     genres: list

@@ -1,4 +1,4 @@
-from consumatio.gateways.movie_details_to_dict import *
+from consumatio.gateways.movie_gateways.movie_details_to_dict import *
 
 
 def test_movie_details_to_dict():

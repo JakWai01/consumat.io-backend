@@ -137,7 +137,8 @@ def tmdb_client(api_key=os.getenv('TMDB_KEY')):
 @query.field("movie")
 def resolve_movie(*_, code, country):
     tmdb = tmdb_client()
-    return movie_details(tmdb, code, country)
+    movie = MovieDetails()
+    return movie.get_movie_details(tmdb, code, country)
 
 
 movie = ObjectType("Movie")
@@ -146,7 +147,8 @@ movie = ObjectType("Movie")
 @query.field("tv")
 def resolve_tv(*_, code, country):
     tmdb = tmdb_client()
-    return tv_details(tmdb, code, country)
+    tv = TVDetails()
+    return tv.get_tv_details(tmdb, code, country)
 
 
 tv = ObjectType("TV")
@@ -155,7 +157,8 @@ tv = ObjectType("TV")
 @query.field("season")
 def resolve_season(*_, code, seasonNumber):
     tmdb = tmdb_client()
-    return season_details(tmdb, code, seasonNumber)
+    season = SeasonDetails()
+    return season.get_season_details(tmdb, code, seasonNumber)
 
 
 season = ObjectType("Season")
@@ -164,7 +167,8 @@ season = ObjectType("Season")
 @query.field("episode")
 def resolve_episode(*_, code, seasonNumber, episodeNumber):
     tmdb = tmdb_client()
-    return episode_details(tmdb, code, seasonNumber, episodeNumber)
+    episode = EpisodeDetails()
+    return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
 
 
 episode = ObjectType("Episode")
@@ -173,13 +177,13 @@ episode = ObjectType("Episode")
 @query.field("search")
 def resolve_search(*_, str):
     tmdb = tmdb_client()
-    return search_details(tmdb, str)
+    search = SearchDetails()
+    return search.get_search_details(tmdb, str)
 
 
 search = ObjectType("Search")
 
 schema = make_executable_schema(type_defs, query, movie, tv, season, search)
-
 
 
 @app.route("/", methods=["GET"])
