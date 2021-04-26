@@ -1,4 +1,4 @@
-from consumatio.gateways.season_images_to_dict import *
+from consumatio.gateways.season_gateways.season_images_to_dict import *
 
 
 def test_season_images_to_dict():
