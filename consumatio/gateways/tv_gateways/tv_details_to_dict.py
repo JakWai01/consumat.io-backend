@@ -9,7 +9,7 @@ def tv_details_to_dict(data):
     for creator in data["created_by"]:
         creator_dict = {
             "name": creator["name"],
-            "image": creator["profile_path"]
+            "imagePath": creator["profile_path"]
         }
         created_by_list.append(creator_dict)
 
