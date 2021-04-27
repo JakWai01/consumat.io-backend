@@ -1,4 +1,9 @@
-def movie_details_to_dict(data):
+def movie_details_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
     genre_list = []
 
     for index in range(len(data["genres"])):

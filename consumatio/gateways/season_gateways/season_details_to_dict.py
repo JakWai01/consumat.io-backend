@@ -1,4 +1,10 @@
-def season_details_to_dict(data, tv_id):
+def season_details_to_dict(data: dict, tv_id: int) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :param tv_id: <int> Id of the TV show to show details for
+    :return: <dict> Internal representation
+    """
 
     dict = {
         "code": data["id"],
