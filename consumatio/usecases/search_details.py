@@ -1,5 +1,11 @@
 class SearchDetails:
-    def get_search_details(self, tmdb, str):
+    def get_search_details(self: object, tmdb: object, str: str) -> dict:
+        """
+        Make all relevant API request for this usecase (search) and assemble them into a dictionary
+        :param tmdb: <object> Tmdb object
+        :param str: <str> Search string
+        :return: <dict> Search details
+        """
         dict_search_details = tmdb.get_search(str)
         results = []
         for result in dict_search_details:
