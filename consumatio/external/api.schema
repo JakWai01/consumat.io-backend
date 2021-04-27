@@ -26,18 +26,18 @@ type Movie {
     genres: [Genre]
     overview: String
     popularity: Float
-    voteAverage: Float
+    ratingAverage: Float
     releaseDate: String
     runtime: Int
     status: String
-    backdrop: String
-    poster: String
+    backdropPath: String
+    posterPath: String
     providers: [Provider]
     cast: [Cast]
     directors: [Director]
-    tmdb: String
+    tmdbUrl: String
     watchStatus: String
-    rating: Float
+    ratingUser: Float
     favorite: Boolean
 }
 
@@ -51,36 +51,36 @@ type Genre {
 
 type Director {
     name: String
-    image: String
+    imagePath: String
 }
 
 type Cast {
     name: String
     role: String
-    image: String
+    imagePath: String
     job: String
 }
 
 type TV {
     code: Int
-    name: String
+    title: String
     genres: [Genre]
     overview: String
     popularity: Float
-    voteAverage: Float
+    ratingAverage: Float
     firstAirDate: String
     lastAirDate: String
     status: String
-    backdrop: String
-    poster: String
+    backdropPath: String
+    posterPath: String
     providers: [Provider]
     creators: [Director]
     cast: [Cast]
     numberOfEpisodes: Int
     numberOfSeasons: Int
-    tmdb: String
+    tmdbUrl: String
     watchStatus: String
-    rating: Float
+    ratingUser: Float
     favorite: Boolean
 }
 
@@ -88,24 +88,24 @@ type Season {
     code: Int
     tvCode: Int
     seasonNumber: Int
-    name: String
+    title: String
     overview: String
-    poster: String
+    posterPath: String
     watchStatus: String
-    rating: Float
+    ratingUser: Float
     favorite: Boolean
 }
 
 type Episode {
     code: Int
-    name: String
+    title: String
     episodeNumber: Int
     seasonNumber: Int
     overview: String
     airDate: String
-    voteAverage: Float 
-    still: String
+    ratingAverage: Float 
+    stillPath: String
     watchStatus: String
-    rating: Float
+    ratingUser: Float
     favorite: Boolean
 }

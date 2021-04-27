@@ -14,19 +14,19 @@ class MovieDetails:
             "genres": dict_movie_details.get("genres"),
             "overview": dict_movie_details.get("overview"),
             "popularity": dict_movie_details.get("popularity"),
-            "voteAverage": dict_movie_details.get("vote_average"),
+            "ratingAverage": dict_movie_details.get("vote_average"),
             "releaseDate": dict_movie_details.get("release_date"),
             "runtime": dict_movie_details.get("runtime"),
             "status": dict_movie_details.get("status"),
-            "backdrop": dict_movie_images.get("backdrop"),
-            "poster": dict_movie_images.get("poster"),
+            "backdropPath": dict_movie_images.get("backdrop"),
+            "posterPath": dict_movie_images.get("poster"),
             "providers": dict_movie_providers.get("providers"),
             "cast": dict_movie_credits.get("cast"),
             "directors": dict_movie_credits.get("directors"),
-            "tmdb":
+            "tmdbUrl":
             f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
             "watchStatus": None,
-            "rating": None,
+            "ratingUser": None,
             "favorite": None
         }
 
