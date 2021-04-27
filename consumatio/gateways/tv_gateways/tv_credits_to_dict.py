@@ -6,7 +6,7 @@ def tv_credits_to_dict(data):
         member = {
             "name": castmember.get("name"),
             "role": castmember.get("character"),
-            "image": castmember.get("profile_path"),
+            "imagePath": castmember.get("profile_path"),
             "job": castmember.get("known_for_department")
         }
 

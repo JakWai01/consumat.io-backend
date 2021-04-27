@@ -10,25 +10,25 @@ class TVDetails:
 
         dict = {
             "code": dict_tv_details.get("code"),
-            "name": dict_tv_details.get("name"),
+            "title": dict_tv_details.get("name"),
             "genres": dict_tv_details.get("genres"),
             "overview": dict_tv_details.get("overview"),
             "popularity": dict_tv_details.get("popularity"),
-            "voteAverage": dict_tv_details.get("vote_average"),
+            "ratingAverage": dict_tv_details.get("vote_average"),
             "firstAirDate": dict_tv_details.get("first_air_date"),
             "lastAirDate": dict_tv_details.get("last_air_date"),
             "status": dict_tv_details.get("status"),
-            "backdrop": dict_tv_images.get("backdrop"),
-            "poster": dict_tv_images.get("poster"),
+            "backdropPath": dict_tv_images.get("backdrop"),
+            "posterPath": dict_tv_images.get("poster"),
             "providers": dict_tv_providers.get("providers"),
             "cast": dict_tv_credits.get("cast"),
             "creators": dict_tv_details.get("creators"),
             "numberOfEpisodes": dict_tv_details.get("number_of_episodes"),
             "numberOfSeasons": dict_tv_details.get("number_of_seasons"),
-            "tmdb":
+            "tmdbUrl":
             f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
             "watchStatus": None,
-            "rating": None,
+            "ratingUser": None,
             "favorite": None
         }
 
