@@ -1,4 +1,9 @@
-def movie_credits_to_dict(data):
+def movie_credits_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
     cast = data["cast"]
     crew = data["crew"]
     cast_list = []

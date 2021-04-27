@@ -1,4 +1,10 @@
-def season_images_to_dict(data):
+def season_images_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
+
     posters = data['posters']
     poster_list = []
 
