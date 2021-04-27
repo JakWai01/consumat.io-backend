@@ -2,7 +2,14 @@ from consumatio.entities.movie import Movie
 
 
 class MovieDetails:
-    def get_movie_details(self, tmdb, code, country):
+    def get_movie_details(self: object, tmdb: object, code: int, country: str) -> dict:
+        """
+        Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
+        :param tmdb: <object> Tmdb object
+        :param code: <int> Id of the movie to get data for
+        :country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
+        :return: <dict> Movie details
+        """
         dict_movie_details = tmdb.get_movie_details(code)
         dict_movie_images = tmdb.get_movie_images(code)
         dict_movie_providers = tmdb.get_movie_providers(code, country)

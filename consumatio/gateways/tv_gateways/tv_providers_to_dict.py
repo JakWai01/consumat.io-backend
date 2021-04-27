@@ -2,7 +2,7 @@ def tv_providers_to_dict(data: dict, country: str) -> dict:
     """
     Create dictionary for internal representation
     :param data: <dict> API response
-    :param country: <str> Country to get providers for
+    :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
     :return: <dict> Internal representation
     """
 
