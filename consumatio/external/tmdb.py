@@ -103,7 +103,8 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return tv_credits_to_dict(data)
 
-    def get_season_details(self: object, tv_id: int, season_number: int) -> dict:
+    def get_season_details(self: object, tv_id: int,
+                           season_number: int) -> dict:
         """
         Fetch tmdb season details endpoint
         :param tv_id: <int> Id of the tv show to fetch season details for
@@ -114,7 +115,8 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return season_details_to_dict(data, tv_id)
 
-    def get_season_images(self: object, tv_id: int, season_number: int) -> dict:
+    def get_season_images(self: object, tv_id: int,
+                          season_number: int) -> dict:
         """
         Fetch tmdb season images endpoint
         :param tv_id: <int> Id of the tv show to fetch season images for
@@ -125,7 +127,8 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return season_images_to_dict(data)
 
-    def get_episode_details(self: object, tv_id: int, season_number: int, episode_number: int) -> dict:
+    def get_episode_details(self: object, tv_id: int, season_number: int,
+                            episode_number: int) -> dict:
         """
         Fetch tmdb episode details endpoint
         :param tv_id: <int> Id of the tv show to fetch episode details for
@@ -137,7 +140,8 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return episode_details_to_dict(data)
 
-    def get_episode_images(self: object, tv_id: dict, season_number: int, episode_number: int) -> dict:
+    def get_episode_images(self: object, tv_id: dict, season_number: int,
+                           episode_number: int) -> dict:
         """
         Fetch tmdb episode images endpoint
         :param tv_id: <int> Id of the tv show to fetch episode images for
@@ -149,13 +153,13 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
 
-    def get_search(self: object, str: str) -> dict:
+    def get_search(self: object, keyword: str) -> dict:
         """
         Fetch tmdb search endpoint
-        :param str: <str> Search string
+        :param keyword: <str> Search string
         :return: <dict> Search results
         """
-        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={str}&page=1&include_adult=false'
+        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
         return search_result_to_dict(data)
 

@@ -33,5 +33,7 @@ def search_result_to_dict(data: dict) -> dict:
                     "poster_path": result.get("poster_path"),
                     "watch_status": None
                 }
+            else:
+                continue
             result_list.append(dict)
         return result_list
