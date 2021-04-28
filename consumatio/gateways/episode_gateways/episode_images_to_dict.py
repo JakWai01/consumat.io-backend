@@ -1,5 +1,9 @@
-def episode_images_to_dict(data):
-
+def episode_images_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
     if "stills" not in data:
         return {"still": None}
 

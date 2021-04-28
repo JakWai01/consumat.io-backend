@@ -2,7 +2,14 @@ from consumatio.entities.tv import TV
 
 
 class TVDetails:
-    def get_tv_details(self, tmdb, code, country):
+    def get_tv_details(self: object, tmdb: object, code: int, country: str) -> dict:
+        """
+        Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
+        :param tmdb: <object> Tmdb object
+        :param code: <int> Id of the tv show to get data for
+        :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
+        :return: <dict> TV details
+        """
         dict_tv_details = tmdb.get_tv_details(code)
         dict_tv_images = tmdb.get_tv_images(code)
         dict_tv_providers = tmdb.get_tv_providers(code, country)
