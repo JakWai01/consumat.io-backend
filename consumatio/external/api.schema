@@ -3,7 +3,7 @@ type Query {
     tv(code: Int, country: String): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    search(str: String): [Result!]
+    search(keyword: String): [Result!]
 }
     
 type Search {
