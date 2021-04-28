@@ -15,6 +15,7 @@ CORS(app)
 
 query = QueryType()
 
+
 # couldn't add type annotation on this parameter
 def tmdb_client(api_key=os.getenv('TMDB_KEY')) -> object:
     """
@@ -74,7 +75,8 @@ season = ObjectType("Season")
 
 
 @query.field("episode")
-def resolve_episode(*_, code: int, seasonNumber: int, episodeNumber: int) -> dict:
+def resolve_episode(*_, code: int, seasonNumber: int,
+                    episodeNumber: int) -> dict:
     """
     API endpoint for "episode" queries.
     :param code: <int> Id of the tv show to get details for
@@ -91,15 +93,15 @@ episode = ObjectType("Episode")
 
 
 @query.field("search")
-def resolve_search(*_, str: str):
+def resolve_search(*_, keyword: str) -> dict:
     """
     API endpoint for "search" queries.
-    :param str: <str> search string
+    :param keyword: <str> search string
     :return: <dict> Results of the search
     """
     tmdb = tmdb_client()
     search = SearchDetails()
-    return search.get_search_details(tmdb, str)
+    return search.get_search_details(tmdb, keyword)
 
 
 search = ObjectType("Search")
