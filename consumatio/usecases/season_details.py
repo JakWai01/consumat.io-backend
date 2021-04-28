@@ -2,7 +2,14 @@ from consumatio.entities.season import Season
 
 
 class SeasonDetails:
-    def get_season_details(self, tmdb, code, season_number):
+    def get_season_details(self: object, tmdb: object, code: int, season_number: int) -> dict:
+        """
+        Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
+        :param tmdb: <object> Tmdb object
+        :param code: <int> Id of the tv_show to get season details for
+        :param season_number: <int> Number of season to get details for
+        :return: <dict> Season details
+        """
         dict_season_details = tmdb.get_season_details(code, season_number)
         dict_season_images = tmdb.get_season_images(code, season_number)
 

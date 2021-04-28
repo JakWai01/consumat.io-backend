@@ -1,4 +1,9 @@
-def episode_details_to_dict(data):
+def episode_details_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
     dict = {
         "code": data["id"],
         "name": data["name"],
