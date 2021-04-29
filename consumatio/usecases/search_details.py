@@ -11,12 +11,12 @@ class SearchDetails:
         for result in dict_search_details:
             dict = {
                 "code": result.get("code"),
-                "mediaType": result.get("media_type"),
+                "media_type": result.get("media_type"),
                 "title": result.get("title"),
                 "overview": result.get("overview"),
-                "releaseDate": result.get("release_date"),
-                "posterPath": result.get("poster_path"),
-                "watchStatus": result.get("watch_status")
+                "release_date": result.get("release_date"),
+                "poster_path": result.get("poster_path"),
+                "watch_status": result.get("watch_status")
             }
             results.append(dict)
         return results

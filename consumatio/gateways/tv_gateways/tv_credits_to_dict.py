@@ -11,7 +11,7 @@ def tv_credits_to_dict(data: dict) -> dict:
         member = {
             "name": castmember.get("name"),
             "role": castmember.get("character"),
-            "imagePath": castmember.get("profile_path"),
+            "image_path": castmember.get("profile_path"),
             "job": castmember.get("known_for_department")
         }
 

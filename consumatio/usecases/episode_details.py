@@ -2,7 +2,8 @@ from consumatio.entities.episode import Episode
 
 
 class EpisodeDetails:
-    def get_episode_details(self: object, tmdb: object, code: int, season_number: int, episode_number: int) -> dict:
+    def get_episode_details(self: object, tmdb: object, code: int,
+                            season_number: int, episode_number: int) -> dict:
         """
         Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
         :param tmdb: <object> Tmdb object
@@ -19,14 +20,14 @@ class EpisodeDetails:
         dict = {
             "code": dict_episode_details.get("code"),
             "title": dict_episode_details.get("name"),
-            "episodeNumber": dict_episode_details.get("episode_number"),
-            "seasonNumber": season_number,
+            "episode_number": dict_episode_details.get("episode_number"),
+            "season_number": season_number,
             "overview": dict_episode_details.get("overview"),
-            "airDate": dict_episode_details.get("air_date"),
-            "ratingAverage": dict_episode_details.get("vote_average"),
-            "stillPath": dict_episode_images.get("still"),
-            "watchStatus": None,
-            "ratingUser": None,
+            "air_date": dict_episode_details.get("air_date"),
+            "rating_average": dict_episode_details.get("vote_average"),
+            "still_path": dict_episode_images.get("still"),
+            "watch_status": None,
+            "rating_user": None,
             "favorite": None,
         }
 
