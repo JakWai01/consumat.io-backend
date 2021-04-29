@@ -26,13 +26,13 @@ class TV(Entity):
     favorite: bool
 
     @classmethod
-    def from_dict(self: object, dict: dict) -> object:
+    def from_dict(cls: object, dict: dict) -> object:
         """
         Create TV object from dictionary
         :param dict: <dict> Dictionary containing all the required variables
         :return: <object> TV object
         """
-        return self(**dict)
+        return cls(**dict)
 
     def to_dict(self: object) -> dict:
         """
