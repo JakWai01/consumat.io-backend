@@ -10,7 +10,6 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions import UndefinedEnvironmentVariable
 import os
-import sys
 
 app = Flask(__name__)
 CORS(app)
