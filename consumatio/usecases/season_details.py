@@ -26,4 +26,6 @@ class SeasonDetails:
             "favorite": None
         }
 
-        return dict
+        season = Season.from_dict(dict)
+
+        return season.to_dict()

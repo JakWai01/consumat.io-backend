@@ -7,11 +7,11 @@ class Season(Entity):
     code: int
     tv_code: int
     season_number: int
-    name: str
+    title: str
     overview: str
-    poster: str
+    poster_path: str
     watch_status: str
-    rating: float
+    rating_user: float
     favorite: bool
 
     @classmethod

@@ -5,24 +5,24 @@ from consumatio.entities.entity import Entity
 @dataclasses.dataclass
 class TV(Entity):
     code: int
-    name: str
+    title: str
     genres: list
     overview: str
     popularity: float
-    vote_average: float
+    rating_average: float
     first_air_date: str
     last_air_date: str
     status: str
-    backdrop: str
-    poster: str
+    backdrop_path: str
+    poster_path: str
     providers: list
-    creators: list
     cast: list
+    creators: list
     number_of_episodes: int
     number_of_seasons: int
-    tmdb: str
+    tmdb_url: str
     watch_status: str
-    rating: float
+    rating_user: float
     favorite: bool
 
     @classmethod

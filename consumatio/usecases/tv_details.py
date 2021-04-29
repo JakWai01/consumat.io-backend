@@ -40,4 +40,6 @@ class TVDetails:
             "favorite": None
         }
 
-        return dict
+        tv = TV.from_dict(dict)
+
+        return tv.to_dict()
