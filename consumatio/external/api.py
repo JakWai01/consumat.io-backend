@@ -8,7 +8,9 @@ from consumatio.usecases.search_details import *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
+from consumatio.external.exceptions import UndefinedEnvironmentVariable
 import os
+import sys
 
 app = Flask(__name__)
 CORS(app)
@@ -16,13 +18,18 @@ CORS(app)
 query = QueryType()
 
 
-# couldn't add type annotation on this parameter
-def tmdb_client(api_key=os.getenv('TMDB_KEY')) -> object:
+def tmdb_client() -> object:
     """
     Create a tmdb client.
     :param api_key: <str> API key for tmdb provided in an environment variable
     :return: <object> Tmdb object
     """
+    api_key = os.getenv('TMDB_KEY')
+
+    if (api_key == None):
+        raise UndefinedEnvironmentVariable(
+            "Please specify a valid API key for TMDB_KEY environment variable")
+
     return Tmdb(api_key)
 
 
