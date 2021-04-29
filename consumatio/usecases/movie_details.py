@@ -38,4 +38,6 @@ class MovieDetails:
             "favorite": None
         }
 
-        return dict
+        movie = Movie.from_dict(dict)
+
+        return movie.to_dict()

@@ -31,4 +31,6 @@ class EpisodeDetails:
             "favorite": None,
         }
 
-        return dict
+        episode = Episode.from_dict(dict)
+
+        return episode.to_dict()
