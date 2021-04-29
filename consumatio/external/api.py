@@ -47,6 +47,14 @@ def resolve_movie(*_, code: int, country: str) -> dict:
 
 movie = ObjectType("Movie")
 
+movie.set_alias("ratingAverage", "rating_average")
+movie.set_alias("releaseDate", "release_date")
+movie.set_alias("backdropPath", "backdrop_path")
+movie.set_alias("posterPath", "poster_path")
+movie.set_alias("tmdbUrl", "tmdb_url")
+movie.set_alias("watchStatus", "watch_status")
+movie.set_alias("ratingUser", "rating_user")
+
 
 @query.field("tv")
 def resolve_tv(*_, code: int, country: str) -> dict:
@@ -63,6 +71,17 @@ def resolve_tv(*_, code: int, country: str) -> dict:
 
 tv = ObjectType("TV")
 
+tv.set_alias("ratingAverage", "rating_average")
+tv.set_alias("firstAirDate", "first_air_date")
+tv.set_alias("lastAirDate", "last_air_date")
+tv.set_alias("backdropPath", "backdrop_path")
+tv.set_alias("posterPath", "poster_path")
+tv.set_alias("numberOfEpisodes", "number_of_episodes")
+tv.set_alias("numberOfSeasons", "number_of_seasons")
+tv.set_alias("tmdbUrl", "tmdb_url")
+tv.set_alias("watchStatus", "watch_status")
+tv.set_alias("ratingUser", "rating_user")
+
 
 @query.field("season")
 def resolve_season(*_, code: int, seasonNumber: str) -> dict:
@@ -78,6 +97,12 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
 
 
 season = ObjectType("Season")
+
+season.set_alias("tvCode", "tv_code")
+season.set_alias("seasonNumber", "season_number")
+season.set_alias("posterPath", "poster_path")
+season.set_alias("watchStatus", "watch_status")
+season.set_alias("ratingUser", "rating_user")
 
 
 @query.field("episode")
@@ -97,6 +122,14 @@ def resolve_episode(*_, code: int, seasonNumber: int,
 
 episode = ObjectType("Episode")
 
+episode.set_alias("episodeNumber", "episode_number")
+episode.set_alias("seasonNumber", "season_number")
+episode.set_alias("airDate", "air_date")
+episode.set_alias("ratingAverage", "rating_average")
+episode.set_alias("stillPath", "still_path")
+episode.set_alias("watchStatus", "watch_status")
+episode.set_alias("ratingUser", "rating_user")
+
 
 @query.field("search")
 def resolve_search(*_, keyword: str) -> dict:
@@ -110,10 +143,24 @@ def resolve_search(*_, keyword: str) -> dict:
     return search.get_search_details(tmdb, keyword)
 
 
-search = ObjectType("Search")
+search = ObjectType("Result")
+
+search.set_alias("mediaType", "media_type")
+search.set_alias("releaseDate", "release_date")
+search.set_alias("posterPath", "poster_path")
+search.set_alias("watchStatus", "watch_status")
+
+director = ObjectType("Director")
+
+director.set_alias("imagePath", "image_path")
+
+cast = ObjectType("Cast")
+
+cast.set_alias("imagePath", "image_path")
 
 type_defs = load_schema_from_path("consumatio/external/api.schema")
-schema = make_executable_schema(type_defs, query, movie, tv, season, search)
+schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
+                                search, director, cast)
 
 
 @app.route("/", methods=["GET"])
