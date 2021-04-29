@@ -134,9 +134,3 @@ def graphql_server() -> str:
 
     status_code = 200 if success else 400
     return jsonify(result), status_code
-
-
-port = int(os.environ['PORT'])
-
-if __name__ == "__main__":
-    app.run(debug=True, port=port, host="0.0.0.0")
