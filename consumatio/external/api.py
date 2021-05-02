@@ -10,6 +10,7 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions import UndefinedEnvironmentVariable
 import os
+from flask import request
 
 app = Flask(__name__)
 CORS(app)
@@ -179,6 +180,8 @@ def graphql_server() -> str:
     :return: <str>, <statuscode> Return response to request with statuscode (200 or 400)
     """
     data = request.get_json()
+
+    print(request.headers.get('Authorization'))
 
     success, result = graphql_sync(schema,
                                    data,
