@@ -6,10 +6,6 @@ type Query {
     search(keyword: String): [Result!]
 }
     
-type Search {
-    results: [Result]
-}
-    
 type Result{
     code: Int
     mediaType: String

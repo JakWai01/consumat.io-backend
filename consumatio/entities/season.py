@@ -7,21 +7,21 @@ class Season(Entity):
     code: int
     tv_code: int
     season_number: int
-    name: str
+    title: str
     overview: str
-    poster: str
+    poster_path: str
     watch_status: str
-    rating: float
+    rating_user: float
     favorite: bool
 
     @classmethod
-    def from_dict(self: object, dict: dict) -> object:
+    def from_dict(cls: object, dict: dict) -> object:
         """
         Create Season object from dictionary
         :param dict: <dict> Dictionary containing all the required variables
         :return: <object> Season object
         """
-        return self(**dict)
+        return cls(**dict)
 
     def to_dict(self: object) -> dict:
         """

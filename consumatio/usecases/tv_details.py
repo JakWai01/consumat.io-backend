@@ -2,7 +2,8 @@ from consumatio.entities.tv import TV
 
 
 class TVDetails:
-    def get_tv_details(self: object, tmdb: object, code: int, country: str) -> dict:
+    def get_tv_details(self: object, tmdb: object, code: int,
+                       country: str) -> dict:
         """
         Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
         :param tmdb: <object> Tmdb object
@@ -21,22 +22,24 @@ class TVDetails:
             "genres": dict_tv_details.get("genres"),
             "overview": dict_tv_details.get("overview"),
             "popularity": dict_tv_details.get("popularity"),
-            "ratingAverage": dict_tv_details.get("vote_average"),
-            "firstAirDate": dict_tv_details.get("first_air_date"),
-            "lastAirDate": dict_tv_details.get("last_air_date"),
+            "rating_average": dict_tv_details.get("vote_average"),
+            "first_air_date": dict_tv_details.get("first_air_date"),
+            "last_air_date": dict_tv_details.get("last_air_date"),
             "status": dict_tv_details.get("status"),
-            "backdropPath": dict_tv_images.get("backdrop"),
-            "posterPath": dict_tv_images.get("poster"),
+            "backdrop_path": dict_tv_images.get("backdrop"),
+            "poster_path": dict_tv_images.get("poster"),
             "providers": dict_tv_providers.get("providers"),
             "cast": dict_tv_credits.get("cast"),
             "creators": dict_tv_details.get("creators"),
-            "numberOfEpisodes": dict_tv_details.get("number_of_episodes"),
-            "numberOfSeasons": dict_tv_details.get("number_of_seasons"),
-            "tmdbUrl":
+            "number_of_episodes": dict_tv_details.get("number_of_episodes"),
+            "number_of_seasons": dict_tv_details.get("number_of_seasons"),
+            "tmdb_url":
             f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
-            "watchStatus": None,
-            "ratingUser": None,
+            "watch_status": None,
+            "rating_user": None,
             "favorite": None
         }
 
-        return dict
+        tv = TV.from_dict(dict)
+
+        return tv.to_dict()

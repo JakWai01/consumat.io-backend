@@ -9,28 +9,28 @@ class Movie(Entity):
     genres: list
     overview: str
     popularity: float
-    vote_average: float
+    rating_average: float
     release_date: str
     runtime: int
     status: str
-    backdrop: str
-    poster: str
+    backdrop_path: str
+    poster_path: str
     providers: list
     cast: list
     directors: list
-    tmdb: str
+    tmdb_url: str
     watch_status: str
-    rating: float
+    rating_user: float
     favorite: bool
 
     @classmethod
-    def from_dict(self: object, dict: dict) -> object:
+    def from_dict(cls: object, dict: dict) -> object:
         """
         Create Movie object from dictionary
         :param dict: <dict> Dictionary containing all the required variables
         :return: <object> Movie object
         """
-        return self(**dict)
+        return cls(**dict)
 
     def to_dict(self: object) -> dict:
         """
