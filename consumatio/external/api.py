@@ -158,7 +158,9 @@ cast = ObjectType("Cast")
 
 cast.set_alias("imagePath", "image_path")
 
-type_defs = load_schema_from_path("consumatio/external/api.schema")
+type_defs = load_schema_from_path(
+    "/home/jakobwaibel/Documents/Projects/consumat.io-backend/consumatio/external/api.schema"
+)
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)
 
@@ -187,3 +189,9 @@ def graphql_server() -> str:
 
     status_code = 200 if success else 400
     return jsonify(result), status_code
+
+
+port = int(os.environ['PORT'])
+
+if __name__ == "__main__":
+    app.run(debug=True, port=port, host="0.0.0.0")
