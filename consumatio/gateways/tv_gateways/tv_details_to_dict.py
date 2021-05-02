@@ -1,19 +1,22 @@
-def tv_details_to_dict(data):
+def tv_details_to_dict(data: dict) -> dict:
+    """
+    Create dictionary for internal representation
+    :param data: <dict> API response
+    :return: <dict> Internal representation
+    """
     genre_list = []
     created_by_list = []
 
     for index in range(len(data["genres"])):
-        genre = {
-            "name": data["genres"][index].get("name")
-        }
+        genre = {"name": data["genres"][index].get("name")}
         genre_list.append(genre)
 
     for creator in data["created_by"]:
-        creator_list = []
-        creator_list.append(creator["name"])
-        creator_list.append(creator["profile_path"])
-
-        created_by_list.append(creator_list)
+        creator_dict = {
+            "name": creator["name"],
+            "imagePath": creator["profile_path"]
+        }
+        created_by_list.append(creator_dict)
 
     dict = {
         "code": data["id"],
