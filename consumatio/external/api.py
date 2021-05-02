@@ -17,6 +17,12 @@ CORS(app)
 
 query = QueryType()
 
+TMDB_KEY_KEY = 'TMDB_KEY'
+BACKEND_SECRET = os.getenv('BACKEND_SECRET')
+
+CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
+CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
+
 
 def tmdb_client() -> object:
     """
@@ -24,7 +30,7 @@ def tmdb_client() -> object:
     :param api_key: <str> API key for tmdb provided in an environment variable
     :return: <object> Tmdb object
     """
-    api_key = os.getenv('TMDB_KEY')
+    api_key = os.getenv(TMDB_KEY_KEY)
 
     if (api_key == None):
         raise UndefinedEnvironmentVariable(
@@ -181,7 +187,18 @@ def graphql_server() -> str:
     """
     data = request.get_json()
 
-    print(request.headers.get('Authorization'))
+    if (BACKEND_SECRET == None):
+        raise UndefinedEnvironmentVariable(
+            "Please specify a valid backend secret for BACKEND_SECRET environment variable"
+        )
+
+    if request.headers.get(CONSUMATIO_SECRET_HEADER_KEY) != BACKEND_SECRET:
+        status_code = 401
+
+        return "unauthorized", status_code
+
+    print("Request namespace: " +
+          request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY))
 
     success, result = graphql_sync(schema,
                                    data,
