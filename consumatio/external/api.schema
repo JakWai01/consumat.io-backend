@@ -1,0 +1,107 @@
+type Query {
+    movie(code: Int, country: String): Movie!
+    tv(code: Int, country: String): TV!
+    season(code: Int, seasonNumber: Int): Season!
+    episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
+    search(keyword: String): [Result!]
+}
+    
+type Result{
+    code: Int
+    mediaType: String
+    title: String
+    overview: String
+    releaseDate: String
+    posterPath: String
+    watchStatus: String
+}
+
+type Movie {
+    code: Int
+    title: String
+    genres: [Genre]
+    overview: String
+    popularity: Float
+    ratingAverage: Float
+    releaseDate: String
+    runtime: Int
+    status: String
+    backdropPath: String
+    posterPath: String
+    providers: [Provider]
+    cast: [Cast]
+    directors: [Director]
+    tmdbUrl: String
+    watchStatus: String
+    ratingUser: Float
+    favorite: Boolean
+}
+
+type Provider {
+    name: String
+}
+
+type Genre {
+    name: String
+}
+
+type Director {
+    name: String
+    imagePath: String
+}
+
+type Cast {
+    name: String
+    role: String
+    imagePath: String
+    job: String
+}
+
+type TV {
+    code: Int
+    title: String
+    genres: [Genre]
+    overview: String
+    popularity: Float
+    ratingAverage: Float
+    firstAirDate: String
+    lastAirDate: String
+    status: String
+    backdropPath: String
+    posterPath: String
+    providers: [Provider]
+    creators: [Director]
+    cast: [Cast]
+    numberOfEpisodes: Int
+    numberOfSeasons: Int
+    tmdbUrl: String
+    watchStatus: String
+    ratingUser: Float
+    favorite: Boolean
+}
+
+type Season {
+    code: Int
+    tvCode: Int
+    seasonNumber: Int
+    title: String
+    overview: String
+    posterPath: String
+    watchStatus: String
+    ratingUser: Float
+    favorite: Boolean
+}
+
+type Episode {
+    code: Int
+    title: String
+    episodeNumber: Int
+    seasonNumber: Int
+    overview: String
+    airDate: String
+    ratingAverage: Float 
+    stillPath: String
+    watchStatus: String
+    ratingUser: Float
+    favorite: Boolean
+}
