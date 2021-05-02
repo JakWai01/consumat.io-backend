@@ -1,113 +1,189 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema
-from ariadne.asgi import GraphQL
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path
 from consumatio.external.tmdb import Tmdb
-from consumatio.usecases.movie_details import * 
+from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
+from consumatio.usecases.search_details import *
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from ariadne.constants import PLAYGROUND_HTML
+from consumatio.external.exceptions import UndefinedEnvironmentVariable
+import os
 
-type_defs = gql("""
-    type Query {
-        movie(code: Int, country: String): Movie!
-        tv(code: Int, country: String): TV!
-        season(code: Int, seasonNumber: Int): Season!
-        episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    }
-
-    type Movie {
-        code: Int
-        title: String
-        genres: [String]
-        overview: String
-        popularity: Float
-        voteAverage: Float
-        releaseDate: String
-        runtime: Int
-        status: String
-        backdrops: String
-        posters: String
-        providers: [String]
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type TV {
-        code: Int
-        name: String
-        genres: [String]
-        overview: String
-        popularity: Float
-        voteAverage: Float
-        firstAirDate: String
-        lastAirDate: String
-        status: String
-        backdrops: String
-        posters: String
-        providers: [String]
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type Season {
-        code: Int
-        tvCode: Int
-        seasonNumber: Int
-        name: String
-        overview: String
-        posters: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-
-    type Episode {
-        code: Int
-        name: String
-        episodeNumber: Int
-        seasonNumber: Int
-        overview: String
-        airDate: String
-        voteAverage: Float 
-        stills: String
-        watchStatus: String
-        rating: Float
-        favorite: Boolean
-    }
-""")
-
+app = Flask(__name__)
+CORS(app)
 
 query = QueryType()
 
+
+def tmdb_client() -> object:
+    """
+    Create a tmdb client.
+    :param api_key: <str> API key for tmdb provided in an environment variable
+    :return: <object> Tmdb object
+    """
+    api_key = os.getenv('TMDB_KEY')
+
+    if (api_key == None):
+        raise UndefinedEnvironmentVariable(
+            "Please specify a valid API key for TMDB_KEY environment variable")
+
+    return Tmdb(api_key)
+
+
 @query.field("movie")
-def resolve_movie(*_, code, country):
-    tmdb = Tmdb()
-    return  movie_details(tmdb, code, country)
+def resolve_movie(*_, code: int, country: str) -> dict:
+    """
+    API endpoint for "movie" queries.
+    :param code: <int> Id of the movie to get details for
+    :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
+    :return: <dict> Details of the movie
+    """
+    tmdb = tmdb_client()
+    movie = MovieDetails()
+    return movie.get_movie_details(tmdb, code, country)
+
 
 movie = ObjectType("Movie")
 
+movie.set_alias("ratingAverage", "rating_average")
+movie.set_alias("releaseDate", "release_date")
+movie.set_alias("backdropPath", "backdrop_path")
+movie.set_alias("posterPath", "poster_path")
+movie.set_alias("tmdbUrl", "tmdb_url")
+movie.set_alias("watchStatus", "watch_status")
+movie.set_alias("ratingUser", "rating_user")
+
+
 @query.field("tv")
-def resolve_tv(*_, code, country):
-    tmdb = Tmdb()
-    return tv_details(tmdb, code, country)
+def resolve_tv(*_, code: int, country: str) -> dict:
+    """
+    API endpoint for "tv" queries.
+    :param code: <int> Id of the tv show to get details for
+    :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
+    :return: <dict> Details of the tv show
+    """
+    tmdb = tmdb_client()
+    tv = TVDetails()
+    return tv.get_tv_details(tmdb, code, country)
+
 
 tv = ObjectType("TV")
 
+tv.set_alias("ratingAverage", "rating_average")
+tv.set_alias("firstAirDate", "first_air_date")
+tv.set_alias("lastAirDate", "last_air_date")
+tv.set_alias("backdropPath", "backdrop_path")
+tv.set_alias("posterPath", "poster_path")
+tv.set_alias("numberOfEpisodes", "number_of_episodes")
+tv.set_alias("numberOfSeasons", "number_of_seasons")
+tv.set_alias("tmdbUrl", "tmdb_url")
+tv.set_alias("watchStatus", "watch_status")
+tv.set_alias("ratingUser", "rating_user")
+
+
 @query.field("season")
-def resolve_season(*_, code, seasonNumber):
-    tmdb = Tmdb()
-    return season_details(tmdb, code, seasonNumber)
+def resolve_season(*_, code: int, seasonNumber: str) -> dict:
+    """
+    API endpoint for "season" queries.
+    :param code: <int> Id of the tv show to get details for
+    :param seasonNumber: <int> Number of the season to get details for
+    :return: <dict> Details of the season 
+    """
+    tmdb = tmdb_client()
+    season = SeasonDetails()
+    return season.get_season_details(tmdb, code, seasonNumber)
+
 
 season = ObjectType("Season")
 
+season.set_alias("tvCode", "tv_code")
+season.set_alias("seasonNumber", "season_number")
+season.set_alias("posterPath", "poster_path")
+season.set_alias("watchStatus", "watch_status")
+season.set_alias("ratingUser", "rating_user")
+
+
 @query.field("episode")
-def resolve_episode(*_, code, seasonNumber, episodeNumber):
-    tmdb = Tmdb()
-    return episode_details(tmdb, code, seasonNumber, episodeNumber)
+def resolve_episode(*_, code: int, seasonNumber: int,
+                    episodeNumber: int) -> dict:
+    """
+    API endpoint for "episode" queries.
+    :param code: <int> Id of the tv show to get details for
+    :param seasonNumber: <int> Number of the season to get details for
+    :param episodeNumber: <int> Number of the episode to get details for
+    :return: <dict> Details of the episode
+    """
+    tmdb = tmdb_client()
+    episode = EpisodeDetails()
+    return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
+
 
 episode = ObjectType("Episode")
 
-schema = make_executable_schema(type_defs, query, movie, tv, season)
+episode.set_alias("episodeNumber", "episode_number")
+episode.set_alias("seasonNumber", "season_number")
+episode.set_alias("airDate", "air_date")
+episode.set_alias("ratingAverage", "rating_average")
+episode.set_alias("stillPath", "still_path")
+episode.set_alias("watchStatus", "watch_status")
+episode.set_alias("ratingUser", "rating_user")
 
-app = GraphQL(schema, debug=True)
+
+@query.field("search")
+def resolve_search(*_, keyword: str) -> dict:
+    """
+    API endpoint for "search" queries.
+    :param keyword: <str> search string
+    :return: <dict> Results of the search
+    """
+    tmdb = tmdb_client()
+    search = SearchDetails()
+    return search.get_search_details(tmdb, keyword)
+
+
+search = ObjectType("Result")
+
+search.set_alias("mediaType", "media_type")
+search.set_alias("releaseDate", "release_date")
+search.set_alias("posterPath", "poster_path")
+search.set_alias("watchStatus", "watch_status")
+
+director = ObjectType("Director")
+
+director.set_alias("imagePath", "image_path")
+
+cast = ObjectType("Cast")
+
+cast.set_alias("imagePath", "image_path")
+
+type_defs = load_schema_from_path("consumatio/external/api.schema")
+schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
+                                search, director, cast)
+
+
+@app.route("/", methods=["GET"])
+def graphql_playground() -> str:
+    """
+    If get request was made on "/", route to playground.
+    :return: <str>, <statuscode> Return playground html with status code 200
+    """
+    return PLAYGROUND_HTML, 200
+
+
+@app.route("/", methods=["POST"])
+def graphql_server() -> str:
+    """
+    If post request was made on "/", resolve the queries.
+    :return: <str>, <statuscode> Return response to request with statuscode (200 or 400)
+    """
+    data = request.get_json()
+
+    success, result = graphql_sync(schema,
+                                   data,
+                                   context_value=request,
+                                   debug=app.debug)
+
+    status_code = 200 if success else 400
+    return jsonify(result), status_code
