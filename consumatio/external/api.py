@@ -10,11 +10,18 @@ from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions import UndefinedEnvironmentVariable
 import os
+from flask import request
 
 app = Flask(__name__)
 CORS(app)
 
 query = QueryType()
+
+TMDB_KEY_KEY = 'TMDB_KEY'
+BACKEND_SECRET = os.getenv('BACKEND_SECRET')
+
+CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
+CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
 
 
 def tmdb_client() -> object:
@@ -23,7 +30,7 @@ def tmdb_client() -> object:
     :param api_key: <str> API key for tmdb provided in an environment variable
     :return: <object> Tmdb object
     """
-    api_key = os.getenv('TMDB_KEY')
+    api_key = os.getenv(TMDB_KEY_KEY)
 
     if (api_key == None):
         raise UndefinedEnvironmentVariable(
@@ -180,6 +187,19 @@ def graphql_server() -> str:
     """
     data = request.get_json()
 
+    if (BACKEND_SECRET == None):
+        raise UndefinedEnvironmentVariable(
+            "Please specify a valid backend secret for BACKEND_SECRET environment variable"
+        )
+
+    if request.headers.get(CONSUMATIO_SECRET_HEADER_KEY) != BACKEND_SECRET:
+        status_code = 401
+
+        return "unauthorized", status_code
+
+    print("Request namespace: " +
+          request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY))
+
     success, result = graphql_sync(schema,
                                    data,
                                    context_value=request,
@@ -187,3 +207,9 @@ def graphql_server() -> str:
 
     status_code = 200 if success else 400
     return jsonify(result), status_code
+
+
+port = int(os.environ['PORT'])
+
+if __name__ == "__main__":
+    app.run(debug=True, port=port, host="0.0.0.0")
