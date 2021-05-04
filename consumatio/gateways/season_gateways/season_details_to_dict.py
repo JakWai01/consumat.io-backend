@@ -19,7 +19,8 @@ def season_details_to_dict(data: dict, tv_id: int) -> dict:
         "name": data["name"],
         "overview": data["overview"],
         "air_date": data["air_date"],
-        "number_of_episodes": number_of_episodes
+        "number_of_episodes": number_of_episodes,
+        "poster_path": data["poster_path"]
     }
 
     return dict

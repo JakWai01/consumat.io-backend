@@ -19,7 +19,9 @@ def movie_details_to_dict(data: dict) -> dict:
         "vote_average": data["vote_average"],
         "release_date": data["release_date"],
         "runtime": data["runtime"],
-        "status": data["status"]
+        "status": data["status"],
+        "backdrop_path": data["backdrop_path"],
+        "poster_path": data["poster_path"],
     }
 
     return dict
