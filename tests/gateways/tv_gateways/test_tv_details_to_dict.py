@@ -207,10 +207,10 @@ def test_tv_details_to_dict():
         'Ended',
         'creators': [{
             "name": "David Benioff",
-            "imagePath": "/xvNN5huL0X8yJ7h3IZfGG4O2zBD.jpg"
+            "image_path": "/xvNN5huL0X8yJ7h3IZfGG4O2zBD.jpg"
         }, {
             "name": "D. B. Weiss",
-            "imagePath": "/2RMejaT793U9KRk2IEbFfteQntE.jpg"
+            "image_path": "/2RMejaT793U9KRk2IEbFfteQntE.jpg"
         }],
         "number_of_episodes":
         73,
