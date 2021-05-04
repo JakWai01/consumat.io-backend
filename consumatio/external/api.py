@@ -110,6 +110,8 @@ season.set_alias("seasonNumber", "season_number")
 season.set_alias("posterPath", "poster_path")
 season.set_alias("watchStatus", "watch_status")
 season.set_alias("ratingUser", "rating_user")
+season.set_alias("numberOfEpisodes", "number_of_episodes")
+season.set_alias("airDate", "air_date")
 
 
 @query.field("episode")
