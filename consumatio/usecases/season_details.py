@@ -18,7 +18,7 @@ class SeasonDetails:
             "code": dict_season_details.get("code"),
             "tv_code": code,
             "season_number": dict_season_details.get("season_number"),
-            "title": dict_season_details.get("name"),
+            "title": dict_season_details.get("title"),
             "overview": dict_season_details.get("overview"),
             "poster_path": dict_season_details.get("poster_path"),
             "watch_status": None,

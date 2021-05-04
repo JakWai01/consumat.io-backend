@@ -186,7 +186,7 @@ def test_tv_details_to_dict():
     dict = {
         'code':
         1399,
-        'name':
+        'title':
         'Game of Thrones',
         'genres': [{
             "name": "Sci-Fi & Fantasy"
@@ -197,7 +197,7 @@ def test_tv_details_to_dict():
         "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
         'popularity':
         369.594,
-        'vote_average':
+        'rating_average':
         8.3,
         'first_air_date':
         '2011-04-17',
@@ -215,7 +215,11 @@ def test_tv_details_to_dict():
         "number_of_episodes":
         73,
         "number_of_seasons":
-        8
+        8,
+        "backdrop_path":
+        "/suopoADq0k8YZr4dQXcU6pToj6s.jpg",
+        "poster_path":
+        "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg"
     }
 
     assert tv_details_to_dict(json) == dict

@@ -16,7 +16,7 @@ def season_details_to_dict(data: dict, tv_id: int) -> dict:
         "code": data["id"],
         "tv_code": tv_id,
         "season_number": data["season_number"],
-        "name": data["name"],
+        "title": data["name"],
         "overview": data["overview"],
         "air_date": data["air_date"],
         "number_of_episodes": number_of_episodes,
