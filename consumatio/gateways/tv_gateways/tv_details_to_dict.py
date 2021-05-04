@@ -14,7 +14,7 @@ def tv_details_to_dict(data: dict) -> dict:
     for creator in data["created_by"]:
         creator_dict = {
             "name": creator["name"],
-            "imagePath": creator["profile_path"]
+            "image_path": creator["profile_path"]
         }
         created_by_list.append(creator_dict)
 
