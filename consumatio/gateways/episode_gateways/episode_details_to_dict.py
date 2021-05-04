@@ -11,7 +11,8 @@ def episode_details_to_dict(data: dict) -> dict:
         "season_number": data["season_number"],
         "overview": data["overview"],
         "air_date": data["air_date"],
-        "vote_average": data["vote_average"]
+        "vote_average": data["vote_average"],
+        "still_path": data["still_path"]
     }
 
     return dict

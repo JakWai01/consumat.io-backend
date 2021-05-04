@@ -20,7 +20,7 @@ class SeasonDetails:
             "season_number": dict_season_details.get("season_number"),
             "title": dict_season_details.get("name"),
             "overview": dict_season_details.get("overview"),
-            "poster_path": dict_season_images.get("poster"),
+            "poster_path": dict_season_details.get("poster_path"),
             "watch_status": None,
             "rating_user": None,
             "favorite": None,

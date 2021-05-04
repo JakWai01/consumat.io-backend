@@ -25,7 +25,7 @@ class EpisodeDetails:
             "overview": dict_episode_details.get("overview"),
             "air_date": dict_episode_details.get("air_date"),
             "rating_average": dict_episode_details.get("vote_average"),
-            "still_path": dict_episode_images.get("still"),
+            "still_path": dict_episode_details.get("still_path"),
             "watch_status": None,
             "rating_user": None,
             "favorite": None,

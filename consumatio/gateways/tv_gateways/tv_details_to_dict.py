@@ -30,7 +30,9 @@ def tv_details_to_dict(data: dict) -> dict:
         "status": data["status"],
         "creators": created_by_list,
         "number_of_episodes": data["number_of_episodes"],
-        "number_of_seasons": data["number_of_seasons"]
+        "number_of_seasons": data["number_of_seasons"],
+        "backdrop_path": data["backdrop_path"],
+        "poster_path": data["poster_path"]
     }
 
     return dict

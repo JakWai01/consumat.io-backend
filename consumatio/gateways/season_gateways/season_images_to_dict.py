@@ -17,6 +17,6 @@ def season_images_to_dict(data: dict) -> dict:
     if len(poster_list) != 0:
         poster = str(poster_list[0].get("file_path"))
 
-    dict = {"poster": poster}
+    dict = {"poster_path": poster}
 
     return dict
