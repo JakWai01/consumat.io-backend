@@ -23,7 +23,10 @@ class SeasonDetails:
             "poster_path": dict_season_images.get("poster"),
             "watch_status": None,
             "rating_user": None,
-            "favorite": None
+            "favorite": None,
+            "number_of_episodes":
+            dict_season_details.get("number_of_episodes"),
+            "air_date": dict_season_details.get("air_date")
         }
 
         season = Season.from_dict(dict)
