@@ -19,12 +19,12 @@ class EpisodeDetails:
 
         dict = {
             "code": dict_episode_details.get("code"),
-            "title": dict_episode_details.get("name"),
+            "title": dict_episode_details.get("title"),
             "episode_number": dict_episode_details.get("episode_number"),
             "season_number": season_number,
             "overview": dict_episode_details.get("overview"),
             "air_date": dict_episode_details.get("air_date"),
-            "rating_average": dict_episode_details.get("vote_average"),
+            "rating_average": dict_episode_details.get("rating_average"),
             "still_path": dict_episode_details.get("still_path"),
             "watch_status": None,
             "rating_user": None,

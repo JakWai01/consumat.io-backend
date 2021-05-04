@@ -26,7 +26,7 @@ def test_tv_images_to_dict():
     }
 
     dict = {
-        'backdrop': '/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg',
-        'poster': '/hDd5Zd9VMOqBeHa2agbnHZ98WWr.jpg'
+        'backdrop_path': '/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg',
+        'poster_path': '/hDd5Zd9VMOqBeHa2agbnHZ98WWr.jpg'
     }
     assert tv_images_to_dict(json) == dict

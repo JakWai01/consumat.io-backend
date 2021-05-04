@@ -18,11 +18,11 @@ class TVDetails:
 
         dict = {
             "code": dict_tv_details.get("code"),
-            "title": dict_tv_details.get("name"),
+            "title": dict_tv_details.get("title"),
             "genres": dict_tv_details.get("genres"),
             "overview": dict_tv_details.get("overview"),
             "popularity": dict_tv_details.get("popularity"),
-            "rating_average": dict_tv_details.get("vote_average"),
+            "rating_average": dict_tv_details.get("rating_average"),
             "first_air_date": dict_tv_details.get("first_air_date"),
             "last_air_date": dict_tv_details.get("last_air_date"),
             "status": dict_tv_details.get("status"),

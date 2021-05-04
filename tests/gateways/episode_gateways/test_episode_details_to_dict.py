@@ -43,13 +43,14 @@ def test_episode_details_to_dict():
 
     dict = {
         'code': 63056,
-        'name': 'Winter Is Coming',
+        'title': 'Winter Is Coming',
         'episode_number': 1,
         'season_number': 1,
         'overview':
         "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army.",
         'air_date': '2011-04-17',
-        'vote_average': 7.11904761904762
+        'rating_average': 7.11904761904762,
+        'still_path': '/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg'
     }
 
     assert episode_details_to_dict(json) == dict

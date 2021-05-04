@@ -22,7 +22,7 @@ class MovieDetails:
             "genres": dict_movie_details.get("genres"),
             "overview": dict_movie_details.get("overview"),
             "popularity": dict_movie_details.get("popularity"),
-            "rating_average": dict_movie_details.get("vote_average"),
+            "rating_average": dict_movie_details.get("rating_average"),
             "release_date": dict_movie_details.get("release_date"),
             "runtime": dict_movie_details.get("runtime"),
             "status": dict_movie_details.get("status"),
