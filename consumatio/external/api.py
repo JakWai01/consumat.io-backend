@@ -56,7 +56,7 @@ def resolve_movie(*_, code: int, country: str) -> dict:
 movie = ObjectType("Movie")
 
 movie.set_alias("ratingAverage", "rating_average")
-movie.set_alias("releaseDate", "release_date")
+movie.set_alias("releaseInitial", "release_date")
 movie.set_alias("backdropPath", "backdrop_path")
 movie.set_alias("posterPath", "poster_path")
 movie.set_alias("tmdbUrl", "tmdb_url")
@@ -80,8 +80,8 @@ def resolve_tv(*_, code: int, country: str) -> dict:
 tv = ObjectType("TV")
 
 tv.set_alias("ratingAverage", "rating_average")
-tv.set_alias("firstAirDate", "first_air_date")
-tv.set_alias("lastAirDate", "last_air_date")
+tv.set_alias("releaseInitial", "first_air_date")
+tv.set_alias("releaseFinal", "last_air_date")
 tv.set_alias("backdropPath", "backdrop_path")
 tv.set_alias("posterPath", "poster_path")
 tv.set_alias("numberOfEpisodes", "number_of_episodes")
@@ -89,6 +89,7 @@ tv.set_alias("numberOfSeasons", "number_of_seasons")
 tv.set_alias("tmdbUrl", "tmdb_url")
 tv.set_alias("watchStatus", "watch_status")
 tv.set_alias("ratingUser", "rating_user")
+tv.set_alias("directors", "creators")
 
 
 @query.field("season")
