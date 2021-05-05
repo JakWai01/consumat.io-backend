@@ -23,14 +23,28 @@ def test_tv_search_results_to_dict():
     }
 
     tv_dict = [{
+        "__typename": "TV",
         "code": 1396,
-        "media_type": "tv",
+        "title": "Breaking Bad",
+        "genres": None,
         "overview":
         "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+        "popularity": 264.148,
+        "rating_average": 8.7,
+        "first_air_date": "2008-01-20",
+        "last_air_date": None,
+        "status": None,
+        "backdrop_path": "/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
         "poster_path": "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-        "release_date": "2008-01-20",
-        "title": "Breaking Bad",
-        "watch_status": None
+        "providers": None,
+        "creators": None,
+        "cast": None,
+        "number_of_episodes": None,
+        "number_of_seasons": None,
+        "tmdb_url": f'https://www.themoviedb.org/tv/1396',
+        "watch_status": None,
+        "rating_user": None,
+        "favorite": None
     }]
 
     assert search_result_to_dict(tv_json) == tv_dict
@@ -59,14 +73,26 @@ def test_movie_search_results_to_dict():
     }
 
     movie_dict = [{
+        "__typename": "Movie",
         "code": 155,
-        "media_type": "movie",
+        "title": "The Dark Knight",
+        "genres": None,
         "overview":
         "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-        "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+        "popularity": 50.312,
+        "rating_average": 8.5,
         "release_date": "2008-07-16",
-        "title": "The Dark Knight",
-        "watch_status": None
+        "runtime": None,
+        "status": None,
+        "backdrop_path": "/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+        "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+        "providers": None,
+        "cast": None,
+        "directors": None,
+        "tmdb_url": f'https://www.themoviedb.org/movie/{155}',
+        "watch_status": None,
+        "rating_user": None,
+        "favorite": None
     }]
 
     assert search_result_to_dict(movie_json) == movie_dict
