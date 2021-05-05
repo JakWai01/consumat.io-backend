@@ -3,11 +3,11 @@ type Query {
     tv(code: Int, country: String): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    search(keyword: String): [SearchResult]
-    popular(type: String, country: String): [SearchResult]
+    search(keyword: String): [Media]
+    popular(type: String, country: String): [Media]
 }
 
-union SearchResult = Movie | TV 
+union Media = Movie | TV 
 
 type Movie {
     code: Int

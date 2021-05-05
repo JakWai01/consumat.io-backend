@@ -153,7 +153,7 @@ def resolve_search(*_, keyword: str) -> dict:
     return search.get_search_details(tmdb, keyword)
 
 
-search = UnionType("SearchResult")
+search = UnionType("Media")
 
 
 @query.field("popular")
@@ -178,7 +178,7 @@ cast = ObjectType("Cast")
 
 cast.set_alias("imagePath", "image_path")
 
-searchResult = UnionType("SearchResult")
+searchResult = UnionType("Media")
 type_defs = load_schema_from_path("consumatio/external/api.schema")
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)
