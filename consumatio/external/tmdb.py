@@ -12,6 +12,8 @@ from consumatio.gateways.season_gateways.season_images_to_dict import *
 from consumatio.gateways.episode_gateways.episode_details_to_dict import *
 from consumatio.gateways.episode_gateways.episode_images_to_dict import *
 from consumatio.gateways.search_gateways.search_result_to_dict import *
+from consumatio.gateways.popular_gateways.popular_tv_to_dict import *
+from consumatio.gateways.popular_gateways.popular_movies_to_dict import *
 from consumatio.external.db import Database
 import json
 
@@ -162,6 +164,25 @@ class Tmdb():
         query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
         return search_result_to_dict(data)
+
+    def get_popular_movies(self: object, country: str) -> dict:
+        """
+        Fetch tmdb popular movies endpoint
+        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results 
+        :return: <dict> movie results
+        """
+        query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page=1&include_adult=false'
+        data = self.get_data(query, self.db)
+        return popular_movies_to_dict(data)
+
+    def get_popular_tv(self: object) -> dict:
+        """
+        Fetch tmdb popular tv shows endpoint
+        :return: <dict> tv results
+        """
+        query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page=1&include_adult=false'
+        data = self.get_data(query, self.db)
+        return popular_tv_to_dict(data)
 
     def get_data(self: object, query: str, db: object) -> dict:
         """
