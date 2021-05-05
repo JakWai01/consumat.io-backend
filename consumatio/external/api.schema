@@ -91,6 +91,8 @@ type Season {
     watchStatus: String
     ratingUser: Float
     favorite: Boolean
+    numberOfEpisodes: Int
+    airDate: String
 }
 
 type Episode {

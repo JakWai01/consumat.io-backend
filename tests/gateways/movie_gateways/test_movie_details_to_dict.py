@@ -74,10 +74,12 @@ def test_movie_details_to_dict():
         "overview":
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity": 0.5,
-        "vote_average": 7.8,
+        "rating_average": 7.8,
         "release_date": "1999-10-12",
         "runtime": 139,
-        "status": "Released"
+        "status": "Released",
+        "poster_path": None,
+        "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
     }
 
     assert movie_details_to_dict(json) == dict
