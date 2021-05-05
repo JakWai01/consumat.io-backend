@@ -3,8 +3,8 @@ type Query {
     tv(code: Int, country: String): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    search(keyword: String): [Result!]
-    popular(type: String, country: String): [Result!]
+    search(keyword: String): [SearchResult]
+    popular(type: String, country: String): [Result]
 }
     
 type Result{
@@ -16,6 +16,8 @@ type Result{
     posterPath: String
     watchStatus: String
 }
+
+union SearchResult = Movie | TV 
 
 type Movie {
     code: Int
