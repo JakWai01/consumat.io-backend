@@ -1,4 +1,4 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path, UnionType
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
@@ -153,12 +153,8 @@ def resolve_search(*_, keyword: str) -> dict:
     return search.get_search_details(tmdb, keyword)
 
 
-search = ObjectType("Result")
+search = UnionType("SearchResult")
 
-search.set_alias("mediaType", "media_type")
-search.set_alias("releaseDate", "release_date")
-search.set_alias("posterPath", "poster_path")
-search.set_alias("watchStatus", "watch_status")
 
 @query.field("popular")
 def resolve_popular(*_, type: str, country: str) -> dict:
@@ -170,8 +166,9 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     """
     tmdb = tmdb_client()
     popular = PopularDetails()
-    
+
     return popular.get_popular_details(tmdb, type, country)
+
 
 director = ObjectType("Director")
 
@@ -181,6 +178,7 @@ cast = ObjectType("Cast")
 
 cast.set_alias("imagePath", "image_path")
 
+searchResult = UnionType("SearchResult")
 type_defs = load_schema_from_path("consumatio/external/api.schema")
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)
