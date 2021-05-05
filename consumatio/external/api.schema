@@ -16,7 +16,7 @@ type Movie {
     overview: String
     popularity: Float
     ratingAverage: Float
-    releaseDate: String
+    releaseInitial: String
     runtime: Int
     status: String
     backdropPath: String
@@ -57,13 +57,13 @@ type TV {
     overview: String
     popularity: Float
     ratingAverage: Float
-    firstAirDate: String
-    lastAirDate: String
+    releaseInitial: String
+    releaseFinal: String
     status: String
     backdropPath: String
     posterPath: String
     providers: [Provider]
-    creators: [Director]
+    directors: [Director]
     cast: [Cast]
     numberOfEpisodes: Int
     numberOfSeasons: Int
