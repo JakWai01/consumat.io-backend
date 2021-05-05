@@ -6,16 +6,6 @@ type Query {
     search(keyword: String): [SearchResult]
     popular(type: String, country: String): [SearchResult]
 }
-    
-type Result{
-    code: Int
-    mediaType: String
-    title: String
-    overview: String
-    releaseDate: String
-    posterPath: String
-    watchStatus: String
-}
 
 union SearchResult = Movie | TV 
 
