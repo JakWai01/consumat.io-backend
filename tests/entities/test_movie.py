@@ -11,12 +11,12 @@ def test_movie():
         overview=
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         popularity=0.5,
-        vote_average=5.7,
+        rating_average=5.7,
         release_date="1999-10-12",
         runtime=139,
         status="Released",
-        backdrop="/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        poster="/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
+        backdrop_path="/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+        poster_path="/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
         providers=[{
             "name": "Apple iTunes"
         }, {
@@ -47,9 +47,9 @@ def test_movie():
         directors=[{
             "name": "Christopher Nolan"
         }],
-        tmdb="https://www.themoviedb.org/movie/508442",
+        tmdb_url="https://www.themoviedb.org/movie/508442",
         watch_status="WATCHED",
-        rating=7.9,
+        rating_user=7.9,
         favorite=True)
 
     assert movie.code == 550
@@ -57,12 +57,12 @@ def test_movie():
     assert movie.genres == [{"name": "Drama"}]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
-    assert movie.vote_average == 5.7
+    assert movie.rating_average == 5.7
     assert movie.release_date == "1999-10-12"
     assert movie.runtime == 139
     assert movie.status == "Released"
-    assert movie.backdrop == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
-    assert movie.poster == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
+    assert movie.backdrop_path == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
+    assert movie.poster_path == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
     assert movie.providers == [{
         "name": "Apple iTunes"
     }, {
@@ -91,9 +91,9 @@ def test_movie():
         "job": "Acting"
     }]
     assert movie.directors == [{"name": "Christopher Nolan"}]
-    assert movie.tmdb == "https://www.themoviedb.org/movie/508442"
+    assert movie.tmdb_url == "https://www.themoviedb.org/movie/508442"
     assert movie.watch_status == "WATCHED"
-    assert movie.rating == 7.9
+    assert movie.rating_user == 7.9
     assert movie.favorite == True
 
 
@@ -110,7 +110,7 @@ def test_movie_from_dict():
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity":
         0.5,
-        "vote_average":
+        "rating_average":
         5.7,
         "release_date":
         "1999-10-12",
@@ -118,9 +118,9 @@ def test_movie_from_dict():
         139,
         "status":
         "Released",
-        "backdrop":
+        "backdrop_path":
         "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster":
+        "poster_path":
         "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
         "providers": [{
             "name": "Apple iTunes"
@@ -152,11 +152,11 @@ def test_movie_from_dict():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb":
+        "tmdb_url":
         "https://www.themoviedb.org/movie/508442",
         "watch_status":
         "WATCHED",
-        "rating":
+        "rating_user":
         7.9,
         "favorite":
         True
@@ -169,12 +169,12 @@ def test_movie_from_dict():
     assert movie.genres == [{"name": "Drama"}]
     assert movie.overview == "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
     assert movie.popularity == 0.5
-    assert movie.vote_average == 5.7
+    assert movie.rating_average == 5.7
     assert movie.release_date == "1999-10-12"
     assert movie.runtime == 139
     assert movie.status == "Released"
-    assert movie.backdrop == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
-    assert movie.poster == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
+    assert movie.backdrop_path == "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
+    assert movie.poster_path == "/fpemzjF623QVTe98pCVlwwtFC5N.jpg"
     assert movie.providers == [{
         "name": "Apple iTunes"
     }, {
@@ -203,9 +203,9 @@ def test_movie_from_dict():
         "job": "Acting"
     }]
     assert movie.directors == [{"name": "Christopher Nolan"}]
-    assert movie.tmdb == "https://www.themoviedb.org/movie/508442"
+    assert movie.tmdb_url == "https://www.themoviedb.org/movie/508442"
     assert movie.watch_status == "WATCHED"
-    assert movie.rating == 7.9
+    assert movie.rating_user == 7.9
     assert movie.favorite == True
 
 
@@ -222,7 +222,7 @@ def test_movie_to_dict():
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity":
         0.5,
-        "vote_average":
+        "rating_average":
         5.7,
         "release_date":
         "1999-10-12",
@@ -230,9 +230,9 @@ def test_movie_to_dict():
         139,
         "status":
         "Released",
-        "backdrop":
+        "backdrop_path":
         "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster":
+        "poster_path":
         "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
         "providers": [{
             "name": "Apple iTunes"
@@ -264,11 +264,11 @@ def test_movie_to_dict():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb":
+        "tmdb_url":
         "https://www.themoviedb.org/movie/508442",
         "watch_status":
         "WATCHED",
-        "rating":
+        "rating_user":
         7.9,
         "favorite":
         True
@@ -292,7 +292,7 @@ def test_movie_model_comparison():
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
         "popularity":
         0.5,
-        "vote_average":
+        "rating_average":
         5.7,
         "release_date":
         "1999-10-12",
@@ -300,9 +300,9 @@ def test_movie_model_comparison():
         139,
         "status":
         "Released",
-        "backdrop":
+        "backdrop_path":
         "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
-        "poster":
+        "poster_path":
         "/fpemzjF623QVTe98pCVlwwtFC5N.jpg",
         "providers": [{
             "name": "Apple iTunes"
@@ -334,11 +334,11 @@ def test_movie_model_comparison():
         "directors": [{
             "name": "Christopher Nolan"
         }],
-        "tmdb":
+        "tmdb_url":
         "https://www.themoviedb.org/movie/508442",
         "watch_status":
         "WATCHED",
-        "rating":
+        "rating_user":
         7.9,
         "favorite":
         True

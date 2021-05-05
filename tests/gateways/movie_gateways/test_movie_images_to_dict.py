@@ -26,8 +26,8 @@ def test_movie_images_to_dict():
     }
 
     dict = {
-        'backdrop': '/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg',
-        'poster': '/fpemzjF623QVTe98pCVlwwtFC5N.jpg'
+        'backdrop_path': '/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg',
+        'poster_path': '/fpemzjF623QVTe98pCVlwwtFC5N.jpg'
     }
 
     assert movie_images_to_dict(json) == dict

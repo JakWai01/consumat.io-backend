@@ -16,6 +16,6 @@ def test_season_images_to_dict():
         }]
     }
 
-    dict = {'poster': '/olJ6ivXxCMq3cfujo1IRw30OrsQ.jpg'}
+    dict = {'poster_path': '/olJ6ivXxCMq3cfujo1IRw30OrsQ.jpg'}
 
     assert season_images_to_dict(json) == dict
