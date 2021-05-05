@@ -4,7 +4,7 @@ type Query {
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String): [SearchResult]
-    popular(type: String, country: String): [Result]
+    popular(type: String, country: String): [SearchResult]
 }
     
 type Result{
