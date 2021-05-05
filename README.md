@@ -18,6 +18,7 @@ $ pip install -r requirements.txt
 $ export TMDB_KEY=<YOUR_TMDB_API_KEY>
 $ export BACKEND_SECRET="mysecret"
 $ export FLASK_APP=./consumatio/external/api.py
+$ export PORT=5000
 $ flask run
 ```
 
