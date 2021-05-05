@@ -5,6 +5,7 @@ from consumatio.usecases.tv_details import *
 from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from consumatio.usecases.search_details import *
+from consumatio.usecases.popular_details import *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
@@ -156,6 +157,19 @@ search.set_alias("mediaType", "media_type")
 search.set_alias("releaseDate", "release_date")
 search.set_alias("posterPath", "poster_path")
 search.set_alias("watchStatus", "watch_status")
+
+@query.field("popular")
+def resolve_popular(*_, type: str, country: str) -> dict:
+    """
+    API endpoint for "popular" queries.
+    :param type: <str> choose between "tv" or "movie" to get popular results
+    :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
+    :return: <dict> Details of the movie/tv
+    """
+    tmdb = tmdb_client()
+    popular = PopularDetails()
+    
+    return popular.get_popular_details(tmdb, type, country)
 
 director = ObjectType("Director")
 
