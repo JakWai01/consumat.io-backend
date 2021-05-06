@@ -23,7 +23,7 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
-        logger.info("Query was successfully saved database")
+        logger.info("Query successfully saved in database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
 
@@ -76,7 +76,7 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
-        logger.info("Query load from database")
+        logger.info("Query loaded from database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
         cur.execute('SELECT body from cache WHERE query=:query',
