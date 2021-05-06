@@ -14,6 +14,7 @@ class Database():
             '''CREATE TABLE IF NOT EXISTS cache(query text UNIQUE, body text, last_changed date)'''
         )
 
+        con.commit()
         con.close()
 
     def cache(self: object, query: str, body: str) -> None:
@@ -33,6 +34,7 @@ class Database():
                 "last_changed": datetime.date.today()
             })
 
+        con.commit()
         con.close()
 
     def is_cached(self: object, query: str) -> bool:
@@ -51,6 +53,8 @@ class Database():
         if len(result) != 0 and datetime.date.today() - datetime.timedelta(
                 days=10) < datetime.datetime.strptime(result[0][2],
                                                       '%Y-%m-%d').date():
+
+            con.commit()
             con.close()
             logger.info("Query exists in cache")
             return True
@@ -61,6 +65,7 @@ class Database():
                 cur.execute('''DELETE FROM cache WHERE query=:query''',
                             {"query": query})
 
+            con.commit()
             con.close()
             logger.info("Query doesnt exists in cache")
             return False
@@ -79,6 +84,7 @@ class Database():
 
         result = cur.fetchall()
 
+        con.commit()
         con.close()
 
         return result[0][0]
