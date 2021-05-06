@@ -23,7 +23,7 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
-        logger.info("Query successfully saved in database")
+        logger.info("Query saved in database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
 
