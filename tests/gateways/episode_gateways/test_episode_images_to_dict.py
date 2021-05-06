@@ -16,6 +16,6 @@ def test_episode_images_to_dict():
         }]
     }
 
-    dict = {'still': '/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg'}
+    dict = {'still_path': '/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg'}
 
     assert episode_images_to_dict(json) == dict

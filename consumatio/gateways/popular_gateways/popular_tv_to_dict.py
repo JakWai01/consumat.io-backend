@@ -1,3 +1,6 @@
+from consumatio.entities.tv import TV
+
+
 def popular_tv_to_dict(data: dict) -> dict:
     """
     Create dictionary for internal representation
@@ -15,12 +18,33 @@ def popular_tv_to_dict(data: dict) -> dict:
         for result in results:
             dict = {
                 "code": result.get("id"),
-                "media_type": "tv",
                 "title": result.get("name"),
+                "genres": None,
                 "overview": result.get("overview"),
-                "release_date": result.get("first_air_date"),
+                "popularity": result.get("popularity"),
+                "rating_average": result.get("vote_average"),
+                "first_air_date": result.get("first_air_date"),
+                "last_air_date": None,
+                "status": None,
+                "backdrop_path": result.get("backdrop_path"),
                 "poster_path": result.get("poster_path"),
-                "watch_status": None
+                "providers": None,
+                "creators": None,
+                "cast": None,
+                "number_of_episodes": None,
+                "number_of_seasons": None,
+                "tmdb_url":
+                f'https://www.themoviedb.org/tv/{result.get("id")}',
+                "watch_status": None,
+                "rating_user": None,
+                "favorite": None
             }
+
+            tv = TV.from_dict(dict)
+
+            dict = tv.to_dict()
+
+            dict["__typename"] = "TV"
+
             result_list.append(dict)
         return result_list

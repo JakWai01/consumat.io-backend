@@ -13,6 +13,8 @@ class Season(Entity):
     watch_status: str
     rating_user: float
     favorite: bool
+    number_of_episodes: int
+    air_date: str
 
     @classmethod
     def from_dict(cls: object, dict: dict) -> object:

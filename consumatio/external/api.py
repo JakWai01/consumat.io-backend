@@ -1,4 +1,4 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path, UnionType
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
@@ -56,7 +56,7 @@ def resolve_movie(*_, code: int, country: str) -> dict:
 movie = ObjectType("Movie")
 
 movie.set_alias("ratingAverage", "rating_average")
-movie.set_alias("releaseDate", "release_date")
+movie.set_alias("releaseInitial", "release_date")
 movie.set_alias("backdropPath", "backdrop_path")
 movie.set_alias("posterPath", "poster_path")
 movie.set_alias("tmdbUrl", "tmdb_url")
@@ -80,8 +80,8 @@ def resolve_tv(*_, code: int, country: str) -> dict:
 tv = ObjectType("TV")
 
 tv.set_alias("ratingAverage", "rating_average")
-tv.set_alias("firstAirDate", "first_air_date")
-tv.set_alias("lastAirDate", "last_air_date")
+tv.set_alias("releaseInitial", "first_air_date")
+tv.set_alias("releaseFinal", "last_air_date")
 tv.set_alias("backdropPath", "backdrop_path")
 tv.set_alias("posterPath", "poster_path")
 tv.set_alias("numberOfEpisodes", "number_of_episodes")
@@ -89,6 +89,7 @@ tv.set_alias("numberOfSeasons", "number_of_seasons")
 tv.set_alias("tmdbUrl", "tmdb_url")
 tv.set_alias("watchStatus", "watch_status")
 tv.set_alias("ratingUser", "rating_user")
+tv.set_alias("directors", "creators")
 
 
 @query.field("season")
@@ -111,6 +112,8 @@ season.set_alias("seasonNumber", "season_number")
 season.set_alias("posterPath", "poster_path")
 season.set_alias("watchStatus", "watch_status")
 season.set_alias("ratingUser", "rating_user")
+season.set_alias("numberOfEpisodes", "number_of_episodes")
+season.set_alias("airDate", "air_date")
 
 
 @query.field("episode")
@@ -151,12 +154,8 @@ def resolve_search(*_, keyword: str) -> dict:
     return search.get_search_details(tmdb, keyword)
 
 
-search = ObjectType("Result")
+search = UnionType("Media")
 
-search.set_alias("mediaType", "media_type")
-search.set_alias("releaseDate", "release_date")
-search.set_alias("posterPath", "poster_path")
-search.set_alias("watchStatus", "watch_status")
 
 @query.field("popular")
 def resolve_popular(*_, type: str, country: str) -> dict:
@@ -168,8 +167,9 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     """
     tmdb = tmdb_client()
     popular = PopularDetails()
-    
+
     return popular.get_popular_details(tmdb, type, country)
+
 
 director = ObjectType("Director")
 
@@ -179,6 +179,7 @@ cast = ObjectType("Cast")
 
 cast.set_alias("imagePath", "image_path")
 
+searchResult = UnionType("Media")
 type_defs = load_schema_from_path("consumatio/external/api.schema")
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)

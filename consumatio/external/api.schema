@@ -3,19 +3,11 @@ type Query {
     tv(code: Int, country: String): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    search(keyword: String): [Result!]
-    popular(type: String, country: String): [Result!]
+    search(keyword: String): [Media]
+    popular(type: String, country: String): [Media]
 }
-    
-type Result{
-    code: Int
-    mediaType: String
-    title: String
-    overview: String
-    releaseDate: String
-    posterPath: String
-    watchStatus: String
-}
+
+union Media = Movie | TV 
 
 type Movie {
     code: Int
@@ -24,7 +16,7 @@ type Movie {
     overview: String
     popularity: Float
     ratingAverage: Float
-    releaseDate: String
+    releaseInitial: String
     runtime: Int
     status: String
     backdropPath: String
@@ -65,13 +57,13 @@ type TV {
     overview: String
     popularity: Float
     ratingAverage: Float
-    firstAirDate: String
-    lastAirDate: String
+    releaseInitial: String
+    releaseFinal: String
     status: String
     backdropPath: String
     posterPath: String
     providers: [Provider]
-    creators: [Director]
+    directors: [Director]
     cast: [Cast]
     numberOfEpisodes: Int
     numberOfSeasons: Int
@@ -91,6 +83,8 @@ type Season {
     watchStatus: String
     ratingUser: Float
     favorite: Boolean
+    numberOfEpisodes: Int
+    airDate: String
 }
 
 type Episode {
