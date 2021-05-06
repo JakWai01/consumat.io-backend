@@ -70,7 +70,6 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
-        print("RE")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
         cur.execute('SELECT body from cache WHERE query=:query',
