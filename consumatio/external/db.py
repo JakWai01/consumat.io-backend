@@ -23,7 +23,7 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
-        logger.info("Query was successfully cached")
+        logger.info("Query was successfully database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
 
@@ -56,7 +56,7 @@ class Database():
 
             con.commit()
             con.close()
-            logger.info("Query exists in cache")
+            logger.info("Query exists in database")
             return True
         else:
             if len(result) != 0 and datetime.date.today() - datetime.timedelta(
@@ -67,7 +67,7 @@ class Database():
 
             con.commit()
             con.close()
-            logger.info("Query doesnt exists in cache")
+            logger.info("Query doesnt exists in database")
             return False
 
     def get_from_cache(self: object, query: str) -> str:
@@ -76,7 +76,7 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
-        logger.info("Query load from cache")
+        logger.info("Query load from database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
         cur.execute('SELECT body from cache WHERE query=:query',
