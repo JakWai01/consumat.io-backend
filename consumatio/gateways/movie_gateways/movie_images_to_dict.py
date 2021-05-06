@@ -28,6 +28,6 @@ def movie_images_to_dict(data: dict) -> dict:
     if len(backdrop_list) != 0:
         backdrop = str(backdrop_list[0].get("file_path"))
 
-    dict = {"backdrop": backdrop, "poster": poster}
+    dict = {"backdrop_path": backdrop, "poster_path": poster}
 
     return dict
