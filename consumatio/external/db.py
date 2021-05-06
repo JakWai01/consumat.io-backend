@@ -67,7 +67,7 @@ class Database():
 
             con.commit()
             con.close()
-            logger.info("Query doesnt exists in database")
+            logger.info("Query doesnt exist in database")
             return False
 
     def get_from_cache(self: object, query: str) -> str:
