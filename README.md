@@ -14,6 +14,8 @@ To build and start a development version locally, run the following:
 
 ```shell
 $ git clone https://github.com/alphahorizonio/consumat.io-backend.git
+$ docker volume create consumatio-postgres
+$ docker run --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres -e POSTGRES_PASSWORD=consumatio-postgres -e POSTGRES_DB=consumatio-postgres -p 5432:5432 -v consumatio-postgres:/var/lib/postgresql/data postgres
 $ pip install -r requirements.txt
 $ export TMDB_KEY=<YOUR_TMDB_API_KEY>
 $ export BACKEND_SECRET="mysecret"
