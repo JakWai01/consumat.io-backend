@@ -19,8 +19,8 @@ import json
 
 
 class Tmdb():
-    def __init__(self: object, tmdb_key: str):
-        self.db = Database()
+    def __init__(self: object, tmdb_key: str, db: object):
+        self.db = Database(db)
         self.api_key = tmdb_key
 
     def get_movie_details(self: object, movie_id: int) -> dict:

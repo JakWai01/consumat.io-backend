@@ -23,8 +23,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 CORS(app)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db.init_app(app)
 
 query = QueryType()
 
@@ -34,20 +33,15 @@ BACKEND_SECRET = os.getenv('BACKEND_SECRET')
 CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
 CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
 
+api_key = os.getenv(TMDB_KEY_KEY)
 
-def tmdb_client() -> object:
-    """
-    Create a tmdb client.
-    :param api_key: <str> API key for tmdb provided in an environment variable
-    :return: <object> Tmdb object
-    """
-    api_key = os.getenv(TMDB_KEY_KEY)
+if (api_key == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for TMDB_KEY environment variable")
 
-    if (api_key == None):
-        raise UndefinedEnvironmentVariable(
-            "Please specify a valid API key for TMDB_KEY environment variable")
+tmdb = Tmdb(api_key, db)
 
-    return Tmdb(api_key)
+migrate = Migrate(app, db)
 
 
 @query.field("movie")
@@ -58,7 +52,6 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the movie
     """
-    tmdb = tmdb_client()
     movie = MovieDetails()
     return movie.get_movie_details(tmdb, code, country)
 
@@ -82,7 +75,6 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the tv show
     """
-    tmdb = tmdb_client()
     tv = TVDetails()
     return tv.get_tv_details(tmdb, code, country)
 
@@ -136,7 +128,6 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     :param episodeNumber: <int> Number of the episode to get details for
     :return: <dict> Details of the episode
     """
-    tmdb = tmdb_client()
     episode = EpisodeDetails()
     return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
 
@@ -159,7 +150,6 @@ def resolve_search(*_, keyword: str) -> dict:
     :param keyword: <str> search string
     :return: <dict> Results of the search
     """
-    tmdb = tmdb_client()
     search = SearchDetails()
     return search.get_search_details(tmdb, keyword)
 
@@ -175,7 +165,6 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the movie/tv
     """
-    tmdb = tmdb_client()
     popular = PopularDetails()
 
     return popular.get_popular_details(tmdb, type, country)
@@ -222,9 +211,6 @@ def graphql_server() -> str:
 
         return "unauthorized", status_code
 
-    print("Request namespace: " +
-          request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY))
-
     success, result = graphql_sync(schema,
                                    data,
                                    context_value=request,
@@ -237,5 +223,5 @@ def graphql_server() -> str:
 port = int(os.environ['PORT'])
 
 if __name__ == "__main__":
-    manager.run()
+    migrate.init_app(app, db)
     app.run(debug=True, port=port, host="0.0.0.0")

@@ -1,11 +1,13 @@
 import sqlite3
 import datetime
+from consumatio.external.models import *
 
 
 class Database():
-    def __init__(self):
+    def __init__(self, db):
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
+        db = db
 
         cur.execute(
             '''CREATE TABLE IF NOT EXISTS cache(query text UNIQUE, body text, last_changed date)'''
@@ -20,18 +22,9 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-
-        cur.execute(
-            '''INSERT INTO CACHE VALUES (:query, :body, :last_changed)''', {
-                "query": query,
-                "body": body,
-                "last_changed": datetime.date.today()
-            })
-
-        con.commit()
-        con.close()
+        cache = Cache(query, body)
+        db.session.add(cache)
+        db.session.commit()
 
     def is_cached(self: object, query: str) -> bool:
         """
