@@ -10,11 +10,21 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions import UndefinedEnvironmentVariable
+from consumatio.external.models import *
 import os
 from flask import request
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+DATABASE_URI = os.getenv('DATABASE_URI')
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 CORS(app)
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 query = QueryType()
 
@@ -227,4 +237,5 @@ def graphql_server() -> str:
 port = int(os.environ['PORT'])
 
 if __name__ == "__main__":
+    manager.run()
     app.run(debug=True, port=port, host="0.0.0.0")
