@@ -1,5 +1,8 @@
 import sqlite3
 import datetime
+from consumatio.external.logger import get_logger_instance
+
+logger = get_logger_instance()
 
 
 class Database():
@@ -20,6 +23,7 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
+        logger.info("Query was saved in database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
 
@@ -52,6 +56,7 @@ class Database():
 
             con.commit()
             con.close()
+            logger.info("Query exists in database")
             return True
         else:
             if len(result) != 0 and datetime.date.today() - datetime.timedelta(
@@ -62,6 +67,7 @@ class Database():
 
             con.commit()
             con.close()
+            logger.info("Query doesnt exist in database")
             return False
 
     def get_from_cache(self: object, query: str) -> str:
@@ -70,6 +76,7 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
+        logger.info("Query was loaded from database")
         con = sqlite3.connect('db.sqlite3')
         cur = con.cursor()
         cur.execute('SELECT body from cache WHERE query=:query',
