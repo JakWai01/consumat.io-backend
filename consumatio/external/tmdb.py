@@ -32,7 +32,7 @@ class Tmdb():
         :param movie_id: <int> Id of the movie to fetch details for
         :return: <dict> Movie details
         """
-        logger.info("Fetch:'movie_details' from tmdb")
+        logger.info("Fetch 'movie_details' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={self.api_key}&language=en-US'
         data = self.get_data(query, self.db)
         return movie_details_to_dict(data)
@@ -44,7 +44,7 @@ class Tmdb():
         :param country: <str> Country abbreviations to fetch providers for (e.g. "DE" -> Germany)
         :return: <dict> Movie providers
         """
-        logger.info("Fetch:'movie_providers' from tmdb")
+        logger.info("Fetch 'movie_providers' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_providers_to_dict(data, country)
@@ -55,7 +55,7 @@ class Tmdb():
         :param movie_id: <int> Id of the movie to fetch providers images for
         :return: <dict> Movie images
         """
-        logger.info("Fetch:'movie_images' from tmdb")
+        logger.info("Fetch 'movie_images' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_images_to_dict(data)
@@ -66,7 +66,7 @@ class Tmdb():
         :param movie_id: <int> Id of the movie to fetch credits for
         :return: <dict> Movie credits
         """
-        logger.info("Fetch:'movie_credits' from tmdb")
+        logger.info("Fetch 'movie_credits' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_credits_to_dict(data)
@@ -77,7 +77,7 @@ class Tmdb():
         :param tv_id: <int> Id of the tv show to fetch details for
         :return: <dict> TV show details
         """
-        logger.info("Fetch:'tv_details' from tmdb")
+        logger.info("Fetch 'tv_details' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}?api_key={self.api_key}&language=en-US'
         data = self.get_data(query, self.db)
         return tv_details_to_dict(data)
@@ -89,7 +89,7 @@ class Tmdb():
         :param country: <str> Country abbreviation to fetch providers for (e.g. "DE" -> Germany)
         :return: <dict> TV show providers
         """
-        logger.info("Fetch:'tv_providers' from tmdb")
+        logger.info("Fetch'tv_providers' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/watch/providers?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_providers_to_dict(data, country)
@@ -100,7 +100,7 @@ class Tmdb():
         :param tv_id: <int> Id of the tv show to fetch images for
         :return: <dict> TV show images
         """
-        logger.info("Fetch:'tv_images' from tmdb")
+        logger.info("Fetch 'tv_images' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_images_to_dict(data)
@@ -111,7 +111,7 @@ class Tmdb():
         :param tv_id: <int> Id of the tv show to fetch credits for
         :return: <dict> TV show credits 
         """
-        logger.info("Fetch:'tv_credits' from tmdb")
+        logger.info("Fetch 'tv_credits' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_credits_to_dict(data)
@@ -124,7 +124,7 @@ class Tmdb():
         :param season_number: <int> Number of the season to get details for
         :return: <dict> Season details
         """
-        logger.info("Fetch:'season_details' from tmdb")
+        logger.info("Fetch 'season_details' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return season_details_to_dict(data, tv_id)
@@ -137,7 +137,7 @@ class Tmdb():
         :param season_number: <int> Number of the season to get images for
         :return: <dict> Season images
         """
-        logger.info("Fetch:'season_images' from tmdb")
+        logger.info("Fetch 'season_images' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return season_images_to_dict(data)
@@ -151,7 +151,7 @@ class Tmdb():
         :param episode_number: <int> Number of the searched episode in the corresponding season
         :return: <dict> Episode details
         """
-        logger.info("Fetch:'episode_details' from tmdb")
+        logger.info("Fetch 'episode_details' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/episode/{episode_number}?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return episode_details_to_dict(data)
@@ -165,7 +165,7 @@ class Tmdb():
         :param episode_number: <int> Number of the searched episode in the corresponding season
         :return: <dict> Episode images 
         """
-        logger.info("Fetch:'episode_images' from tmdb")
+        logger.info("Fetch 'episode_images' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/episode/{episode_number}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
@@ -176,7 +176,7 @@ class Tmdb():
         :param keyword: <str> Search string
         :return: <dict> Search results
         """
-        logger.info("Fetch:'search' from tmdb")
+        logger.info("Fetch 'search' from tmdb")
         query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
         return search_result_to_dict(data)
@@ -187,7 +187,7 @@ class Tmdb():
         :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results 
         :return: <dict> movie results
         """
-        logger.info("Fetch:'popular_movies' from tmdb")
+        logger.info("Fetch 'popular_movies' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
         return popular_movies_to_dict(data)
@@ -197,7 +197,7 @@ class Tmdb():
         Fetch tmdb popular tv shows endpoint
         :return: <dict> tv results
         """
-        logger.info("Fetch:'popular_tv' from tmdb")
+        logger.info("Fetch 'popular_tv' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page=1&include_adult=false'
         data = self.get_data(query, self.db)
         return popular_tv_to_dict(data)
