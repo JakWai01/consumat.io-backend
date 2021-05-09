@@ -3,7 +3,7 @@ import logging
 
 def get_logger_instance() -> object:
     """
-    Configures the logger for the backend an returns a instance
+    Configures the logger for the backend and returns a instance
     :return: <object> Logger instance
     """
     logging.basicConfig(level=logging.INFO & logging.DEBUG,
