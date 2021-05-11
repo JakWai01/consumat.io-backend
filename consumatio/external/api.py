@@ -245,3 +245,5 @@ port = int(os.environ['PORT'])
 if __name__ == "__main__":
     migrate.init_app(app, db)
     app.run(debug=True, port=port, host="0.0.0.0")
+
+api = app
