@@ -17,6 +17,9 @@ from flask import Flask
 from flask_migrate import Migrate
 
 DATABASE_URI = os.getenv('DATABASE_URI')
+from consumatio.external.logger import get_logger_instance
+
+logger = get_logger_instance()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
@@ -51,6 +54,8 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the movie
     """
+    logger.info("Movie was queried -> code:{}, country:'{}'".format(
+        code, country))
     movie = MovieDetails()
     return movie.get_movie_details(tmdb, code, country)
 
@@ -74,6 +79,8 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the tv show
     """
+    logger.info("TV was queried -> code:{}, country:'{}'".format(
+        code, country))
     tv = TVDetails()
     return tv.get_tv_details(tmdb, code, country)
 
@@ -101,6 +108,9 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     :param seasonNumber: <int> Number of the season to get details for
     :return: <dict> Details of the season 
     """
+    logger.info("Season was queried -> code:{}, season_number:{}".format(
+        code, seasonNumber))
+    
     tmdb = tmdb_client()
     season = SeasonDetails()
     return season.get_season_details(tmdb, code, seasonNumber)
@@ -127,6 +137,10 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     :param episodeNumber: <int> Number of the episode to get details for
     :return: <dict> Details of the episode
     """
+    logger.info(
+        "Episode was queried -> code:{}, season_number:{}, episode_number:{}".
+        format(code, seasonNumber, episodeNumber))
+    
     episode = EpisodeDetails()
     return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
 
@@ -149,6 +163,8 @@ def resolve_search(*_, keyword: str) -> dict:
     :param keyword: <str> search string
     :return: <dict> Results of the search
     """
+    logger.info("Search was queried -> keyword:'{}'".format(keyword))
+    
     search = SearchDetails()
     return search.get_search_details(tmdb, keyword)
 
@@ -164,6 +180,9 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the movie/tv
     """
+    logger.info("Popular was queried -> type:'{}', country:'{}'".format(
+        type, country))
+    
     popular = PopularDetails()
 
     return popular.get_popular_details(tmdb, type, country)
@@ -189,6 +208,7 @@ def graphql_playground() -> str:
     If get request was made on "/", route to playground.
     :return: <str>, <statuscode> Return playground html with status code 200
     """
+    # log.DEBUG("Routed to playground -> code:{}".format(200))
     return PLAYGROUND_HTML, 200
 
 
