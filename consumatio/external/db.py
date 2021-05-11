@@ -1,20 +1,10 @@
-import sqlite3
 import datetime
 from consumatio.external.models import *
 
 
 class Database():
     def __init__(self, db):
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-        db = db
-
-        cur.execute(
-            '''CREATE TABLE IF NOT EXISTS cache(query text UNIQUE, body text, last_changed date)'''
-        )
-
-        con.commit()
-        con.close()
+        self.db = db
 
     def cache(self: object, query: str, body: str) -> None:
         """
