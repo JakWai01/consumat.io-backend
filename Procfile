@@ -1,1 +1,1 @@
-web: python3 -m flask db upgrade && python3 -m flask run
+web: FLASK_APP=./consumatio/external/api.py flask db upgrade && gunicorn -b :$PORT --chdir ./consumatio/external api:api
