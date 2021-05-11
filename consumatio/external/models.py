@@ -1,14 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
 
 class Cache(db.Model):
-    query = db.Column(db.String(255), primary_key=True)
-    body = db.Column(db.String(255))
+    query = db.Column(db.Text(), primary_key=True)
+    body = db.Column(db.Text())
     last_changed = db.Column(db.DateTime())
 
     def __init__(self, query: str, body: str):
-        query = query
-        body = body
-        last_changed = datetime.date.today()
+        self.query = query
+        self.body = body
+        self.last_changed = datetime.date.today()

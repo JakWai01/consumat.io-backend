@@ -14,7 +14,6 @@ from consumatio.external.models import *
 import os
 from flask import request
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 DATABASE_URI = os.getenv('DATABASE_URI')
