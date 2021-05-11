@@ -110,7 +110,7 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     """
     logger.info("Season was queried -> code:{}, season_number:{}".format(
         code, seasonNumber))
-    
+
     tmdb = tmdb_client()
     season = SeasonDetails()
     return season.get_season_details(tmdb, code, seasonNumber)
@@ -140,7 +140,7 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     logger.info(
         "Episode was queried -> code:{}, season_number:{}, episode_number:{}".
         format(code, seasonNumber, episodeNumber))
-    
+
     episode = EpisodeDetails()
     return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
 
@@ -164,7 +164,7 @@ def resolve_search(*_, keyword: str) -> dict:
     :return: <dict> Results of the search
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
-    
+
     search = SearchDetails()
     return search.get_search_details(tmdb, keyword)
 
@@ -182,7 +182,7 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     """
     logger.info("Popular was queried -> type:'{}', country:'{}'".format(
         type, country))
-    
+
     popular = PopularDetails()
 
     return popular.get_popular_details(tmdb, type, country)
@@ -197,7 +197,8 @@ cast = ObjectType("Cast")
 cast.set_alias("imagePath", "image_path")
 
 searchResult = UnionType("Media")
-type_defs = load_schema_from_path("consumatio/external/api.schema")
+type_defs = load_schema_from_path(
+    os.path.join(os.path.dirname(__file__), "api.graphql"))
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)
 
