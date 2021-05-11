@@ -1,21 +1,13 @@
-import sqlite3
 import datetime
+from consumatio.external.models import *
 from consumatio.external.logger import get_logger_instance
 
 logger = get_logger_instance()
 
 
 class Database():
-    def __init__(self):
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-
-        cur.execute(
-            '''CREATE TABLE IF NOT EXISTS cache(query text UNIQUE, body text, last_changed date)'''
-        )
-
-        con.commit()
-        con.close()
+    def __init__(self, db):
+        self.db = db
 
     def cache(self: object, query: str, body: str) -> None:
         """
@@ -23,52 +15,32 @@ class Database():
         :param query: <str> Tmdb query string
         :param body: <str> Response of the query 
         """
+        cache = Cache(query, body)
+        db.session.add(cache)
+        db.session.commit()
+
         logger.info("Query was saved in database")
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-
-        cur.execute(
-            '''INSERT INTO CACHE VALUES (:query, :body, :last_changed)''', {
-                "query": query,
-                "body": body,
-                "last_changed": datetime.date.today()
-            })
-
-        con.commit()
-        con.close()
-
+        
     def is_cached(self: object, query: str) -> bool:
         """
         Checks if a query is cached in the database.
         :param query: <str> Tmdb query string
         :return: <bool> Returns true if the query is cached, else false 
         """
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
+        cached = Cache.query.filter_by(query_content=query).first()
 
-        cur.execute('SELECT * FROM cache WHERE query=:query', {"query": query})
-
-        result = cur.fetchall()
-
-        if len(result) != 0 and datetime.date.today() - datetime.timedelta(
-                days=10) < datetime.datetime.strptime(result[0][2],
-                                                      '%Y-%m-%d').date():
-
-            con.commit()
-            con.close()
+        if cached == None:
+            logger.info("Query doesnt exist in database")
+            
+            return False
+        elif (cached.last_changed - datetime.datetime.now()).days >= 10:
+            logger.info("Query is stale")
+            
+            db.session.delete(cached)
+            return False
+        else:
             logger.info("Query exists in database")
             return True
-        else:
-            if len(result) != 0 and datetime.date.today() - datetime.timedelta(
-                    days=10) > datetime.datetime.strptime(
-                        result[0][2], '%Y-%m-%d').date():
-                cur.execute('''DELETE FROM cache WHERE query=:query''',
-                            {"query": query})
-
-            con.commit()
-            con.close()
-            logger.info("Query doesnt exist in database")
-            return False
 
     def get_from_cache(self: object, query: str) -> str:
         """
@@ -77,14 +49,5 @@ class Database():
         :return: <str> body of query
         """
         logger.info("Query was loaded from database")
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-        cur.execute('SELECT body from cache WHERE query=:query',
-                    {"query": query})
-
-        result = cur.fetchall()
-
-        con.commit()
-        con.close()
-
-        return result[0][0]
+        
+        return Cache.query.filter_by(query_content=query).first().body_content
