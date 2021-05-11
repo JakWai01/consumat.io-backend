@@ -32,30 +32,16 @@ class Database():
         :param query: <str> Tmdb query string
         :return: <bool> Returns true if the query is cached, else false 
         """
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
+        cached = Cache.query.filter_by(query_content=query).first()
 
-        cur.execute('SELECT * FROM cache WHERE query=:query', {"query": query})
-
-        result = cur.fetchall()
-
-        if len(result) != 0 and datetime.date.today() - datetime.timedelta(
-                days=10) < datetime.datetime.strptime(result[0][2],
-                                                      '%Y-%m-%d').date():
-
-            con.commit()
-            con.close()
-            return True
-        else:
-            if len(result) != 0 and datetime.date.today() - datetime.timedelta(
-                    days=10) > datetime.datetime.strptime(
-                        result[0][2], '%Y-%m-%d').date():
-                cur.execute('''DELETE FROM cache WHERE query=:query''',
-                            {"query": query})
-
-            con.commit()
-            con.close()
+        if cached == None:
             return False
+        elif (cached.last_changed - datetime.datetime.now()).days >= 10:
+            db.session.delete(cached)
+
+            return False
+        else:
+            return True
 
     def get_from_cache(self: object, query: str) -> str:
         """
@@ -63,14 +49,4 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
-        con = sqlite3.connect('db.sqlite3')
-        cur = con.cursor()
-        cur.execute('SELECT body from cache WHERE query=:query',
-                    {"query": query})
-
-        result = cur.fetchall()
-
-        con.commit()
-        con.close()
-
-        return result[0][0]
+        return Cache.query.filter_by(query_content=query).first().body_content
