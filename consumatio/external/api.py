@@ -10,14 +10,22 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions import UndefinedEnvironmentVariable
+from consumatio.external.models import *
 import os
 from flask import request
+from flask import Flask
+from flask_migrate import Migrate
+
+DATABASE_URI = os.getenv('DATABASE_URI')
 from consumatio.external.logger import get_logger_instance
 
 logger = get_logger_instance()
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 CORS(app)
+
+db.init_app(app)
 
 query = QueryType()
 
@@ -27,20 +35,15 @@ BACKEND_SECRET = os.getenv('BACKEND_SECRET')
 CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
 CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
 
+api_key = os.getenv(TMDB_KEY_KEY)
 
-def tmdb_client() -> object:
-    """
-    Create a tmdb client.
-    :param api_key: <str> API key for tmdb provided in an environment variable
-    :return: <object> Tmdb object
-    """
-    api_key = os.getenv(TMDB_KEY_KEY)
+if (api_key == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for TMDB_KEY environment variable")
 
-    if (api_key == None):
-        raise UndefinedEnvironmentVariable(
-            "Please specify a valid API key for TMDB_KEY environment variable")
+tmdb = Tmdb(api_key, db)
 
-    return Tmdb(api_key)
+migrate = Migrate(app, db)
 
 
 @query.field("movie")
@@ -53,7 +56,6 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     """
     logger.info("Movie was queried -> code:{}, country:'{}'".format(
         code, country))
-    tmdb = tmdb_client()
     movie = MovieDetails()
     return movie.get_movie_details(tmdb, code, country)
 
@@ -79,7 +81,6 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     """
     logger.info("TV was queried -> code:{}, country:'{}'".format(
         code, country))
-    tmdb = tmdb_client()
     tv = TVDetails()
     return tv.get_tv_details(tmdb, code, country)
 
@@ -109,6 +110,7 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     """
     logger.info("Season was queried -> code:{}, season_number:{}".format(
         code, seasonNumber))
+
     tmdb = tmdb_client()
     season = SeasonDetails()
     return season.get_season_details(tmdb, code, seasonNumber)
@@ -138,7 +140,7 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     logger.info(
         "Episode was queried -> code:{}, season_number:{}, episode_number:{}".
         format(code, seasonNumber, episodeNumber))
-    tmdb = tmdb_client()
+
     episode = EpisodeDetails()
     return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
 
@@ -162,7 +164,7 @@ def resolve_search(*_, keyword: str) -> dict:
     :return: <dict> Results of the search
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
-    tmdb = tmdb_client()
+
     search = SearchDetails()
     return search.get_search_details(tmdb, keyword)
 
@@ -180,7 +182,7 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     """
     logger.info("Popular was queried -> type:'{}', country:'{}'".format(
         type, country))
-    tmdb = tmdb_client()
+
     popular = PopularDetails()
 
     return popular.get_popular_details(tmdb, type, country)
@@ -195,7 +197,8 @@ cast = ObjectType("Cast")
 cast.set_alias("imagePath", "image_path")
 
 searchResult = UnionType("Media")
-type_defs = load_schema_from_path("consumatio/external/api.schema")
+type_defs = load_schema_from_path(
+    os.path.join(os.path.dirname(__file__), "api.graphql"))
 schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
                                 search, director, cast)
 
@@ -228,9 +231,6 @@ def graphql_server() -> str:
 
         return "unauthorized", status_code
 
-    print("Request namespace: " +
-          request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY))
-
     success, result = graphql_sync(schema,
                                    data,
                                    context_value=request,
@@ -243,4 +243,7 @@ def graphql_server() -> str:
 port = int(os.environ['PORT'])
 
 if __name__ == "__main__":
+    migrate.init_app(app, db)
     app.run(debug=True, port=port, host="0.0.0.0")
+
+api = app
