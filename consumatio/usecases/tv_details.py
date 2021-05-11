@@ -12,7 +12,7 @@ class TVDetails:
         :return: <dict> TV details
         """
         dict_tv_details = tmdb.get_tv_details(code)
-        dict_tv_images = tmdb.get_tv_images(code)
+        # dict_tv_images = tmdb.get_tv_images(code)
         dict_tv_providers = tmdb.get_tv_providers(code, country)
         dict_tv_credits = tmdb.get_tv_credits(code)
 
