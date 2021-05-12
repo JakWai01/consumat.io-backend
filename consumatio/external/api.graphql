@@ -7,6 +7,19 @@ type Query {
     popular(type: String, country: String): [Media]
 }
 
+type Mutation {
+    rating(code: Int!, media: String!, rating: Float!) : RatingPayload!
+    watchStatus(code: Int!, media: String!, watchStatus: String!) : WatchStatusPayload!
+}
+
+type RatingPayload {
+    status: Boolean!
+}
+
+type WatchStatusPayload {
+    status: Boolean!
+}
+
 union Media = Movie | TV 
 
 type Movie {
