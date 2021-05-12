@@ -32,6 +32,7 @@ If you want to create and apply a migration, run the following:
 
 ```shell
 $ export DATABASE_URI=postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres
+$ flask db stamp head
 $ flask db migrate -m "Add mynewtable."
 $ flask db upgrade
 ```
