@@ -8,6 +8,19 @@ type Query {
     list(type: String, watchStatus: String): [List]
 }
 
+type Mutation {
+    rating(code: Int!, media: String!, rating: Float!) : RatingPayload!
+    watchStatus(code: Int!, media: String!, watchStatus: String!) : WatchStatusPayload!
+}
+
+type RatingPayload {
+    status: Boolean!
+}
+
+type WatchStatusPayload {
+    status: Boolean!
+}
+
 union Media = Movie | TV 
 union List = Movie | TV | Season | Episode
 

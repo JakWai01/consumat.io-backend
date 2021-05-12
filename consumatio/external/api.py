@@ -1,4 +1,5 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path, UnionType
+from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path, UnionType, MutationType
+from flask.signals import Namespace
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
@@ -7,10 +8,11 @@ from consumatio.usecases.episode_details import *
 from consumatio.usecases.search_details import *
 from consumatio.usecases.popular_details import *
 from consumatio.usecases.list import *
+from consumatio.external.db import Database
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
-from consumatio.external.exceptions import UndefinedEnvironmentVariable
+from consumatio.external.exceptions.undefined_environment_variable import UndefinedEnvironmentVariable
 from consumatio.external.models import *
 import os
 from flask import request
@@ -29,6 +31,7 @@ CORS(app)
 db.init_app(app)
 
 query = QueryType()
+mutation = MutationType()
 
 TMDB_KEY_KEY = 'TMDB_KEY'
 BACKEND_SECRET = os.getenv('BACKEND_SECRET')
@@ -214,9 +217,53 @@ cast = ObjectType("Cast")
 cast.set_alias("imagePath", "image_path")
 
 searchResult = UnionType("Media")
+
+database = Database(db)
+
+
+@mutation.field("rating")
+def resolve_rating(*_, code: int, media: str, rating: float) -> dict:
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    user_id = 0
+
+    if not database.user_exists(external_id):
+        database.user(external_id)
+    user_id = database.get_user_id(external_id)
+
+    if not database.media_data_exists(user_id, media, code):
+        database.media_Data(user_id, media, code)
+
+    database.rating(user_id, media, code, rating)
+    return {"status": True}
+
+
+rating = MutationType()
+rating.set_field("rating", resolve_rating)
+
+
+@mutation.field("watchStatus")
+def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    user_id = 0
+
+    if not database.user_exists(external_id):
+        database.user(external_id)
+    user_id = database.get_user_id(external_id)
+
+    if not database.media_data_exists(user_id, media, code):
+        database.media_Data(user_id, media, code)
+
+    database.watch_status(user_id, media, code, watchStatus)
+    return {"status": True}
+
+
+watchStatus = MutationType()
+watchStatus.set_field("watchStatus", resolve_watch_status)
+
 type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
-schema = make_executable_schema(type_defs, query, movie, tv, season, episode,
+schema = make_executable_schema(type_defs, query, mutation, rating,
+                                watchStatus, movie, tv, season, episode,
                                 search, director, cast)
 
 
