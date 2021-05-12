@@ -5,9 +5,11 @@ type Query {
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String): [Media]
     popular(type: String, country: String): [Media]
+    list(type: String, watchStatus: String): [List]
 }
 
 union Media = Movie | TV 
+union List = Movie | TV | Season | Episode
 
 type Movie {
     code: Int
