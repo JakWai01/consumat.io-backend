@@ -18,14 +18,16 @@ class MovieDetails:
         dict_movie_providers = tmdb.get_movie_providers(code, country)
         dict_movie_credits = tmdb.get_movie_credits(code)
 
-        #result = MediaData.query(
-        #    'media_data.watch_status_content'
-        #).from_statement(
-        #    text(
-        #        "SELECT media_data.watch_status_content FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        #    )).params(user_value=user, code_data=code).first()
+        result = MediaData.query.from_statement(
+            text(
+                "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+            )).params(user_value=user, code_data=code).first()
 
-        # print("#JH@#KH@#KJH@K#JH@#KJ@#H@K#H@KJH#", result)
+        rating = None
+        watch_status = None
+        if result != None:
+            rating = result.rating_content
+            watch_status = result.watch_status_content
 
         dict = {
             "code": dict_movie_details.get("code"),
@@ -44,8 +46,8 @@ class MovieDetails:
             "directors": dict_movie_credits.get("directors"),
             "tmdb_url":
             f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
-            "watch_status": None,
-            "rating_user": None,
+            "watch_status": watch_status,
+            "rating_user": rating,
             "favorite": None
         }
 

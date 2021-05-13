@@ -26,9 +26,8 @@ class List:
                 watch_list.append(dict)
             elif type == "TV":
                 tv_details = TVDetails()
-                dict = movie_details.get_movie_details(user, tmdb,
-                                                       result.media_id_content,
-                                                       "DE")
+                dict = tv_details.get_tv_details(user, tmdb,
+                                                 result.media_id_content, "DE")
                 dict["__typename"] = "TV"
                 watch_list.append(dict)
 
