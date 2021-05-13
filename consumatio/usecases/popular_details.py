@@ -1,5 +1,5 @@
 class PopularDetails:
-    def get_popular_details(self: object, tmdb: object, type: str,
+    def get_popular_details(self: object, user: str, tmdb: object, type: str,
                             country: str) -> dict:
         """
         Make all relevant API request for this usecase (popular items) and assemble them into a dictionary
@@ -10,10 +10,10 @@ class PopularDetails:
         """
         search_data = []
         results = []
-        if type == "movie":
-            search_data.extend(tmdb.get_popular_movies(country))
+        if type == "Movie":
+            search_data.extend(tmdb.get_popular_movies(country, user))
 
-        elif type == "tv":
-            search_data.extend(tmdb.get_popular_tv())
+        elif type == "TV":
+            search_data.extend(tmdb.get_popular_tv(user))
 
         return search_data
