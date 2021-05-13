@@ -174,7 +174,8 @@ def resolve_search(*_, keyword: str) -> dict:
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
 
     search = SearchDetails()
-    return search.get_search_details(tmdb, keyword)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return search.get_search_details(user, tmdb, keyword)
 
 
 search = UnionType("Media")

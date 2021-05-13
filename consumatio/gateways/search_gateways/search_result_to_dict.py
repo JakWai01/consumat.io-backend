@@ -1,8 +1,10 @@
 from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
+from consumatio.external.models import *
+from sqlalchemy import text
 
 
-def search_result_to_dict(data: dict) -> dict:
+def search_result_to_dict(data: dict, user: str) -> dict:
     """
     Create dictionary for internal representation
     :param data: <dict> API response
@@ -18,6 +20,19 @@ def search_result_to_dict(data: dict) -> dict:
 
         for result in results:
             if result.get("media_type") == "tv":
+
+                query = MediaData.query.from_statement(
+                    text(
+                        "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'TV' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+                    )).params(user_value=user,
+                              code_data=result.get("id")).first()
+
+                rating = None
+                watch_status = None
+                if query != None:
+                    rating = query.rating_content
+                    watch_status = query.watch_status_content
+
                 dict = {
                     "code": result.get("id"),
                     "title": result.get("name"),
@@ -37,8 +52,8 @@ def search_result_to_dict(data: dict) -> dict:
                     "number_of_seasons": None,
                     "tmdb_url":
                     f'https://www.themoviedb.org/tv/{result.get("id")}',
-                    "watch_status": None,
-                    "rating_user": None,
+                    "watch_status": watch_status,
+                    "rating_user": rating,
                     "favorite": None
                 }
 
@@ -48,6 +63,17 @@ def search_result_to_dict(data: dict) -> dict:
 
                 dict["__typename"] = "TV"
             elif result.get("media_type") == "movie":
+                query = MediaData.query.from_statement(
+                    text(
+                        "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+                    )).params(user_value=user,
+                              code_data=result.get("id")).first()
+
+                rating = None
+                watch_status = None
+                if query != None:
+                    rating = query.rating_content
+                    watch_status = query.watch_status_content
                 dict = {
                     "code": result.get("id"),
                     "title": result.get("title"),
@@ -65,8 +91,8 @@ def search_result_to_dict(data: dict) -> dict:
                     "directors": None,
                     "tmdb_url":
                     f'https://www.themoviedb.org/movie/{result.get("id")}',
-                    "watch_status": None,
-                    "rating_user": None,
+                    "watch_status": watch_status,
+                    "rating_user": rating,
                     "favorite": None
                 }
 

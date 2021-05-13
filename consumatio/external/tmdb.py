@@ -170,7 +170,7 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
 
-    def get_search(self: object, keyword: str) -> dict:
+    def get_search(self: object, user: str, keyword: str) -> dict:
         """
         Fetch tmdb search endpoint
         :param keyword: <str> Search string
@@ -179,7 +179,7 @@ class Tmdb():
         logger.info("Fetch 'search' from tmdb")
         query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
-        return search_result_to_dict(data)
+        return search_result_to_dict(data, user)
 
     def get_popular_movies(self: object, country: str) -> dict:
         """
