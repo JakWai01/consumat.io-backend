@@ -193,8 +193,8 @@ def resolve_popular(*_, type: str, country: str) -> dict:
         type, country))
 
     popular = PopularDetails()
-
-    return popular.get_popular_details(tmdb, type, country)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return popular.get_popular_details(user, tmdb, type, country)
 
 
 @query.field("list")

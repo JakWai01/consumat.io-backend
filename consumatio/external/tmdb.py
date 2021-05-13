@@ -181,7 +181,7 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return search_result_to_dict(data, user)
 
-    def get_popular_movies(self: object, country: str) -> dict:
+    def get_popular_movies(self: object, country: str, user: str) -> dict:
         """
         Fetch tmdb popular movies endpoint
         :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results 
@@ -190,9 +190,9 @@ class Tmdb():
         logger.info("Fetch 'popular_movies' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page=1&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_movies_to_dict(data)
+        return popular_movies_to_dict(data, user)
 
-    def get_popular_tv(self: object) -> dict:
+    def get_popular_tv(self: object, user: str) -> dict:
         """
         Fetch tmdb popular tv shows endpoint
         :return: <dict> tv results
@@ -200,7 +200,7 @@ class Tmdb():
         logger.info("Fetch 'popular_tv' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page=1&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_tv_to_dict(data)
+        return popular_tv_to_dict(data, user)
 
     def get_data(self: object, query: str, db: object) -> dict:
         """
