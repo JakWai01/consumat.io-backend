@@ -88,7 +88,7 @@ def resolve_tv(*_, code: int, country: str) -> dict:
         code, country))
     tv = TVDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return tv.get_tv_details(tmdb, user, code, country)
+    return tv.get_tv_details(user, tmdb, code, country)
 
 
 tv = ObjectType("TV")
@@ -119,7 +119,7 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
 
     season = SeasonDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return season.get_season_details(tmdb, user, code, seasonNumber)
+    return season.get_season_details(user, tmdb, code, seasonNumber)
 
 
 season = ObjectType("Season")
@@ -149,7 +149,7 @@ def resolve_episode(*_, code: int, seasonNumber: int,
 
     episode = EpisodeDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return episode.get_episode_details(tmdb, user, code, seasonNumber,
+    return episode.get_episode_details(user, tmdb, code, seasonNumber,
                                        episodeNumber)
 
 
