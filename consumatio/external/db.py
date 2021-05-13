@@ -80,7 +80,7 @@ class Database():
                           media_id: int) -> bool:
         self.check_media(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_id_content_media_data=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
         if media_data is None:
@@ -127,7 +127,7 @@ class Database():
                rating: float) -> None:
         self.check_media(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_id_content_media_data=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
         media_data.rating_content = rating
@@ -156,7 +156,7 @@ class Database():
         self.check_watch_status(watch_status)
         self.check_media(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_id_content_media_data=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
         media_data.watch_status_content = watch_status
@@ -167,7 +167,9 @@ class Database():
 # --------------------------------------------------------------------
 
     def check_watch_status(self: object, watch_status: str) -> None:
-        valid_watch_status = ["Plan to Watch", "Watching", "Dropped", "Finish"]
+        valid_watch_status = [
+            "Plan to Watch", "Watching", "Dropped", "Finished"
+        ]
         if watch_status not in valid_watch_status:
             raise InvalideParameter(
                 "The watchStatus: {} is invalid -> valide arguments:{} ".

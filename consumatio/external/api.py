@@ -7,6 +7,7 @@ from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from consumatio.usecases.search_details import *
 from consumatio.usecases.popular_details import *
+from consumatio.usecases.list import *
 from consumatio.external.db import Database
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -60,7 +61,8 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     logger.info("Movie was queried -> code:{}, country:'{}'".format(
         code, country))
     movie = MovieDetails()
-    return movie.get_movie_details(tmdb, code, country)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return movie.get_movie_details(user, tmdb, code, country)
 
 
 movie = ObjectType("Movie")
@@ -85,7 +87,8 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     logger.info("TV was queried -> code:{}, country:'{}'".format(
         code, country))
     tv = TVDetails()
-    return tv.get_tv_details(tmdb, code, country)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return tv.get_tv_details(user, tmdb, code, country)
 
 
 tv = ObjectType("TV")
@@ -114,9 +117,9 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     logger.info("Season was queried -> code:{}, season_number:{}".format(
         code, seasonNumber))
 
-    tmdb = tmdb_client()
     season = SeasonDetails()
-    return season.get_season_details(tmdb, code, seasonNumber)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return season.get_season_details(user, tmdb, code, seasonNumber)
 
 
 season = ObjectType("Season")
@@ -145,7 +148,9 @@ def resolve_episode(*_, code: int, seasonNumber: int,
         format(code, seasonNumber, episodeNumber))
 
     episode = EpisodeDetails()
-    return episode.get_episode_details(tmdb, code, seasonNumber, episodeNumber)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return episode.get_episode_details(user, tmdb, code, seasonNumber,
+                                       episodeNumber)
 
 
 episode = ObjectType("Episode")
@@ -163,13 +168,14 @@ episode.set_alias("ratingUser", "rating_user")
 def resolve_search(*_, keyword: str) -> dict:
     """
     API endpoint for "search" queries.
-    :param keyword: <str> search string
+    :param keyword: <str> Search string
     :return: <dict> Results of the search
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
 
     search = SearchDetails()
-    return search.get_search_details(tmdb, keyword)
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return search.get_search_details(user, tmdb, keyword)
 
 
 search = UnionType("Media")
@@ -179,7 +185,7 @@ search = UnionType("Media")
 def resolve_popular(*_, type: str, country: str) -> dict:
     """
     API endpoint for "popular" queries.
-    :param type: <str> choose between "tv" or "movie" to get popular results
+    :param type: <str> Choose between "tv" or "movie" to get popular results
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
     :return: <dict> Details of the movie/tv
     """
@@ -187,8 +193,25 @@ def resolve_popular(*_, type: str, country: str) -> dict:
         type, country))
 
     popular = PopularDetails()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return popular.get_popular_details(user, tmdb, type, country)
 
-    return popular.get_popular_details(tmdb, type, country)
+
+@query.field("list")
+def resolve_list(*_, type: str, watchStatus: str) -> dict:
+    """
+    API endpoint for "list" queries.
+    :param type: <str> Choose between "tv", "movie", "season" and "episode"
+    :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished"
+    :return: <dict> Movie, TV, Season or Episode
+    """
+    logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
+        type, watchStatus))
+
+    watch_list = List()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+
+    return watch_list.get_list(tmdb, database, user, type, watchStatus)
 
 
 director = ObjectType("Director")
