@@ -7,6 +7,8 @@ from consumatio.usecases.season_details import *
 from consumatio.usecases.episode_details import *
 from consumatio.usecases.search_details import *
 from consumatio.usecases.popular_details import *
+from consumatio.usecases.tv_season_details import *
+from consumatio.usecases.tv_episode_details import *
 from consumatio.usecases.list import *
 from consumatio.external.db import Database
 from flask import Flask, request, jsonify
@@ -195,6 +197,33 @@ def resolve_popular(*_, type: str, country: str) -> dict:
     popular = PopularDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     return popular.get_popular_details(user, tmdb, type, country)
+
+
+@query.field("tvSeasons")
+def resolve_tvSeasons(*_, code: int) -> list:
+    """
+    API endpoint for "tvSeasons" queries.
+    :param code: <int> Code of the TV show to get the seasons for
+    :return: list of dicts consisting of seasons
+    """
+    logger.info("TVSeasons was queried -> code:'{}'".format(code))
+    tv_season = TVSeasonDetails()
+    return tv_season.get_tv_season_details(tmdb, code)
+
+
+@query.field("tvEpisodes")
+def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
+    """
+    API endpoint for "tvEpisodes" queries.
+    :param code: <int> Code of the TV show to get the episodes for 
+    :param seasonNumber: <int> Number of the season to get the episodes for
+    :return: list of dicts consisting of episodes
+    """
+    logger.info(
+        "TVEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
+            code, seasonNumber))
+    tv_episodes = TVEpisodeDetails()
+    return tv_episodes.get_tv_episode_details(tmdb, code, seasonNumber)
 
 
 @query.field("list")
