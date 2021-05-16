@@ -5,6 +5,22 @@ type Query {
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String): [Media]
     popular(type: String, country: String): [Media]
+    list(type: String, watchStatus: String): [Media]
+    tvSeasons(code: Int): [Season]
+    tvEpisodes(code: Int, seasonNumber: Int): [Episode]
+}
+
+type Mutation {
+    rating(code: Int!, media: String!, rating: Float!) : RatingPayload!
+    watchStatus(code: Int!, media: String!, watchStatus: String!) : WatchStatusPayload!
+}
+
+type RatingPayload {
+    status: Boolean!
+}
+
+type WatchStatusPayload {
+    status: Boolean!
 }
 
 union Media = Movie | TV 
