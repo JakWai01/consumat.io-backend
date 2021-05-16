@@ -5,7 +5,7 @@ type Query {
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String): [Media]
     popular(type: String, country: String): [Media]
-    list(type: String, watchStatus: String): [List]
+    list(type: String, watchStatus: String): [Media]
     tvSeasons(code: Int): [Season]
     tvEpisodes(code: Int, seasonNumber: Int): [Episode]
 }
@@ -24,7 +24,6 @@ type WatchStatusPayload {
 }
 
 union Media = Movie | TV 
-union List = Movie | TV
 
 type Movie {
     code: Int
