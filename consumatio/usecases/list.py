@@ -13,7 +13,7 @@ class List:
         #     text("SELECT * FROM media_data")).all()
         results = MediaData.query.from_statement(
             text(
-                "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = 'Finish' AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = 'jakwai01@gmail.com';"
+                "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
             )).params(watch_status=watchStatus, type=type, user=user).all()
 
         for result in results:
