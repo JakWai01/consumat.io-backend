@@ -1,9 +1,11 @@
 from consumatio.external.models import *
 from sqlalchemy import text
+from consumatio.external.exceptions.invalide_parameter import *
 
 
 class WatchTime:
-    def get_watch_time(self, tmdb, user, type):
+    def get_watch_time(self: object, tmdb: object, user: str,
+                       type: str) -> int:
         runtime = 0
         if type == "Movie":
             results = MediaData.query.from_statement(
@@ -26,5 +28,9 @@ class WatchTime:
                 data = tmdb.get_tv_details(result.media_id_content)
 
                 runtime += data.get("runtime")
+        else:
+            raise InvalideParameter(
+                "The watchStatus: {} is invalid -> valide arguments:{} ".
+                format(type, ["Movie", "TV"]))
 
         return runtime
