@@ -239,7 +239,7 @@ def resolve_watchCount(*_, type: str) -> int:
     watch_count = WatchCount()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
 
-    return watch_count.get_watch_count(database, user, type)
+    return watch_count.get_watch_count(database, tmdb, user, type)
 
 
 @query.field("list")
