@@ -9,6 +9,7 @@ type Query {
     tvSeasons(code: Int): [Season]
     tvEpisodes(code: Int, seasonNumber: Int): [Episode]
     watchCount(type: String): Int
+    watchTime(type: String): Int
 }
 
 type Mutation {
