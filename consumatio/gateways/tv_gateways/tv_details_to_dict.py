@@ -20,7 +20,7 @@ def tv_details_to_dict(data: dict) -> dict:
 
     dict = {
         "code": data["id"],
-        "title": data["original_name"],
+        "title": data["name"],
         "genres": genre_list,
         "overview": data["overview"],
         "popularity": data["popularity"],
@@ -32,7 +32,8 @@ def tv_details_to_dict(data: dict) -> dict:
         "number_of_episodes": data["number_of_episodes"],
         "number_of_seasons": data["number_of_seasons"],
         "backdrop_path": data["backdrop_path"],
-        "poster_path": data["poster_path"]
+        "poster_path": data["poster_path"],
+        "runtime": data["episode_run_time"][0]
     }
 
     return dict

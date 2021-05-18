@@ -24,6 +24,7 @@ class TV(Entity):
     watch_status: str
     rating_user: float
     favorite: bool
+    runtime: int
 
     @classmethod
     def from_dict(cls: object, dict: dict) -> object:
