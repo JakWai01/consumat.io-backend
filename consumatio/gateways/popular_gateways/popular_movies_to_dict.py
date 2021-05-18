@@ -16,6 +16,9 @@ def popular_movies_to_dict(data: dict, user: str) -> dict:
     else:
         results = data["results"]
         result_list = []
+        dict = {"total_pages": data["total_pages"]}
+        dict["__typename"] = "TotalPages"
+        result_list.append(dict)
 
         for result in results:
             query = MediaData.query.from_statement(
