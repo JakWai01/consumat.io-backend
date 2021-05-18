@@ -167,7 +167,9 @@ class Database():
 # --------------------------------------------------------------------
 
     def check_watch_status(self: object, watch_status: str) -> None:
-        valid_watch_status = ["Planning", "Watching", "Dropped", "Finished"]
+        valid_watch_status = [
+            "Planning", "Watching", "Dropped", "Finished", "None"
+        ]
         if watch_status not in valid_watch_status:
             raise InvalidParameter(
                 "The watchStatus: {} is invalid -> valide arguments:{} ".
