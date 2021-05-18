@@ -1,7 +1,7 @@
 import datetime
 from consumatio.external.models import *
 from consumatio.external.logger import get_logger_instance
-from consumatio.external.exceptions.invalide_parameter import InvalideParameter
+from consumatio.external.exceptions.invalid_parameter import InvalidParameter
 
 logger = get_logger_instance()
 
@@ -169,13 +169,13 @@ class Database():
     def check_watch_status(self: object, watch_status: str) -> None:
         valid_watch_status = ["Planning", "Watching", "Dropped", "Finished"]
         if watch_status not in valid_watch_status:
-            raise InvalideParameter(
+            raise InvalidParameter(
                 "The watchStatus: {} is invalid -> valide arguments:{} ".
                 format(watch_status, valid_watch_status))
 
     def check_media(self: object, media: str) -> None:
         valid_media = ["TV", "Movie", "Episode", "Season"]
         if media not in valid_media:
-            raise InvalideParameter(
+            raise InvalidParameter(
                 "The media: {} is invalid -> valide arguments:{} ".format(
                     media, valid_media))
