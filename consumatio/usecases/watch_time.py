@@ -1,6 +1,6 @@
 from consumatio.external.models import *
 from sqlalchemy import text
-from consumatio.external.exceptions.invalide_parameter import *
+from consumatio.external.exceptions.invalid_parameter import *
 
 
 class WatchTime:
@@ -29,7 +29,7 @@ class WatchTime:
 
                 runtime += data.get("runtime")
         else:
-            raise InvalideParameter(
+            raise InvalidParameter(
                 "The watchStatus: {} is invalid -> valide arguments:{} ".
                 format(type, ["Movie", "TV"]))
 
