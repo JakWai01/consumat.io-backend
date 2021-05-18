@@ -50,7 +50,8 @@ class TVDetails:
             f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
             "watch_status": watch_status,
             "rating_user": rating,
-            "favorite": None
+            "favorite": None,
+            "runtime": dict_tv_details.get("runtime")
         }
 
         tv = TV.from_dict(dict)

@@ -34,7 +34,8 @@ def test_tv():
         tmdb_url="https://www.themoviedb.org/movie/508442",
         watch_status="WATCHED",
         rating_user=7.7,
-        favorite=False)
+        favorite=False,
+        runtime=60)
 
     assert tv.code == 1399
     assert tv.title == "Game of Thrones"
@@ -61,6 +62,7 @@ def test_tv():
     assert tv.watch_status == "WATCHED"
     assert tv.rating_user == 7.7
     assert tv.favorite == False
+    assert tv.runtime == 60
 
 
 def test_tv_from_dict():
@@ -111,7 +113,9 @@ def test_tv_from_dict():
         "rating_user":
         7.7,
         "favorite":
-        False
+        False,
+        "runtime":
+        60
     }
 
     tv = TV.from_dict(dict)
@@ -141,6 +145,7 @@ def test_tv_from_dict():
     assert tv.watch_status == "WATCHED"
     assert tv.rating_user == 7.7
     assert tv.favorite == False
+    assert tv.runtime == 60
 
 
 def test_tv_to_dict():
@@ -191,7 +196,9 @@ def test_tv_to_dict():
         "rating_user":
         7.7,
         "favorite":
-        False
+        False,
+        "runtime":
+        60
     }
 
     tv = TV.from_dict(dict)
@@ -247,7 +254,9 @@ def test_tv_model_comparison():
         "rating_user":
         7.7,
         "favorite":
-        False
+        False,
+        "runtime":
+        60
     }
 
     tv1 = TV.from_dict(dict)

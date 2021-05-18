@@ -18,7 +18,8 @@ def test_tv_search_results_to_dict():
             "popularity": 264.148,
             "poster_path": "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
             "vote_average": 8.7,
-            "vote_count": 6923
+            "vote_count": 6923,
+            "episode_run_time": [60]
         }]
     }
 
@@ -44,10 +45,11 @@ def test_tv_search_results_to_dict():
         "tmdb_url": f'https://www.themoviedb.org/tv/1396',
         "watch_status": None,
         "rating_user": None,
-        "favorite": None
+        "favorite": None,
+        "runtime": None
     }]
 
-    assert search_result_to_dict(tv_json) == tv_dict
+    assert search_result_to_dict(tv_json, "example@example.com") == tv_dict
 
 
 def test_movie_search_results_to_dict():
@@ -95,7 +97,8 @@ def test_movie_search_results_to_dict():
         "favorite": None
     }]
 
-    assert search_result_to_dict(movie_json) == movie_dict
+    assert search_result_to_dict(movie_json,
+                                 "example@example.com") == movie_dict
 
 
 def test_person_search_results_to_dict():
@@ -170,7 +173,8 @@ def test_person_search_results_to_dict():
 
     empty_dict = []
 
-    assert search_result_to_dict(person_json) == empty_dict
+    assert search_result_to_dict(person_json,
+                                 "example@example.com") == empty_dict
 
 
 def test_empty_search_results_to_dict():
@@ -185,5 +189,7 @@ def test_empty_search_results_to_dict():
 
     empty_dict = []
 
-    assert search_result_to_dict(empty_json) == empty_dict
-    assert search_result_to_dict(without_result_json) == empty_dict
+    assert search_result_to_dict(empty_json,
+                                 "example@example.com") == empty_dict
+    assert search_result_to_dict(without_result_json,
+                                 "example@example.com") == empty_dict
