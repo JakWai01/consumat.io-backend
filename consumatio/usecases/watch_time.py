@@ -17,6 +17,14 @@ class WatchTime:
                 runtime += data.get("runtime")
 
         if type == "TV":
-            pass
+            results = MediaData.query.from_statement(
+                text(
+                    "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Episode' AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
+                )).params(user=user, type=type).all()
+
+            for result in results:
+                data = tmdb.get_tv_details(result.media_id_content)
+
+                runtime += data.get("runtime")
 
         return runtime
