@@ -20,7 +20,7 @@ def tv_details_to_dict(data: dict) -> dict:
 
     dict = {
         "code": data["id"],
-        "title": data["original_name"],
+        "title": data["name"],
         "genres": genre_list,
         "overview": data["overview"],
         "popularity": data["popularity"],
