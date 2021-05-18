@@ -167,28 +167,27 @@ episode.set_alias("ratingUser", "rating_user")
 
 
 @query.field("search")
-def resolve_search(*_, keyword: str) -> dict:
+def resolve_search(*_, keyword: str, page: int) -> dict:
     """
     API endpoint for "search" queries.
     :param keyword: <str> Search string
+    :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> Results of the search
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
 
     search = SearchDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return search.get_search_details(user, tmdb, keyword)
-
-
-search = UnionType("Media")
+    return search.get_search_details(user, tmdb, keyword, page)
 
 
 @query.field("popular")
-def resolve_popular(*_, type: str, country: str) -> dict:
+def resolve_popular(*_, type: str, country: str, page: int) -> dict:
     """
     API endpoint for "popular" queries.
     :param type: <str> Choose between "tv" or "movie" to get popular results
     :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
+    :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> Details of the movie/tv
     """
     logger.info("Popular was queried -> type:'{}', country:'{}'".format(
@@ -196,7 +195,12 @@ def resolve_popular(*_, type: str, country: str) -> dict:
 
     popular = PopularDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return popular.get_popular_details(user, tmdb, type, country)
+    return popular.get_popular_details(user, tmdb, type, country, page)
+
+
+media_page = UnionType("MediaPage")
+total_pages = ObjectType("TotalPages")
+total_pages.set_alias("totalPages", "total_pages")
 
 
 @query.field("tvSeasons")
@@ -299,7 +303,7 @@ type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
 schema = make_executable_schema(type_defs, query, mutation, rating,
                                 watchStatus, movie, tv, season, episode,
-                                search, director, cast)
+                                total_pages, director, cast)
 
 
 @app.route("/", methods=["GET"])
