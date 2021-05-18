@@ -89,6 +89,7 @@ type TV {
     watchStatus: String
     ratingUser: Float
     favorite: Boolean
+    runtime: Int
 }
 
 type Season {
