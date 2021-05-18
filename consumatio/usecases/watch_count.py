@@ -3,7 +3,8 @@ from sqlalchemy import text
 
 
 class WatchCount:
-    def get_watch_count(self, tmdb, user, type):
+    def get_watch_count(self: object, tmdb: object, user: str,
+                        type: str) -> int:
         count = 0
         if type in "MovieEpisodeTVSeason":
             results = MediaData.query.from_statement(
