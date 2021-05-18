@@ -213,16 +213,16 @@ def resolve_tvSeasons(*_, code: int) -> list:
     return tv_season.get_tv_season_details(tmdb, code)
 
 
-@query.field("tvEpisodes")
+@query.field("seasonEpisodes")
 def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
     """
-    API endpoint for "tvEpisodes" queries.
+    API endpoint for "seasonEpisodes" queries.
     :param code: <int> Code of the TV show to get the episodes for 
     :param seasonNumber: <int> Number of the season to get the episodes for
     :return: list of dicts consisting of episodes
     """
     logger.info(
-        "TVEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
+        "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
             code, seasonNumber))
     tv_episodes = TVEpisodeDetails()
     return tv_episodes.get_tv_episode_details(tmdb, code, seasonNumber)
