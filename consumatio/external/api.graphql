@@ -8,6 +8,7 @@ type Query {
     list(type: String, watchStatus: String): [Media]
     tvSeasons(code: Int): [Season]
     tvEpisodes(code: Int, seasonNumber: Int): [Episode]
+    watchCount(type: String): Int
 }
 
 type Mutation {

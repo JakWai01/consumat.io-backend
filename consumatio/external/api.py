@@ -9,6 +9,7 @@ from consumatio.usecases.search_details import *
 from consumatio.usecases.popular_details import *
 from consumatio.usecases.tv_season_details import *
 from consumatio.usecases.tv_episode_details import *
+from consumatio.usecases.watch_count import *
 from consumatio.usecases.list import *
 from consumatio.external.db import Database
 from flask import Flask, request, jsonify
@@ -224,6 +225,21 @@ def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
             code, seasonNumber))
     tv_episodes = TVEpisodeDetails()
     return tv_episodes.get_tv_episode_details(tmdb, code, seasonNumber)
+
+
+@query.field("watchCount")
+def resolve_watchCount(*_, type: str) -> int:
+    """
+    API endpoint for "watchCount" queries.
+    :param type: <str> Type to return count for (Movie, TV, genre, Episode)
+    :return: <int> Count of watched media of provided types
+    """
+    logger.info("watchCount was queires -> type:'{}'".format(type))
+
+    watch_count = WatchCount()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+
+    return watch_count.get_watch_count(database, user, type)
 
 
 @query.field("list")
