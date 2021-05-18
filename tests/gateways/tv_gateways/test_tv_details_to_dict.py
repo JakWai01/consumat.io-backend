@@ -219,7 +219,9 @@ def test_tv_details_to_dict():
         "backdrop_path":
         "/suopoADq0k8YZr4dQXcU6pToj6s.jpg",
         "poster_path":
-        "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg"
+        "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+        "runtime":
+        60
     }
 
     assert tv_details_to_dict(json) == dict
