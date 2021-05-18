@@ -1,8 +1,8 @@
-"""empty message
+"""Add initial data model
 
-Revision ID: 8c7e817d7c42
-Revises: a1889ba1a909
-Create Date: 2021-05-18 12:14:21.442997
+Revision ID: 97727d93cb1a
+Revises: 
+Create Date: 2021-05-18 20:55:20.349758
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8c7e817d7c42'
-down_revision = 'a1889ba1a909'
+revision = '97727d93cb1a'
+down_revision = None
 branch_labels = None
 depends_on = None
 
