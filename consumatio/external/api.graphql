@@ -7,7 +7,9 @@ type Query {
     popular(type: String, country: String): [Media]
     list(type: String, watchStatus: String): [Media]
     tvSeasons(code: Int): [Season]
-    tvEpisodes(code: Int, seasonNumber: Int): [Episode]
+    seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
+    watchCount(type: String): Int
+    watchTime(type: String): Int
 }
 
 type Mutation {
@@ -87,6 +89,7 @@ type TV {
     watchStatus: String
     ratingUser: Float
     favorite: Boolean
+    runtime: Int
 }
 
 type Season {

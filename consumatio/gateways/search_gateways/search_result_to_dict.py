@@ -54,7 +54,8 @@ def search_result_to_dict(data: dict, user: str) -> dict:
                     f'https://www.themoviedb.org/tv/{result.get("id")}',
                     "watch_status": watch_status,
                     "rating_user": rating,
-                    "favorite": None
+                    "favorite": None,
+                    "runtime": None
                 }
 
                 tv = TV.from_dict(dict)

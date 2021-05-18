@@ -12,7 +12,7 @@ def movie_details_to_dict(data: dict) -> dict:
 
     dict = {
         "code": data["id"],
-        "title": data["original_title"],
+        "title": data["title"],
         "genres": genre_list,
         "overview": data["overview"],
         "popularity": data["popularity"],
