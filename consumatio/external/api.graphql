@@ -3,8 +3,8 @@ type Query {
     tv(code: Int, country: String): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
-    search(keyword: String): [Media]
-    popular(type: String, country: String): [Media]
+    search(keyword: String, page: Int): [MediaPage]
+    popular(type: String, country: String, page: Int): [MediaPage]
     list(type: String, watchStatus: String): [Media]
     tvSeasons(code: Int): [Season]
     tvEpisodes(code: Int, seasonNumber: Int): [Episode]
@@ -23,7 +23,13 @@ type WatchStatusPayload {
     status: Boolean!
 }
 
+union MediaPage = Movie | TV | TotalPages
+
 union Media = Movie | TV 
+
+type TotalPages {
+    totalPages: Int
+}
 
 type Movie {
     code: Int
