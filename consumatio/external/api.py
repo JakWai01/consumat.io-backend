@@ -9,7 +9,9 @@ from consumatio.usecases.search_details import *
 from consumatio.usecases.popular_details import *
 from consumatio.usecases.tv_season_details import *
 from consumatio.usecases.tv_episode_details import *
+from consumatio.usecases.watch_count import *
 from consumatio.usecases.list import *
+from consumatio.usecases.watch_time import *
 from consumatio.external.db import Database
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -215,19 +217,49 @@ def resolve_tvSeasons(*_, code: int) -> list:
     return tv_season.get_tv_season_details(tmdb, code)
 
 
-@query.field("tvEpisodes")
+@query.field("seasonEpisodes")
 def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
     """
-    API endpoint for "tvEpisodes" queries.
+    API endpoint for "seasonEpisodes" queries.
     :param code: <int> Code of the TV show to get the episodes for 
     :param seasonNumber: <int> Number of the season to get the episodes for
     :return: list of dicts consisting of episodes
     """
     logger.info(
-        "TVEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
+        "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
             code, seasonNumber))
     tv_episodes = TVEpisodeDetails()
     return tv_episodes.get_tv_episode_details(tmdb, code, seasonNumber)
+
+
+@query.field("watchCount")
+def resolve_watchCount(*_, type: str) -> int:
+    """
+    API endpoint for "watchCount" queries.
+    :param type: <str> Type to return count for (Movie, TV, genre, Episode)
+    :return: <int> Count of watched media of provided type
+    """
+    logger.info("watchCount was queired -> type:'{}'".format(type))
+
+    watch_count = WatchCount()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+
+    return watch_count.get_watch_count(tmdb, user, type)
+
+
+@query.field("watchTime")
+def resolve_watchTime(*_, type: str) -> int:
+    """
+    API endpoint for "watchTime" queries.
+    :param type: <str> Type to return count for (Movie, TV)
+    :return: <int> Runtime of watched media of provided type
+    """
+    logger.info("watchTime was queired -> type:'{}'".format((type)))
+
+    watch_time = WatchTime()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+
+    return watch_time.get_watch_time(tmdb, user, type)
 
 
 @query.field("list")
