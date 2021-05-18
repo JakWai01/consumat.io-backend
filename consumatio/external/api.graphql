@@ -14,7 +14,7 @@ type Query {
 
 type Mutation {
     rating(code: Int!, media: String!, rating: Float!) : RatingPayload!
-    watchStatus(code: Int!, media: String!, watchStatus: String!) : WatchStatusPayload!
+    watchStatus(code: Int!, media: String!, watchStatus: String) : WatchStatusPayload!
 }
 
 type RatingPayload {
