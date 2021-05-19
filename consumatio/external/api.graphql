@@ -13,20 +13,12 @@ type Query {
 }
 
 type Mutation {
-    rating(code: Int!, media: String!, rating: Float!, seasonNumber: Int) : RatingPayload!
-    watchStatus(code: Int!, media: String!, watchStatus: String) : WatchStatusPayload!
-    numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): NumberOfWatchedEpisodesPayload!
+    rating(code: Int!, media: String!, rating: Float!, seasonNumber: Int) : Payload!
+    watchStatus(code: Int!, media: String!, watchStatus: String) : Payload!
+    numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
 }
 
-type RatingPayload {
-    status: Boolean!
-}
-
-type WatchStatusPayload {
-    status: Boolean!
-}
-
-type NumberOfWatchedEpisodesPayload {
+type Payload {
     status: Boolean!
 }
 
