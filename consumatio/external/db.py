@@ -93,7 +93,7 @@ class Database():
     def media_Data(self: object, user_id: int, media: str,
                    media_id: int) -> None:
         self.check_media_rating(media)
-        media_data = MediaData(None, None, media_id, media, user_id)
+        media_data = MediaData(None, None, media_id, media, user_id, None)
         self.db.session.add(media_data)
         self.db.session.commit()
 
@@ -134,6 +134,19 @@ class Database():
         self.db.session.commit()
         logger.info("rating succesful entered in database")
 
+    def number_of_watched_episodes(self: object, user_id: int, media_id: int,
+                                   number_of_watched_episodes: int) -> None:
+        media_data = MediaData.query.filter_by(
+            user_id_content_media_data=user_id,
+            media_type_content="Season",
+            media_id_content=media_id).first()
+        media_data.number_of_watched_episodes = number_of_watched_episodes
+        if number_of_watched_episodes is None:
+            logger.info("number_of_watched_episodes doesnt exist in database")
+            return False
+        else:
+            logger.info("number_of_watched_episodes exists in database")
+            return True
 # --------------------------------------------------------------------
 
     def watch_status_exists(self: object, user_id: int, media: str,
