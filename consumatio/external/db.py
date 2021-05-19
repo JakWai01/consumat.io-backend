@@ -78,7 +78,7 @@ class Database():
 
     def media_data_exists(self: object, user_id: int, media: str,
                           media_id: int) -> bool:
-        self.check_media(media)
+        self.check_media_rating(media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -92,14 +92,14 @@ class Database():
 
     def media_Data(self: object, user_id: int, media: str,
                    media_id: int) -> None:
-        self.check_media(media)
-        media_data = MediaData(None, None, media_id, media, user_id)
+        self.check_media_rating(media)
+        media_data = MediaData(None, None, media_id, media, user_id, None)
         self.db.session.add(media_data)
         self.db.session.commit()
 
     def get_media_data_id(self: object, user_id: int, media: str,
                           media_id: int) -> int:
-        self.check_media(media)
+        self.check_media_rating(media)
         media_data = MediaData.query.filter_by(
             user_id_content=user_id,
             media_type_content=media,
@@ -110,7 +110,7 @@ class Database():
 
     def rating_exists(self: object, user_id: int, media: str,
                       media_id: int) -> bool:
-        self.check_media(media)
+        self.check_media_rating(media)
         media_data = MediaData.query.filter_by(
             user_id_content=user_id,
             media_type_content=media,
@@ -125,7 +125,7 @@ class Database():
 
     def rating(self: object, user_id: int, media: str, media_id: int,
                rating: float) -> None:
-        self.check_media(media)
+        self.check_media_rating(media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -134,11 +134,25 @@ class Database():
         self.db.session.commit()
         logger.info("rating succesful entered in database")
 
+    def number_of_watched_episodes(self: object, user_id: int, media_id: int,
+                                   number_of_watched_episodes: int) -> None:
+        media_data = MediaData.query.filter_by(
+            user_id_content_media_data=user_id,
+            media_type_content="Season",
+            media_id_content=media_id).first()
+        media_data.number_of_watched_episodes = number_of_watched_episodes
+        self.db.session.commit()
+        if media_data.number_of_watched_episodes is None:
+            logger.info("number_of_watched_episodes doesnt exist in database")
+            return False
+        else:
+            logger.info("number_of_watched_episodes exists in database")
+            return True
 # --------------------------------------------------------------------
 
     def watch_status_exists(self: object, user_id: int, media: str,
                             media_id: int) -> bool:
-        self.check_media(media)
+        self.check_media_watch_status(media)
         media_data = MediaData.query.filter_by(
             user_id_content=user_id,
             media_type_content=media,
@@ -154,7 +168,7 @@ class Database():
     def watch_status(self: object, user_id: int, media: str, media_id: int,
                      watch_status: str) -> None:
         self.check_watch_status(watch_status)
-        self.check_media(media)
+        self.check_media_watch_status(media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -175,8 +189,15 @@ class Database():
                 "The watchStatus: {} is invalid -> valide arguments:{} ".
                 format(watch_status, valid_watch_status))
 
-    def check_media(self: object, media: str) -> None:
+    def check_media_rating(self: object, media: str) -> None:
         valid_media = ["TV", "Movie", "Episode", "Season"]
+        if media not in valid_media:
+            raise InvalidParameter(
+                "The media: {} is invalid -> valide arguments:{} ".format(
+                    media, valid_media))
+
+    def check_media_watch_status(self: object, media: str) -> None:
+        valid_media = ["TV", "Movie"]
         if media not in valid_media:
             raise InvalidParameter(
                 "The media: {} is invalid -> valide arguments:{} ".format(

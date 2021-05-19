@@ -28,15 +28,11 @@ class WatchCount:
                         if genre.get("name") == type:
                             count += 1
 
-                    print(data.get("genres"))
-
                 if result.media_type_content == "TV":
                     data = tmdb.get_tv_details(result.media_id_content)
 
                     for genre in data.get("genres"):
                         if genre.get("name") == type:
                             count += 1
-
-                    print(data.get("genres"))
 
         return count
