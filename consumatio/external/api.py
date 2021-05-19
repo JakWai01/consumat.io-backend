@@ -294,8 +294,8 @@ database = Database(db)
 
 
 @mutation.field("rating")
-def resolve_rating(*_, code: int, media: str, rating: float,
-                   seasonNumber: int) -> dict:
+def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
+                   episodeNumber: int) -> dict:
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     user_id = 0
 
@@ -303,8 +303,12 @@ def resolve_rating(*_, code: int, media: str, rating: float,
         database.user(external_id)
     user_id = database.get_user_id(external_id)
 
-    if seasonNumber != None:
+    if media == "Season":
         code = tmdb.get_season_details(code, seasonNumber).get("code")
+
+    if media == "Episode":
+        code = tmdb.get_episode_details(code, seasonNumber,
+                                        episodeNumber).get("code")
 
     if not database.media_data_exists(user_id, media, code):
         database.media_Data(user_id, media, code)

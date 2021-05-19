@@ -10,7 +10,6 @@ class PopularDetails:
         :return: <dict> popular media
         """
         search_data = []
-        results = []
         if type == "Movie":
             search_data.extend(tmdb.get_popular_movies(country, user, page))
 
