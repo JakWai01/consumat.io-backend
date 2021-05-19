@@ -141,7 +141,6 @@ class Database():
             media_type_content="Season",
             media_id_content=media_id).first()
         media_data.number_of_watched_episodes = number_of_watched_episodes
-        print(media_data.number_of_watched_episodes, "NUM")
         self.db.session.commit()
         if media_data.number_of_watched_episodes is None:
             logger.info("number_of_watched_episodes doesnt exist in database")
