@@ -135,6 +135,7 @@ season.set_alias("watchStatus", "watch_status")
 season.set_alias("ratingUser", "rating_user")
 season.set_alias("numberOfEpisodes", "number_of_episodes")
 season.set_alias("airDate", "air_date")
+season.set_alias("numberOfWatchedEpisodes", "number_of_watched_episodes")
 
 
 @query.field("episode")
@@ -254,7 +255,7 @@ def resolve_watchTime(*_, type: str) -> int:
     :param type: <str> Type to return count for (Movie, TV)
     :return: <int> Runtime of watched media of provided type
     """
-    logger.info("watchTime was queired -> type:'{}'".format((type)))
+    logger.info("watchTime was queried -> type:'{}'".format((type)))
 
     watch_time = WatchTime()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -293,13 +294,17 @@ database = Database(db)
 
 
 @mutation.field("rating")
-def resolve_rating(*_, code: int, media: str, rating: float) -> dict:
+def resolve_rating(*_, code: int, media: str, rating: float,
+                   seasonNumber: int) -> dict:
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     user_id = 0
 
     if not database.user_exists(external_id):
         database.user(external_id)
     user_id = database.get_user_id(external_id)
+
+    if seasonNumber != None:
+        code = tmdb.get_season_details(code, seasonNumber).get("code")
 
     if not database.media_data_exists(user_id, media, code):
         database.media_Data(user_id, media, code)
@@ -310,6 +315,30 @@ def resolve_rating(*_, code: int, media: str, rating: float) -> dict:
 
 rating = MutationType()
 rating.set_field("rating", resolve_rating)
+
+
+@mutation.field("numberOfWatchedEpisodes")
+def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
+                                       numberOfWatchedEpisodes: int) -> dict:
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    user_id = 0
+
+    if not database.user_exists(external_id):
+        database.user(external_id)
+    user_id = database.get_user_id(external_id)
+
+    data = tmdb.get_season_details(code, seasonNumber)
+
+    if not database.media_data_exists(user_id, "Season", data.get("code")):
+        database.media_Data(user_id, "Season", data.get("code"))
+
+    database.number_of_watched_episodes(user_id, data.get("code"),
+                                        numberOfWatchedEpisodes)
+    return {"status": True}
+
+
+numberOfWatchedEpisodes = MutationType()
+rating.set_field("numberOfWatchedEpisodes", resolve_number_of_watched_episodes)
 
 
 @mutation.field("watchStatus")
@@ -335,7 +364,8 @@ type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
 schema = make_executable_schema(type_defs, query, mutation, rating,
                                 watchStatus, movie, tv, season, episode,
-                                total_pages, director, cast)
+                                total_pages, director, cast,
+                                numberOfWatchedEpisodes)
 
 
 @app.route("/", methods=["GET"])
