@@ -25,11 +25,8 @@ class SeasonDetails:
         rating = None
         number_of_watched_episodes = None
         if result != None:
-            print("NANANANANAANANANANANANANAN BATHAMANANANA")
             rating = result.rating_content
             number_of_watched_episodes = result.number_of_watched_episodes
-            print(dict_season_details.get("code"))
-            print(number_of_watched_episodes, "ASDASD")
 
         dict = {
             "code": dict_season_details.get("code"),
