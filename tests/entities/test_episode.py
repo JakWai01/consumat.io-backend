@@ -12,7 +12,6 @@ def test_episode():
         air_date="2011-04-17",
         rating_average=7.11904761904762,
         still_path="/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        watch_status="WATCHED",
         rating_user=5.4,
         favorite=False)
 
@@ -24,7 +23,6 @@ def test_episode():
     assert episode.air_date == "2011-04-17"
     assert episode.rating_average == 7.11904761904762
     assert episode.still_path == "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg"
-    assert episode.watch_status == "WATCHED"
     assert episode.rating_user == 5.4
     assert episode.favorite == False
 
@@ -40,7 +38,6 @@ def test_episode_from_dict():
         "air_date": "2011-04-17",
         "rating_average": 7.11904761904762,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "watch_status": "WATCHED",
         "rating_user": 5.4,
         "favorite": False
     }
@@ -55,7 +52,6 @@ def test_episode_from_dict():
     assert episode.air_date == "2011-04-17"
     assert episode.rating_average == 7.11904761904762
     assert episode.still_path == "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg"
-    assert episode.watch_status == "WATCHED"
     assert episode.rating_user == 5.4
     assert episode.favorite == False
 
@@ -71,7 +67,6 @@ def test_episode_to_dict():
         "air_date": "2011-04-17",
         "rating_average": 7.11904761904762,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "watch_status": "WATCHED",
         "rating_user": 5.4,
         "favorite": False
     }
@@ -92,7 +87,6 @@ def test_episode_model_comparison():
         "air_date": "2011-04-17",
         "rating_average": 7.11904761904762,
         "still_path": "/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg",
-        "watch_status": "WATCHED",
         "rating_user": 5.4,
         "favorite": False
     }
