@@ -135,6 +135,7 @@ season.set_alias("watchStatus", "watch_status")
 season.set_alias("ratingUser", "rating_user")
 season.set_alias("numberOfEpisodes", "number_of_episodes")
 season.set_alias("airDate", "air_date")
+season.set_alias("numberOfWatchedEpisodes", "number_of_watched_episodes")
 
 
 @query.field("episode")
