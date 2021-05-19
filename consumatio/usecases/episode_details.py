@@ -16,19 +16,16 @@ class EpisodeDetails:
         """
         dict_episode_details = tmdb.get_episode_details(
             code, season_number, episode_number)
-        dict_episode_images = tmdb.get_episode_images(code, season_number,
-                                                      episode_number)
 
         result = MediaData.query.from_statement(
             text(
                 "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Episode' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-            )).params(user_value=user, code_data=code).first()
+            )).params(user_value=user,
+                      code_data=dict_episode_details.get("code")).first()
 
         rating = None
-        watch_status = None
         if result != None:
             rating = result.rating_content
-            watch_status = result.watch_status_content
 
         dict = {
             "code": dict_episode_details.get("code"),
