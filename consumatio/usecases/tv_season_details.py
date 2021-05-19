@@ -5,7 +5,7 @@ class TVSeasonDetails:
         number_of_seasons = tv_details.get("number_of_seasons")
 
         result = []
-        for i in range(1, number_of_seasons):
+        for i in range(1, number_of_seasons + 1):
             season = tmdb.get_season_details(code, i)
             result.append(season)
 
