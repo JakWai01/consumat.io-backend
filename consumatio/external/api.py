@@ -293,6 +293,34 @@ searchResult = UnionType("Media")
 database = Database(db)
 
 
+@mutation.field("favorite")
+def resolve_favorite(*_, code: int, media: str, favorite: bool,
+                     seasonNumber: int, episodeNumber: int) -> dict:
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    user_id = 0
+
+    if not database.user_exists(external_id):
+        database.user(external_id)
+    user_id = database.get_user_id(external_id)
+
+    if media == "Season":
+        code = tmdb.get_season_details(code, seasonNumber).get("code")
+
+    if media == "Episode":
+        code = tmdb.get_episode_details(code, seasonNumber,
+                                        episodeNumber).get("code")
+
+    if not database.media_data_exists(user_id, media, code):
+        database.media_Data(user_id, media, code)
+
+    database.favorite(user_id, media, code, favorite)
+    return {"status": True}
+
+
+favorite = MutationType()
+favorite.set_field("favorite", resolve_favorite)
+
+
 @mutation.field("rating")
 def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
                    episodeNumber: int) -> dict:
@@ -369,7 +397,7 @@ type_defs = load_schema_from_path(
 schema = make_executable_schema(type_defs, query, mutation, rating,
                                 watchStatus, movie, tv, season, episode,
                                 total_pages, director, cast,
-                                numberOfWatchedEpisodes)
+                                numberOfWatchedEpisodes, favorite)
 
 
 @app.route("/", methods=["GET"])
