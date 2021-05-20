@@ -1,8 +1,8 @@
-"""Add column favorite_content to table media_data.
+"""Add initial data model
 
-Revision ID: 3c52997d4f28
-Revises: 49cda4abb1bc
-Create Date: 2021-05-19 20:42:52.173207
+Revision ID: 5501b68c1e47
+Revises: 
+Create Date: 2021-05-20 20:44:21.019053
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3c52997d4f28'
-down_revision = '49cda4abb1bc'
+revision = '5501b68c1e47'
+down_revision = None
 branch_labels = None
 depends_on = None
 
