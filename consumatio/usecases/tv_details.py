@@ -25,9 +25,11 @@ class TVDetails:
 
         rating = None
         watch_status = None
+        favorite = None
         if result != None:
             rating = result.rating_content
             watch_status = result.watch_status_content
+            favorite = result.favorite_content
 
         dict = {
             "code": dict_tv_details.get("code"),
@@ -50,7 +52,7 @@ class TVDetails:
             f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
             "watch_status": watch_status,
             "rating_user": rating,
-            "favorite": None,
+            "favorite": favorite,
             "runtime": dict_tv_details.get("runtime")
         }
 
