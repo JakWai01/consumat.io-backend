@@ -23,9 +23,11 @@ class EpisodeDetails:
             )).params(user_value=user,
                       code_data=dict_episode_details.get("code")).first()
 
+        favorite = None
         rating = None
         if result != None:
             rating = result.rating_content
+            favorite = result.favorite_content
 
         dict = {
             "code": dict_episode_details.get("code"),
@@ -37,7 +39,7 @@ class EpisodeDetails:
             "rating_average": dict_episode_details.get("rating_average"),
             "still_path": dict_episode_details.get("still_path"),
             "rating_user": rating,
-            "favorite": None,
+            "favorite": favorite,
         }
 
         episode = Episode.from_dict(dict)

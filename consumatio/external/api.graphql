@@ -14,6 +14,7 @@ type Query {
 
 type Mutation {
     rating(code: Int!, media: String!, rating: Float!, seasonNumber: Int, episodeNumber: Int) : Payload!
+    favorite(code: Int!, media: String!, favorite: Boolean!, seasonNumber: Int, episodeNumber: Int) : Payload!
     watchStatus(code: Int!, media: String!, watchStatus: String) : Payload!
     numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
 }
