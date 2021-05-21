@@ -5,6 +5,13 @@ from sqlalchemy import text
 class WatchCount:
     def get_watch_count(self: object, tmdb: object, user: str,
                         type: str) -> int:
+        """
+        Get count of watched media of a certain type (e.g. "Movie", "Season" or "Drama")
+        :param tmdb: <object> TMDB object to make API requests
+        :param user: <str> External id of the user
+        :param type: <str> Type of the media to get count for (e.g. "Movie", "Season" or "Drama")
+        :return: <int> Count of media watched
+        """
         count = 0
         if type in "MovieEpisodeTVSeason":
             results = MediaData.query.from_statement(
