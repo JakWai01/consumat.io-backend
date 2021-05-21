@@ -9,17 +9,14 @@ def popular_tv_to_dict(data: dict, user: str) -> dict:
     :param data: <dict> API response
     :return: <dict> Internal representation
     """
+    result_list = []
+    result_dict = {"results": result_list}
     if "results" not in data:
-        return []
+        return result_dict
     elif len(data["results"]) == 0:
-        return []
+        return result_dict
     else:
         results = data["results"]
-        result_list = []
-        dict = {"total_pages": data["total_pages"]}
-        dict["__typename"] = "TotalPages"
-        result_list.append(dict)
-
         for result in results:
             query = MediaData.query.from_statement(
                 text(
@@ -31,7 +28,6 @@ def popular_tv_to_dict(data: dict, user: str) -> dict:
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content
-
             dict = {
                 "code": result.get("id"),
                 "title": result.get("name"),
@@ -64,4 +60,4 @@ def popular_tv_to_dict(data: dict, user: str) -> dict:
             dict["__typename"] = "TV"
 
             result_list.append(dict)
-        return result_list
+        return result_dict
