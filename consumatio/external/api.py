@@ -201,9 +201,8 @@ def resolve_popular(*_, type: str, country: str, page: int) -> dict:
     return popular.get_popular_details(user, tmdb, type, country, page)
 
 
-media_page = UnionType("MediaPage")
-total_pages = ObjectType("TotalPages")
-total_pages.set_alias("totalPages", "total_pages")
+media_page = ObjectType("MediaPage")
+media_page.set_alias("totalPages", "total_pages")
 
 
 @query.field("tvSeasons")
@@ -396,7 +395,7 @@ type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
 schema = make_executable_schema(type_defs, query, mutation, rating,
                                 watchStatus, movie, tv, season, episode,
-                                total_pages, director, cast,
+                                media_page, director, cast,
                                 numberOfWatchedEpisodes, favorite)
 
 
