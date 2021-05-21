@@ -6,6 +6,13 @@ from consumatio.external.exceptions.invalid_parameter import *
 class WatchTime:
     def get_watch_time(self: object, tmdb: object, user: str,
                        type: str) -> int:
+        """
+        Get time of watched media of a certain type ("Movie", "TV")
+        :param tmdb: <object> TMDB object to make API requests
+        :param user: <str> External id of the user
+        :param type: <str> Type of the media to get count for (e.g. "Movie", "Season" or "Drama")
+        :return: <int> Count of minutes watched of a certain type
+        """
         runtime = 0
         if type == 'Movie':
             results = MediaData.query.from_statement(

@@ -91,7 +91,7 @@ class Database():
                           media_id: int) -> bool:
         """
         Check if media data exists.
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to check for existence ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to check
         :return: <bool> True if media data exists, False if not
@@ -112,7 +112,7 @@ class Database():
                    media_id: int) -> None:
         """
         Add media data to database
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to check for existence ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to set
         :return: None
@@ -126,7 +126,7 @@ class Database():
                           media_id: int) -> int:
         """
         Get id of media data
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to check for existence ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to get
         :return: <int> Internal id of the media
@@ -142,7 +142,7 @@ class Database():
                       media_id: int) -> bool:
         """
         Check if rating exists for a certain media
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to check for existence of a rating ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to check existence of a rating for
         :return: <bool> True if rating exists, False if not
@@ -164,7 +164,7 @@ class Database():
                rating: float) -> None:
         """
         Add rating for a certain media to the database
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to set rating for ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to set rating for
         :param rating: <float> Rating to add to the database
@@ -183,7 +183,7 @@ class Database():
                                    number_of_watched_episodes: int) -> None:
         """
         Get the number of watched episodes
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media_id: <int> Id of the media
         :param number_of_watched_episodes: <int> Get number of watched episodes
         :return: None
@@ -200,7 +200,7 @@ class Database():
                             media_id: int) -> bool:
         """
         Check if watch status exists for a certain media
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to check watch status for
         :return: <bool> True of watch status exists, False if not
@@ -222,7 +222,7 @@ class Database():
                      watch_status: str) -> None:
         """
         Add watch status for a certain media to the database
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media to set watch_status for
         :param media_id: <int> Id of the media to check watch status for
         :param watch_status: <str> Watch status to add to the database
@@ -242,7 +242,7 @@ class Database():
                         media_id: int) -> bool:
         """
         Check if favorite is specified for a certain media
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to check watch status for
         :return: True if favorite exists, False if not
@@ -264,7 +264,7 @@ class Database():
                  favorite: bool) -> None:
         """
         Add favorite for a certain media into the database
-        :param user_id: <int> External id of the user provided by OAuth
+        :param user_id: <int> User id of a user
         :param media: <str> Type of the media ("Movie", "TV", "Season", "Episode")
         :param media_id: <int> Id of the media to check watch status for
         :param favorite: <bool> True if media is favorite, False if not
