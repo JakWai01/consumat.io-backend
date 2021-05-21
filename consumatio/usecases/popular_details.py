@@ -9,11 +9,22 @@ class PopularDetails:
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> popular media
         """
-        search_data = []
+        dict = {}
         if type == "Movie":
-            search_data.extend(tmdb.get_popular_movies(country, user, page))
+            dict_movie_results = tmdb.get_popular_movies(country, user, page)
+            dict_search_total_pages = tmdb.get_popular_movies_total_pages(
+                country, page)
+            dict = {
+                "total_pages": dict_search_total_pages.get("total_pages"),
+                "results": dict_movie_results.get("results")
+            }
 
         elif type == "TV":
-            search_data.extend(tmdb.get_popular_tv(user, page))
+            dict_tv_results = tmdb.get_popular_tv(user, page)
+            dict_search_total_pages = tmdb.get_popular_tv_total_pages(page)
+            dict = {
+                "total_pages": dict_search_total_pages.get("total_pages"),
+                "results": dict_tv_results.get("results")
+            }
 
-        return search_data
+        return dict
