@@ -10,7 +10,7 @@ def popular_movies_to_dict(data: dict, user: str) -> dict:
     :return: <dict> Internal representation
     """
     result_list = []
-    result_dict = {"results": result_list}
+    result_dict = {"results": result_list, "total_pages": data["total_pages"]}
     if "results" not in data:
         return result_dict
     elif len(data["results"]) == 0:
