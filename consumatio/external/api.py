@@ -1,5 +1,4 @@
-from ariadne import ObjectType, QueryType, gql, make_executable_schema, graphql_sync, load_schema_from_path, UnionType, MutationType
-from flask.signals import Namespace
+from ariadne import ObjectType, QueryType, make_executable_schema, graphql_sync, load_schema_from_path, UnionType, MutationType
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
 from consumatio.usecases.tv_details import *
@@ -22,36 +21,10 @@ import os
 from flask import request
 from flask import Flask
 from flask_migrate import Migrate
-
-DATABASE_URI = os.getenv('DATABASE_URI')
 from consumatio.external.logger import get_logger_instance
 
-logger = get_logger_instance()
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-CORS(app)
-
-db.init_app(app)
 
 query = QueryType()
-mutation = MutationType()
-
-TMDB_KEY_KEY = 'TMDB_KEY'
-BACKEND_SECRET = os.getenv('BACKEND_SECRET')
-
-CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
-CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
-
-api_key = os.getenv(TMDB_KEY_KEY)
-
-if (api_key == None):
-    raise UndefinedEnvironmentVariable(
-        "Please specify a valid API key for TMDB_KEY environment variable")
-
-tmdb = Tmdb(api_key, db)
-
-migrate = Migrate(app, db)
 
 
 @query.field("movie")
@@ -69,17 +42,6 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     return movie.get_movie_details(user, tmdb, code, country)
 
 
-movie = ObjectType("Movie")
-
-movie.set_alias("ratingAverage", "rating_average")
-movie.set_alias("releaseInitial", "release_date")
-movie.set_alias("backdropPath", "backdrop_path")
-movie.set_alias("posterPath", "poster_path")
-movie.set_alias("tmdbUrl", "tmdb_url")
-movie.set_alias("watchStatus", "watch_status")
-movie.set_alias("ratingUser", "rating_user")
-
-
 @query.field("tv")
 def resolve_tv(*_, code: int, country: str) -> dict:
     """
@@ -93,21 +55,6 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     tv = TVDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     return tv.get_tv_details(user, tmdb, code, country)
-
-
-tv = ObjectType("TV")
-
-tv.set_alias("ratingAverage", "rating_average")
-tv.set_alias("releaseInitial", "first_air_date")
-tv.set_alias("releaseFinal", "last_air_date")
-tv.set_alias("backdropPath", "backdrop_path")
-tv.set_alias("posterPath", "poster_path")
-tv.set_alias("numberOfEpisodes", "number_of_episodes")
-tv.set_alias("numberOfSeasons", "number_of_seasons")
-tv.set_alias("tmdbUrl", "tmdb_url")
-tv.set_alias("watchStatus", "watch_status")
-tv.set_alias("ratingUser", "rating_user")
-tv.set_alias("directors", "creators")
 
 
 @query.field("season")
@@ -124,18 +71,6 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     season = SeasonDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     return season.get_season_details(user, tmdb, code, seasonNumber)
-
-
-season = ObjectType("Season")
-
-season.set_alias("tvCode", "tv_code")
-season.set_alias("seasonNumber", "season_number")
-season.set_alias("posterPath", "poster_path")
-season.set_alias("watchStatus", "watch_status")
-season.set_alias("ratingUser", "rating_user")
-season.set_alias("numberOfEpisodes", "number_of_episodes")
-season.set_alias("airDate", "air_date")
-season.set_alias("numberOfWatchedEpisodes", "number_of_watched_episodes")
 
 
 @query.field("episode")
@@ -156,17 +91,6 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     return episode.get_episode_details(user, tmdb, code, seasonNumber,
                                        episodeNumber)
-
-
-episode = ObjectType("Episode")
-
-episode.set_alias("episodeNumber", "episode_number")
-episode.set_alias("seasonNumber", "season_number")
-episode.set_alias("airDate", "air_date")
-episode.set_alias("ratingAverage", "rating_average")
-episode.set_alias("stillPath", "still_path")
-episode.set_alias("watchStatus", "watch_status")
-episode.set_alias("ratingUser", "rating_user")
 
 
 @query.field("search")
@@ -199,10 +123,6 @@ def resolve_popular(*_, type: str, country: str, page: int) -> dict:
     popular = PopularDetails()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
     return popular.get_popular_details(user, tmdb, type, country, page)
-
-
-media_page = ObjectType("MediaPage")
-media_page.set_alias("totalPages", "total_pages")
 
 
 @query.field("tvSeasons")
@@ -279,17 +199,7 @@ def resolve_list(*_, type: str, watchStatus: str) -> dict:
     return watch_list.get_list(tmdb, user, type, watchStatus)
 
 
-director = ObjectType("Director")
-
-director.set_alias("imagePath", "image_path")
-
-cast = ObjectType("Cast")
-
-cast.set_alias("imagePath", "image_path")
-
-searchResult = UnionType("Media")
-
-database = Database(db)
+mutation = MutationType()
 
 
 @mutation.field("favorite")
@@ -316,10 +226,6 @@ def resolve_favorite(*_, code: int, media: str, favorite: bool,
     return {"status": True}
 
 
-favorite = MutationType()
-favorite.set_field("favorite", resolve_favorite)
-
-
 @mutation.field("rating")
 def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
                    episodeNumber: int) -> dict:
@@ -344,10 +250,6 @@ def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
     return {"status": True}
 
 
-rating = MutationType()
-rating.set_field("rating", resolve_rating)
-
-
 @mutation.field("numberOfWatchedEpisodes")
 def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
                                        numberOfWatchedEpisodes: int) -> dict:
@@ -368,10 +270,6 @@ def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
     return {"status": True}
 
 
-numberOfWatchedEpisodes = MutationType()
-rating.set_field("numberOfWatchedEpisodes", resolve_number_of_watched_episodes)
-
-
 @mutation.field("watchStatus")
 def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -388,15 +286,8 @@ def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
     return {"status": True}
 
 
-watchStatus = MutationType()
-watchStatus.set_field("watchStatus", resolve_watch_status)
-
-type_defs = load_schema_from_path(
-    os.path.join(os.path.dirname(__file__), "api.graphql"))
-schema = make_executable_schema(type_defs, query, mutation, rating,
-                                watchStatus, movie, tv, season, episode,
-                                media_page, director, cast,
-                                numberOfWatchedEpisodes, favorite)
+app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/", methods=["GET"])
@@ -436,10 +327,122 @@ def graphql_server() -> str:
     return jsonify(result), status_code
 
 
-port = int(os.environ['PORT'])
+TMDB_KEY_KEY = os.getenv('TMDB_KEY')
+BACKEND_SECRET = os.getenv('BACKEND_SECRET')
+CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
+CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
+DATABASE_URI = os.getenv('DATABASE_URI')
+PORT = int(os.environ['PORT'])
+
+if (TMDB_KEY_KEY == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for TMDB_KEY environment variable")
+
+if (BACKEND_SECRET == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for BACKEND_SECRET environment variable")
+    
+if (CONSUMATIO_NAMESPACE_HEADER_KEY == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for CONSUMATIO_NAMESPACE_HEADER_KEY environment variable")
+
+if (CONSUMATIO_SECRET_HEADER_KEY == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for CONSUMATIO_SECRET_HEADER_KEY environment variable")
+    
+if (DATABASE_URI == None):
+    raise UndefinedEnvironmentVariable(
+        "Please sepcify a valid API key for DATABASE_URI environment variable")
+
+if (PORT == None):
+    raise UndefinedEnvironmentVariable(
+        "Please specify a valid API key for PORT environment variable")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+tmdb = Tmdb(TMDB_KEY_KEY, db)
+migrate = Migrate(app, db)    
+
+logger = get_logger_instance()
+
+db.init_app(app)
+
+movie = ObjectType("Movie")
+
+favorite = MutationType()
+favorite.set_field("favorite", resolve_favorite)
+
+rating = MutationType()
+rating.set_field("rating", resolve_rating)
+
+numberOfWatchedEpisodes = MutationType()
+rating.set_field("numberOfWatchedEpisodes", resolve_number_of_watched_episodes)
+
+watchStatus = MutationType()
+watchStatus.set_field("watchStatus", resolve_watch_status)
+movie.set_alias("ratingAverage", "rating_average")
+movie.set_alias("releaseInitial", "release_date")
+movie.set_alias("backdropPath", "backdrop_path")
+movie.set_alias("posterPath", "poster_path")
+movie.set_alias("tmdbUrl", "tmdb_url")
+movie.set_alias("watchStatus", "watch_status")
+movie.set_alias("ratingUser", "rating_user")
+
+tv = ObjectType("TV")
+tv.set_alias("ratingAverage", "rating_average")
+tv.set_alias("releaseInitial", "first_air_date")
+tv.set_alias("releaseFinal", "last_air_date")
+tv.set_alias("backdropPath", "backdrop_path")
+tv.set_alias("posterPath", "poster_path")
+tv.set_alias("numberOfEpisodes", "number_of_episodes")
+tv.set_alias("numberOfSeasons", "number_of_seasons")
+tv.set_alias("tmdbUrl", "tmdb_url")
+tv.set_alias("watchStatus", "watch_status")
+tv.set_alias("ratingUser", "rating_user")
+tv.set_alias("directors", "creators")
+
+season = ObjectType("Season")
+season.set_alias("tvCode", "tv_code")
+season.set_alias("seasonNumber", "season_number")
+season.set_alias("posterPath", "poster_path")
+season.set_alias("watchStatus", "watch_status")
+season.set_alias("ratingUser", "rating_user")
+season.set_alias("numberOfEpisodes", "number_of_episodes")
+season.set_alias("airDate", "air_date")
+season.set_alias("numberOfWatchedEpisodes", "number_of_watched_episodes")
+
+episode = ObjectType("Episode")
+episode.set_alias("episodeNumber", "episode_number")
+episode.set_alias("seasonNumber", "season_number")
+episode.set_alias("airDate", "air_date")
+episode.set_alias("ratingAverage", "rating_average")
+episode.set_alias("stillPath", "still_path")
+episode.set_alias("watchStatus", "watch_status")
+episode.set_alias("ratingUser", "rating_user")
+
+media_page = ObjectType("MediaPage")
+media_page.set_alias("totalPages", "total_pages")
+
+director = ObjectType("Director")
+director.set_alias("imagePath", "image_path")
+
+cast = ObjectType("Cast")
+cast.set_alias("imagePath", "image_path")
+
+searchResult = UnionType("Media")
+
+database = Database(db)
+
+type_defs = load_schema_from_path(
+    os.path.join(os.path.dirname(__file__), "api.graphql"))
+    
+schema = make_executable_schema(type_defs, query, mutation, rating,
+                                watchStatus, movie, tv, season, episode,
+                                media_page, director, cast,
+                                numberOfWatchedEpisodes, favorite)
 
 if __name__ == "__main__":
     migrate.init_app(app, db)
-    app.run(debug=True, port=port, host="0.0.0.0")
+    app.run(debug=True, port=PORT, host="0.0.0.0")
+
 
 api = app
