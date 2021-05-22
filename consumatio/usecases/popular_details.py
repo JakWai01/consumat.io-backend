@@ -12,18 +12,15 @@ class PopularDetails:
         dict = {}
         if type == "Movie":
             dict_movie_results = tmdb.get_popular_movies(country, user, page)
-            dict_search_total_pages = tmdb.get_popular_movies_total_pages(
-                country, page)
             dict = {
-                "total_pages": dict_search_total_pages.get("total_pages"),
+                "total_pages": dict_movie_results.get("total_pages"),
                 "results": dict_movie_results.get("results")
             }
 
         elif type == "TV":
             dict_tv_results = tmdb.get_popular_tv(user, page)
-            dict_search_total_pages = tmdb.get_popular_tv_total_pages(page)
             dict = {
-                "total_pages": dict_search_total_pages.get("total_pages"),
+                "total_pages": dict_tv_results.get("total_pages"),
                 "results": dict_tv_results.get("results")
             }
 

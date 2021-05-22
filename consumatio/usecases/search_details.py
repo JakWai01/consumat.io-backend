@@ -9,9 +9,8 @@ class SearchDetails:
         :return: <dict> Search details
         """
         dict_search_details = tmdb.get_search_result(user, keyword, page)
-        dict_search_total_pages = tmdb.get_search_total_pages(keyword, page)
         dict = {
-            "total_pages": dict_search_total_pages.get("total_pages"),
+            "total_pages": dict_search_details.get("total_pages"),
             "results": dict_search_details.get("results")
         }
         return dict
