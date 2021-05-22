@@ -14,7 +14,6 @@ class SeasonDetails:
         :return: <dict> Season details
         """
         dict_season_details = tmdb.get_season_details(code, season_number)
-        # dict_season_images = tmdb.get_season_images(code, season_number)
 
         result = MediaData.query.from_statement(
             text(

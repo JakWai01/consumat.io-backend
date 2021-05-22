@@ -14,7 +14,6 @@ class MovieDetails:
         :return: <dict> Movie details
         """
         dict_movie_details = tmdb.get_movie_details(code)
-        dict_movie_images = tmdb.get_movie_images(code)
         dict_movie_providers = tmdb.get_movie_providers(code, country)
         dict_movie_credits = tmdb.get_movie_credits(code)
 
