@@ -276,7 +276,7 @@ def resolve_list(*_, type: str, watchStatus: str) -> dict:
     watch_list = List()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
 
-    return watch_list.get_list(tmdb, database, user, type, watchStatus)
+    return watch_list.get_list(tmdb, user, type, watchStatus)
 
 
 director = ObjectType("Director")

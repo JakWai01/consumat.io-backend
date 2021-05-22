@@ -5,12 +5,10 @@ from sqlalchemy import text
 
 
 class List:
-    def get_list(self: object, tmdb: object, database: object, user: str,
+    def get_list(self: object, tmdb: object, user: str,
                  type: str, watchStatus: str):
         watch_list = []
-        # results = query where user == user and watch_status == watch_status and type == type
-        # results = db.session.query().from_statement(
-        #     text("SELECT * FROM media_data")).all()
+
         results = MediaData.query.from_statement(
             text(
                 "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
