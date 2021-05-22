@@ -1,3 +1,4 @@
+from consumatio.usecases.number_of_watched_episodes import NumberOfWatchedEpisodes
 from ariadne import ObjectType, QueryType, make_executable_schema, graphql_sync, load_schema_from_path, UnionType, MutationType
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.movie_details import *
@@ -11,6 +12,9 @@ from consumatio.usecases.tv_episode_details import *
 from consumatio.usecases.watch_count import *
 from consumatio.usecases.list import *
 from consumatio.usecases.watch_time import *
+from consumatio.usecases.favorite import *
+from consumatio.usecases.rating import *
+from consumatio.usecases.watch_status import *
 from consumatio.external.db import Database
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -22,7 +26,6 @@ from flask import request
 from flask import Flask
 from flask_migrate import Migrate
 from consumatio.external.logger import get_logger_instance
-
 
 query = QueryType()
 
@@ -205,85 +208,52 @@ mutation = MutationType()
 @mutation.field("favorite")
 def resolve_favorite(*_, code: int, media: str, favorite: bool,
                      seasonNumber: int, episodeNumber: int) -> dict:
-    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    user_id = 0
+    logger.info(
+        "favorite was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
+        .format(media, code, seasonNumber, episodeNumber, favorite))
 
-    if not database.user_exists(external_id):
-        database.user(external_id)
-    user_id = database.get_user_id(external_id)
-
-    if media == "Season":
-        code = tmdb.get_season_details(code, seasonNumber).get("code")
-
-    if media == "Episode":
-        code = tmdb.get_episode_details(code, seasonNumber,
-                                        episodeNumber).get("code")
-
-    if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code)
-
-    database.favorite(user_id, media, code, favorite)
-    return {"status": True}
+    fav = Favorite()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return fav.favorite(tmdb, database, user, media, code, seasonNumber,
+                        episodeNumber, favorite)
 
 
 @mutation.field("rating")
 def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
                    episodeNumber: int) -> dict:
-    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    user_id = 0
+    logger.info(
+        "rating was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', rating:'{}'"
+        .format(media, code, seasonNumber, episodeNumber, rating))
 
-    if not database.user_exists(external_id):
-        database.user(external_id)
-    user_id = database.get_user_id(external_id)
-
-    if media == "Season":
-        code = tmdb.get_season_details(code, seasonNumber).get("code")
-
-    if media == "Episode":
-        code = tmdb.get_episode_details(code, seasonNumber,
-                                        episodeNumber).get("code")
-
-    if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code)
-
-    database.rating(user_id, media, code, rating)
-    return {"status": True}
+    rat = Rating()
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return rat.rating(tmdb, database, user, media, code, seasonNumber,
+                      episodeNumber, rating)
 
 
 @mutation.field("numberOfWatchedEpisodes")
 def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
                                        numberOfWatchedEpisodes: int) -> dict:
-    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    user_id = 0
+    logger.info(
+        "number of watched episodes was queried -> code:'{}', seasonNumber:'{}', numberOfWatchedEpisodes:'{}'"
+        .format(code, seasonNumber, numberOfWatchedEpisodes))
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
 
-    if not database.user_exists(external_id):
-        database.user(external_id)
-    user_id = database.get_user_id(external_id)
-
-    data = tmdb.get_season_details(code, seasonNumber)
-
-    if not database.media_data_exists(user_id, "Season", data.get("code")):
-        database.media_Data(user_id, "Season", data.get("code"))
-
-    database.number_of_watched_episodes(user_id, data.get("code"),
-                                        numberOfWatchedEpisodes)
-    return {"status": True}
+    watched = NumberOfWatchedEpisodes()
+    return watched.number_of_watched_episodes(tmdb, database, user, code,
+                                              seasonNumber,
+                                              numberOfWatchedEpisodes)
 
 
 @mutation.field("watchStatus")
 def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
-    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    user_id = 0
+    logger.info(
+        "watchStatus was queried -> code:'{}', media:'{}', watchStatus:'{}'".
+        format(code, media, watchStatus))
+    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
 
-    if not database.user_exists(external_id):
-        database.user(external_id)
-    user_id = database.get_user_id(external_id)
-
-    if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code)
-
-    database.watch_status(user_id, media, code, watchStatus)
-    return {"status": True}
+    status = WatchStatus()
+    return status.watch_status(tmdb, database, user, code, media, watchStatus)
 
 
 app = Flask(__name__)
@@ -328,39 +298,41 @@ def graphql_server() -> str:
 
 
 TMDB_KEY_KEY = os.getenv('TMDB_KEY')
-BACKEND_SECRET = os.getenv('BACKEND_SECRET')
-CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
-CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
-DATABASE_URI = os.getenv('DATABASE_URI')
-PORT = int(os.environ['PORT'])
-
 if (TMDB_KEY_KEY == None):
     raise UndefinedEnvironmentVariable(
         "Please specify a valid API key for TMDB_KEY environment variable")
 
+BACKEND_SECRET = os.getenv('BACKEND_SECRET')
 if (BACKEND_SECRET == None):
     raise UndefinedEnvironmentVariable(
-        "Please specify a valid API key for BACKEND_SECRET environment variable")
-    
+        "Please specify a valid API key for BACKEND_SECRET environment variable"
+    )
+
+CONSUMATIO_NAMESPACE_HEADER_KEY = 'X-Consumatio-Namespace'
 if (CONSUMATIO_NAMESPACE_HEADER_KEY == None):
     raise UndefinedEnvironmentVariable(
-        "Please specify a valid API key for CONSUMATIO_NAMESPACE_HEADER_KEY environment variable")
+        "Please specify a valid API key for CONSUMATIO_NAMESPACE_HEADER_KEY environment variable"
+    )
 
+CONSUMATIO_SECRET_HEADER_KEY = 'X-Consumatio-Secret'
 if (CONSUMATIO_SECRET_HEADER_KEY == None):
     raise UndefinedEnvironmentVariable(
-        "Please specify a valid API key for CONSUMATIO_SECRET_HEADER_KEY environment variable")
-    
+        "Please specify a valid API key for CONSUMATIO_SECRET_HEADER_KEY environment variable"
+    )
+
+DATABASE_URI = os.getenv('DATABASE_URI')
 if (DATABASE_URI == None):
     raise UndefinedEnvironmentVariable(
         "Please sepcify a valid API key for DATABASE_URI environment variable")
 
+PORT = int(os.environ['PORT'])
 if (PORT == None):
     raise UndefinedEnvironmentVariable(
         "Please specify a valid API key for PORT environment variable")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 tmdb = Tmdb(TMDB_KEY_KEY, db)
-migrate = Migrate(app, db)    
+migrate = Migrate(app, db)
 
 logger = get_logger_instance()
 
@@ -434,7 +406,7 @@ database = Database(db)
 
 type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
-    
+
 schema = make_executable_schema(type_defs, query, mutation, rating,
                                 watchStatus, movie, tv, season, episode,
                                 media_page, director, cast,
@@ -443,6 +415,5 @@ schema = make_executable_schema(type_defs, query, mutation, rating,
 if __name__ == "__main__":
     migrate.init_app(app, db)
     app.run(debug=True, port=PORT, host="0.0.0.0")
-
 
 api = app
