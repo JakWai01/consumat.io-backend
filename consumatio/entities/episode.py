@@ -12,7 +12,6 @@ class Episode(Entity):
     air_date: str
     rating_average: float
     still_path: str
-    watch_status: str
     rating_user: float
     favorite: bool
 

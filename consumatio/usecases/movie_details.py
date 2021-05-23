@@ -1,8 +1,10 @@
 from consumatio.entities.movie import Movie
+from consumatio.external.models import *
+from sqlalchemy import text
 
 
 class MovieDetails:
-    def get_movie_details(self: object, tmdb: object, code: int,
+    def get_movie_details(self: object, user: str, tmdb: object, code: int,
                           country: str) -> dict:
         """
         Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
@@ -15,6 +17,19 @@ class MovieDetails:
         dict_movie_images = tmdb.get_movie_images(code)
         dict_movie_providers = tmdb.get_movie_providers(code, country)
         dict_movie_credits = tmdb.get_movie_credits(code)
+
+        result = MediaData.query.from_statement(
+            text(
+                "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+            )).params(user_value=user, code_data=code).first()
+
+        favorite = None
+        rating = None
+        watch_status = None
+        if result != None:
+            favorite = result.favorite_content
+            rating = result.rating_content
+            watch_status = result.watch_status_content
 
         dict = {
             "code": dict_movie_details.get("code"),
@@ -33,9 +48,9 @@ class MovieDetails:
             "directors": dict_movie_credits.get("directors"),
             "tmdb_url":
             f'https://www.themoviedb.org/movie/{dict_movie_details.get("code")}',
-            "watch_status": None,
-            "rating_user": None,
-            "favorite": None
+            "watch_status": watch_status,
+            "rating_user": rating,
+            "favorite": favorite
         }
 
         movie = Movie.from_dict(dict)
