@@ -10,11 +10,11 @@ class Season(Entity):
     title: str
     overview: str
     poster_path: str
-    watch_status: str
     rating_user: float
     favorite: bool
     number_of_episodes: int
     air_date: str
+    number_of_watched_episodes: int
 
     @classmethod
     def from_dict(cls: object, dict: dict) -> object:

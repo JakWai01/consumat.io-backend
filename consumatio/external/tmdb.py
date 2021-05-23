@@ -22,8 +22,8 @@ logger = get_logger_instance()
 
 
 class Tmdb():
-    def __init__(self: object, tmdb_key: str):
-        self.db = Database()
+    def __init__(self: object, tmdb_key: str, db: object):
+        self.db = Database(db)
         self.api_key = tmdb_key
 
     def get_movie_details(self: object, movie_id: int) -> dict:
@@ -170,37 +170,41 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
 
-    def get_search(self: object, keyword: str) -> dict:
+    def get_search_result(self: object, user: str, keyword: str,
+                          page: int) -> dict:
         """
         Fetch tmdb search endpoint
         :param keyword: <str> Search string
         :return: <dict> Search results
         """
         logger.info("Fetch 'search' from tmdb")
-        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page=1&include_adult=false'
+        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={keyword}&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
-        return search_result_to_dict(data)
+        return search_result_to_dict(data, user)
 
-    def get_popular_movies(self: object, country: str) -> dict:
+    def get_popular_movies(self: object, country: str, user: str,
+                           page: int) -> dict:
         """
         Fetch tmdb popular movies endpoint
-        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results 
+        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
+        :param page: <int> Search page (minimum:1 maximum:1000) 
         :return: <dict> movie results
         """
         logger.info("Fetch 'popular_movies' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page=1&include_adult=false'
+        query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_movies_to_dict(data)
+        return popular_movies_to_dict(data, user)
 
-    def get_popular_tv(self: object) -> dict:
+    def get_popular_tv(self: object, user: str, page: int) -> dict:
         """
         Fetch tmdb popular tv shows endpoint
+        :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> tv results
         """
         logger.info("Fetch 'popular_tv' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page=1&include_adult=false'
+        query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_tv_to_dict(data)
+        return popular_tv_to_dict(data, user)
 
     def get_data(self: object, query: str, db: object) -> dict:
         """
