@@ -2,38 +2,21 @@
 
 # Install native dependencies
 apt update
-apt install -y build-essential python3 python3-dev python3-pip
+apt install -y python3 python3-pip
 
 # Fix certificate authorities on armv7
 export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
-# Install dependencies
-pip3 install -r requirements.txt
-
 # Make release
 if [ "$1" = 'binary' ]; then
     # Install native development dependencies
-    apt install -y patchelf zlib1g-dev upx scons
+    apt install -y make build-essential python3-dev patchelf zlib1g-dev upx scons
 
-    # Install python development dependencies
-    pip3 install pyinstaller
-    pip3 install staticx
+    # Install dependencies
+    make depend
 
-    # Create dynamically-linked binary
-    mkdir -p /tmp/out
-    mkdir -p /tmp/build/build-$(uname -m)
-    mkdir -p /tmp/spec/spec-$(uname -m)
-    pyinstaller -n consumatio-backend.linux-$(uname -m) --distpath /tmp/out --workpath /tmp/build/build-$(uname -m) --specpath /tmp/spec/spec-$(uname -m) --onefile ./consumatio/external/api.py
-
-    # Stage dynamically-linked binaries
-    mkdir -p out
-    cp /tmp/out/consumatio-backend.linux-$(uname -m) out
-
-    # Create statically-linked binary
-    mkdir -p /tmp/out/release
-    staticx /tmp/out/consumatio-backend.linux-$(uname -m) /tmp/out/release/consumatio-backend.linux-$(uname -m)
-
-    # Stage statically-linked binaries
-    mkdir -p out/release
-    cp /tmp/out/release/consumatio-backend.linux-$(uname -m) out/release
+    make release
+else
+    # Install dependencies
+    pip3 install -r requirements.txt
 fi
