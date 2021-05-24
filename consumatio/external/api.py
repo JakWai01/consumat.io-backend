@@ -21,7 +21,7 @@ from consumatio.external.models import *
 import os
 from flask import request
 from flask import Flask
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 
 DATABASE_URI = os.getenv('DATABASE_URI')
 from consumatio.external.logger import get_logger_instance
@@ -440,6 +440,10 @@ port = int(os.environ['PORT'])
 
 if __name__ == "__main__":
     migrate.init_app(app, db)
+
+    with app.app_context():
+        upgrade()
+
     app.run(debug=True, port=port, host="0.0.0.0")
 
 api = app
