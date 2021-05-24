@@ -1,32 +1,25 @@
-from consumatio.usecases.movie_details import MovieDetails
-from consumatio.usecases.tv_details import TVDetails
+from consumatio.usecases.movie_details import *
+from consumatio.usecases.tv_details import *
 from consumatio.external.models import *
 from sqlalchemy import text
 
 
-class List:
-    def get_list(self: object, tmdb: object, user: str,
-                 type: str, watchStatus: str):
-        watch_list = []
+def get_list(tmdb: object, user: str, type: str, watchStatus: str):
+    watch_list = []
 
-        results = MediaData.query.from_statement(
-            text(
-                "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-            )).params(watch_status=watchStatus, type=type, user=user).all()
+    results = MediaData.query.from_statement(
+        text(
+            "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        )).params(watch_status=watchStatus, type=type, user=user).all()
 
-        for result in results:
-            if type == "Movie":
-                movie_details = MovieDetails()
-                dict = movie_details.get_movie_details(user, tmdb,
-                                                       result.media_id_content,
-                                                       "DE")
-                dict["__typename"] = "Movie"
-                watch_list.append(dict)
-            elif type == "TV":
-                tv_details = TVDetails()
-                dict = tv_details.get_tv_details(user, tmdb,
-                                                 result.media_id_content, "DE")
-                dict["__typename"] = "TV"
-                watch_list.append(dict)
+    for result in results:
+        if type == "Movie":
+            dict = get_movie_details(user, tmdb, result.media_id_content, "DE")
+            dict["__typename"] = "Movie"
+            watch_list.append(dict)
+        elif type == "TV":
+            dict = get_tv_details(user, tmdb, result.media_id_content, "DE")
+            dict["__typename"] = "TV"
+            watch_list.append(dict)
 
-        return watch_list
+    return watch_list
