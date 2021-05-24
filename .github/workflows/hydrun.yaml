@@ -21,6 +21,8 @@ jobs:
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build backend binary with hydrun
         run: hydrun -a amd64,arm64,arm/v7 './Hydrunfile binary'
+      - name: Fix permissions for built binary
+        run: sudo chown -R $USER out
       - name: Publish pre-release to GitHub releases
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: marvinpinto/action-automatic-releases@latest
