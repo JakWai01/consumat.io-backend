@@ -263,20 +263,21 @@ def resolve_watchTime(*_, type: str) -> int:
 
 
 @query.field("list")
-def resolve_list(*_, type: str, watchStatus: str) -> dict:
+def resolve_list(*_, type: str, watchStatus: str, favorite: bool) -> dict:
     """
     API endpoint for "list" queries.
     :param type: <str> Choose between "tv", "movie", "season" and "episode"
-    :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished"
+    :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished" or "any"
+    :param favorite: <bool> to query media marked as favorite (best used with watchStatus = "any")
     :return: <dict> Movie, TV, Season or Episode
     """
-    logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
-        type, watchStatus))
+    logger.info("List was queried -> type:'{}', watchStatus:'{}', favorite: '{}'".format(
+        type, watchStatus, favorite))
 
     watch_list = List()
     user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
 
-    return watch_list.get_list(tmdb, database, user, type, watchStatus)
+    return watch_list.get_list(tmdb, database, user, type, watchStatus, favorite)
 
 
 director = ObjectType("Director")
