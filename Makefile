@@ -24,7 +24,7 @@ install: release
 	sudo install out/release/consumatio-backend.linux-$$(uname -m) /usr/local/bin/consumatio-backend
 	
 dev:
-	DEBUG=true flask run
+	DEBUG=true PORT=5000 python3 -m consumatio.external.api
 
 clean:
 	rm -rf out
@@ -36,3 +36,8 @@ depend:
 	# Install python development dependencies
 	pip3 install pyinstaller
 	pip3 install staticx
+
+migrations:
+	flask db stamp head
+	flask db migrate -m $$(MSG)
+	flask db upgrade
