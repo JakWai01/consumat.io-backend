@@ -126,7 +126,8 @@ def resolve_tvSeasons(*_, code: int) -> list:
     :return: list of dicts consisting of seasons
     """
     logger.info("TVSeasons was queried -> code:'{}'".format(code))
-    return get_tv_season_details(tmdb, code)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_tv_season_details(external_id, tmdb, code)
 
 
 @query.field("seasonEpisodes")
@@ -140,7 +141,8 @@ def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
     logger.info(
         "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
             code, seasonNumber))
-    return get_tv_episode_details(tmdb, code, seasonNumber)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_tv_episode_details(external_id, tmdb, code, seasonNumber)
 
 
 @query.field("watchCount")

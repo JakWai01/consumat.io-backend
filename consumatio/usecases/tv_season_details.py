@@ -1,4 +1,7 @@
-def get_tv_season_details(tmdb: object, code: int) -> list:
+from consumatio.usecases.season_details import *
+
+
+def get_tv_season_details(external_id: str, tmdb: object, code: int) -> list:
     """
     Get a list of all seasons of a TV show
     :param tmdb: <object> tmdb object to make API requests
@@ -11,7 +14,7 @@ def get_tv_season_details(tmdb: object, code: int) -> list:
 
     result = []
     for i in range(1, number_of_seasons + 1):
-        season = tmdb.get_season_details(code, i)
+        season = get_season_details(external_id, tmdb, code, i)
         result.append(season)
 
     return result
