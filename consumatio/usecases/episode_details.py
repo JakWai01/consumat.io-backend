@@ -3,10 +3,11 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_episode_details(user: str, tmdb: object, code: int, season_number: int,
-                        episode_number: int) -> dict:
+def get_episode_details(external_id: str, tmdb: object, code: int,
+                        season_number: int, episode_number: int) -> dict:
     """
     Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
+    :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv show to get data for
     :param season_number: <int> Number of the season which includes the episode
@@ -19,7 +20,7 @@ def get_episode_details(user: str, tmdb: object, code: int, season_number: int,
     result = MediaData.query.from_statement(
         text(
             "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Episode' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        )).params(user_value=user,
+        )).params(user_value=external_id,
                   code_data=dict_episode_details.get("code")).first()
 
     favorite = None

@@ -1,5 +1,17 @@
-def set_rating(tmdb, database, external_id, media, code, seasonNumber,
-               episodeNumber, rating):
+def set_rating(tmdb: object, database: object, external_id: str, media: str,
+               code: int, seasonNumber: int, episodeNumber: int,
+               rating: float) -> dict:
+    """
+    :param tmdb: <object> TMDB object to make API requests
+    :param database: <object> Database object to access the database
+    :param external_id: <str> External ID provided by OAuth
+    :param media: <str> Type of media to set rating for
+    :param code: <int> Code of the media
+    :param seasonNumber: <int> Number of season to set rating for
+    :param episodeNumber: <int> Number of episode to set rating for
+    :param rating: <float> rating
+    :return: <dict> Successful response
+    """
     user_id = 0
 
     if not database.user_exists(external_id):

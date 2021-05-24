@@ -3,7 +3,7 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_season_details(user: str, tmdb: object, code: int,
+def get_season_details(external_id: str, tmdb: object, code: int,
                        season_number: int) -> dict:
     """
     Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
@@ -17,7 +17,7 @@ def get_season_details(user: str, tmdb: object, code: int,
     result = MediaData.query.from_statement(
         text(
             "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Season' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        )).params(user_value=user,
+        )).params(user_value=external_id,
                   code_data=dict_season_details.get("code")).first()
 
     rating = None

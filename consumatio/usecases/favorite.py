@@ -1,5 +1,17 @@
-def set_favorite(tmdb, database, external_id, media, code, seasonNumber,
-                 episodeNumber, favorite):
+def set_favorite(tmdb: object, database: object, external_id: str, media: str,
+                 code: int, seasonNumber: int, episodeNumber: int,
+                 favorite: bool) -> dict:
+    """
+    :param tmdb: <object> TMDB object to make API requests
+    :param database: <object> Database object to access database
+    :param external_id: <str> External Id provided by OAuth
+    :param media: <str> Type of media to
+    :param code: <int> Code of the media to favorite
+    :param seasonNumber: <int> Number of season if media is season
+    :param episodeNumber: <int> Number of episode if media is episode
+    :param favorite: <bool> Boolean to set favorite to
+    :return: <dict> Successful response
+    """
     user_id = 0
 
     if not database.user_exists(external_id):

@@ -1,4 +1,13 @@
-def set_watch_status(database, external_id, code, media, watchStatus):
+def set_watch_status(database: object, external_id: str, code: int, media: str,
+                     watchStatus: str) -> dict:
+    """
+    :param database: <object> Database object to access database
+    :param external_id: <int> External ID provided by OAuth
+    :param code: <int> Code of the media to set watchStatus for
+    :param media: <str> Type of media
+    :param watchStatus: <str> WatchStatus, one of ["Movie", "TV", "Season", "Episode"]
+    :return: <dict: Successful response
+    """
     user_id = 0
 
     if not database.user_exists(external_id):
