@@ -21,7 +21,7 @@ from consumatio.external.models import *
 import os
 from flask import request
 from flask import Flask
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 
 DATABASE_URI = os.getenv('DATABASE_URI')
 from consumatio.external.logger import get_logger_instance
@@ -438,8 +438,17 @@ def graphql_server() -> str:
 
 port = int(os.environ['PORT'])
 
-if __name__ == "__main__":
-    migrate.init_app(app, db)
-    app.run(debug=True, port=port, host="0.0.0.0")
+# Run migrations
+migrate.init_app(app, db)
+
+with app.app_context():
+    upgrade(directory=os.path.join(os.path.dirname(__file__), "..", "..", "migrations"))
 
 api = app
+
+if __name__ == "__main__":
+    if os.getenv('DEBUG') != None:
+        app.run(debug=True, port=port, host="0.0.0.0")
+    else:
+        app.run(port=port, host="0.0.0.0")
+
