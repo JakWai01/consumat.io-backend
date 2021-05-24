@@ -23,12 +23,13 @@ $ export TMDB_KEY=<YOUR_TMDB_API_KEY>
 $ export BACKEND_SECRET="mysecret"
 $ export FLASK_APP=./consumatio/external/api.py
 $ export PORT=5000
+$ export DEBUG=true
 $ flask run
 ```
 
 The backend's GraphQL Playground should now be available on [http://localhost:5000/](http://localhost:5000/).
 
-If you want to create and apply a migration, run the following:
+If you want to create and apply a migration, run the following; migrations are also applied ("upgraded") automatically on startup:
 
 ```shell
 $ export DATABASE_URI=postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres
