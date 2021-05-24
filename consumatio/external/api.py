@@ -40,8 +40,8 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     """
     logger.info("Movie was queried -> code:{}, country:'{}'".format(
         code, country))
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_movie_details(user, tmdb, code, country)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_movie_details(external_id, tmdb, code, country)
 
 
 @query.field("tv")
@@ -54,8 +54,8 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     """
     logger.info("TV was queried -> code:{}, country:'{}'".format(
         code, country))
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_tv_details(user, tmdb, code, country)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_tv_details(external_id, tmdb, code, country)
 
 
 @query.field("season")
@@ -68,9 +68,8 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     """
     logger.info("Season was queried -> code:{}, season_number:{}".format(
         code, seasonNumber))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_season_details(user, tmdb, code, seasonNumber)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_season_details(external_id, tmdb, code, seasonNumber)
 
 
 @query.field("episode")
@@ -86,9 +85,9 @@ def resolve_episode(*_, code: int, seasonNumber: int,
     logger.info(
         "Episode was queried -> code:{}, season_number:{}, episode_number:{}".
         format(code, seasonNumber, episodeNumber))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_episode_details(user, tmdb, code, seasonNumber, episodeNumber)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_episode_details(external_id, tmdb, code, seasonNumber,
+                               episodeNumber)
 
 
 @query.field("search")
@@ -100,9 +99,8 @@ def resolve_search(*_, keyword: str, page: int) -> dict:
     :return: <dict> Results of the search
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_search_details(user, tmdb, keyword, page)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_search_details(external_id, tmdb, keyword, page)
 
 
 @query.field("popular")
@@ -116,9 +114,8 @@ def resolve_popular(*_, type: str, country: str, page: int) -> dict:
     """
     logger.info("Popular was queried -> type:'{}', country:'{}'".format(
         type, country))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_popular_details(user, tmdb, type, country, page)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_popular_details(external_id, tmdb, type, country, page)
 
 
 @query.field("tvSeasons")
@@ -154,10 +151,8 @@ def resolve_watchCount(*_, type: str) -> int:
     :return: <int> Count of watched media of provided type
     """
     logger.info("watchCount was queired -> type:'{}'".format(type))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-
-    return get_watch_count(tmdb, user, type)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_watch_count(tmdb, external_id, type)
 
 
 @query.field("watchTime")
@@ -168,10 +163,8 @@ def resolve_watchTime(*_, type: str) -> int:
     :return: <int> Runtime of watched media of provided type
     """
     logger.info("watchTime was queried -> type:'{}'".format((type)))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-
-    return get_watch_time(tmdb, user, type)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_watch_time(tmdb, external_id, type)
 
 
 @query.field("list")
@@ -184,10 +177,8 @@ def resolve_list(*_, type: str, watchStatus: str) -> dict:
     """
     logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
         type, watchStatus))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-
-    return get_list(tmdb, user, type, watchStatus)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return get_list(tmdb, external_id, type, watchStatus)
 
 
 mutation = MutationType()
@@ -199,9 +190,8 @@ def resolve_favorite(*_, code: int, media: str, favorite: bool,
     logger.info(
         "favorite was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
         .format(media, code, seasonNumber, episodeNumber, favorite))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_favorite(tmdb, database, user, media, code, seasonNumber,
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return set_favorite(tmdb, database, external_id, media, code, seasonNumber,
                         episodeNumber, favorite)
 
 
@@ -211,9 +201,8 @@ def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
     logger.info(
         "rating was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', rating:'{}'"
         .format(media, code, seasonNumber, episodeNumber, rating))
-
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_rating(tmdb, database, user, media, code, seasonNumber,
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return set_rating(tmdb, database, external_id, media, code, seasonNumber,
                       episodeNumber, rating)
 
 
@@ -223,9 +212,8 @@ def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
     logger.info(
         "number of watched episodes was queried -> code:'{}', seasonNumber:'{}', numberOfWatchedEpisodes:'{}'"
         .format(code, seasonNumber, numberOfWatchedEpisodes))
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-
-    return set_number_of_watched_episodes(tmdb, database, user, code,
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return set_number_of_watched_episodes(tmdb, database, external_id, code,
                                           seasonNumber,
                                           numberOfWatchedEpisodes)
 
@@ -235,9 +223,8 @@ def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
     logger.info(
         "watchStatus was queried -> code:'{}', media:'{}', watchStatus:'{}'".
         format(code, media, watchStatus))
-    user = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-
-    return set_watch_status(database, user, code, media, watchStatus)
+    external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+    return set_watch_status(database, external_id, code, media, watchStatus)
 
 
 app = Flask(__name__)

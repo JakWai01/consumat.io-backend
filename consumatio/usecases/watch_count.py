@@ -2,7 +2,7 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_watch_count(tmdb: object, user: str, type: str) -> int:
+def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
     """
     Get count of watched media of a certain type (e.g. "Movie", "Season" or "Drama")
     :param tmdb: <object> TMDB object to make API requests
@@ -15,14 +15,14 @@ def get_watch_count(tmdb: object, user: str, type: str) -> int:
         results = MediaData.query.from_statement(
             text(
                 "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = :type AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=user, type=type).all()
+            )).params(user=external_id, type=type).all()
 
         count = len(results)
     else:
         results = MediaData.query.from_statement(
             text(
                 "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=user, type=type).all()
+            )).params(user=external_id, type=type).all()
 
         for result in results:
             if result.media_type_content == "Movie":
