@@ -145,7 +145,7 @@ class Database():
 
     def watch_status_exists(self: object, user_id: int, media: str,
                             media_id: int) -> bool:
-        self.check_media_watch_status(media)
+        self.check_root_media_types(media)
         media_data = MediaData.query.filter_by(
             user_id_content=user_id,
             media_type_content=media,
@@ -161,7 +161,7 @@ class Database():
     def watch_status(self: object, user_id: int, media: str, media_id: int,
                      watch_status: str) -> None:
         self.check_watch_status(watch_status)
-        self.check_media_watch_status(media)
+        self.check_root_media_types(media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -212,7 +212,7 @@ class Database():
                 "The media: {} is invalid -> valide arguments:{} ".format(
                     media, valid_media))
 
-    def check_media_watch_status(self: object, media: str) -> None:
+    def check_root_media_types(self: object, media: str) -> None:
         valid_media = ["TV", "Movie"]
         if media not in valid_media:
             raise InvalidParameter(
