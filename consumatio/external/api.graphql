@@ -5,7 +5,7 @@ type Query {
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String, page: Int): MediaPage
     popular(type: String, country: String, page: Int): MediaPage
-    list(type: String, watchStatus: String): [Media]
+    list(type: String, watchStatus: String, favorite: Boolean): [Media]
     tvSeasons(code: Int): [Season]
     seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
     watchCount(type: String): Int
