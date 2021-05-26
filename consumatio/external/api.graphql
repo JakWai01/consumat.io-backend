@@ -13,7 +13,7 @@ type Query {
 }
 
 type Mutation {
-    rating(code: Int!, media: String!, rating: Float!, seasonNumber: Int, episodeNumber: Int) : Payload!
+    rating(code: Int!, media: String!, rating: Int, seasonNumber: Int, episodeNumber: Int) : Payload!
     favorite(code: Int!, media: String!, favorite: Boolean!, seasonNumber: Int, episodeNumber: Int) : Payload!
     watchStatus(code: Int!, media: String!, watchStatus: String) : Payload!
     numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
@@ -103,7 +103,6 @@ type Season {
     overview: String
     posterPath: String
     watchStatus: String
-    ratingUser: Float
     favorite: Boolean
     numberOfEpisodes: Int
     airDate: String
@@ -120,6 +119,5 @@ type Episode {
     ratingAverage: Float 
     stillPath: String
     watchStatus: String
-    ratingUser: Float
     favorite: Boolean
 }
