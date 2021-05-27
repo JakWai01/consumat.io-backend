@@ -102,7 +102,6 @@ type Season {
     title: String
     overview: String
     posterPath: String
-    watchStatus: String
     favorite: Boolean
     numberOfEpisodes: Int
     airDate: String
@@ -118,6 +117,5 @@ type Episode {
     airDate: String
     ratingAverage: Float 
     stillPath: String
-    watchStatus: String
     favorite: Boolean
 }
