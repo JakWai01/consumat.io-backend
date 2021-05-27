@@ -2,11 +2,11 @@
 
 Backend for [github.com/alphahorizonio/consumat.io](https://github.com/alphahorizonio/consumat.io).
 
-[![hydrun CI](https://github.com/alphahorizonio/consumatio-backend/actions/workflows/hydrun.yaml/badge.svg)](https://github.com/alphahorizonio/consumatio-backend/actions/workflows/hydrun.yaml)
-[![Docker CI](https://github.com/alphahorizonio/consumatio-backend/actions/workflows/docker.yaml/badge.svg)](https://github.com/alphahorizonio/consumatio-backend/actions/workflows/docker.yaml)
+[![hydrun CI](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/hydrun.yaml/badge.svg)](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/hydrun.yaml)
+[![Docker CI](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/docker.yaml/badge.svg)](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/docker.yaml)
 [![Matrix](https://img.shields.io/matrix/consumatio:matrix.org)](https://matrix.to/#/#consumatio:matrix.org?via=matrix.org)
 [![Docker Pulls](https://img.shields.io/docker/pulls/alphahorizonio/consumatio-backend?label=docker%20pulls)](https://hub.docker.com/r/alphahorizonio/consumatio-backend)
-[![Binary Downloads](https://img.shields.io/github/downloads/alphahorizonio/consumatio-backend/total?label=binary%20downloads)](https://github.com/alphahorizonio/consumatio-backend/releases)
+[![Binary Downloads](https://img.shields.io/github/downloads/alphahorizonio/consumat.io-backend/total?label=binary%20downloads)](https://github.com/alphahorizonio/consumat.io-backend/releases)
 
 ## Overview
 
@@ -24,18 +24,18 @@ $ docker pull alphahorizonio/consumatio-backend
 
 ### Natively
 
-If you prefer a native installation, static binaries are also available on [GitHub releases](https://github.com/alphahorizonio/consumatio-backend/releases).
+If you prefer a native installation, static binaries are also available on [GitHub releases](https://github.com/alphahorizonio/consumat.io-backend/releases).
 
 You can install them like so:
 
 ```shell
-$ curl -L -o /tmp/consumatio-backend https://github.com/alphahorizonio/consumatio-backend/releases/latest/download/consumatio-backend.linux-$(uname -m)
+$ curl -L -o /tmp/consumatio-backend https://github.com/alphahorizonio/consumat.io-backend/releases/latest/download/consumatio-backend.linux-$(uname -m)
 $ sudo install /tmp/consumatio-backend /usr/local/bin
 ```
 
 ### About the Frontend
 
-The frontend is also available on [alphahorizonio/consumatio-frontend](https://github.com/alphahorizonio/consumat.io-frontend) if you prefer to self-host. For most users, this shouldn't be necessary though; consumat.io is a progressive web app. By simply visiting the [public deployment](https://consumat-io-frontend.vercel.app/) once, it will be available for offline use whenever you need it:
+The frontend is also available on [alphahorizonio/consumat.io-frontend](https://github.com/alphahorizonio/consumat.io-frontend) if you prefer to self-host. For most users, this shouldn't be necessary though; consumat.io is a progressive web app. By simply visiting the [public deployment](https://consumat-io-frontend.vercel.app/) once, it will be available for offline use whenever you need it:
 
 [<img src="https://github.com/alphahorizonio/webnetesctl/raw/main/img/launch.png" width="240">](https://consumat-io-frontend.vercel.app/)
 
