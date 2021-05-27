@@ -4,21 +4,32 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_list(tmdb: object, external_id: str, type: str,
-             watchStatus: str) -> list:
-    """
-    :param tmdb: <object> TMDB object to make api requests
-    :param external_id: <str> External ID provided by OAuth
-    :param type: <str> type of media
-    :param watchStatus: <str> watchStatus to get list for
-    :return: <list> Requested list
-    """
+def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
+             favorite: bool):
     watch_list = []
 
-    results = MediaData.query.from_statement(
-        text(
-            "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-        )).params(watch_status=watchStatus, type=type, user=external_id).all()
+    query = "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data"
+    results = []
+
+    if watchStatus == "any" and favorite:
+        query += " AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            favorite=favorite, type=type, user=external_id).all()
+    elif watchStatus == "any":
+        query += " AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            type=type, user=external_id).all()
+    elif favorite:
+        query += " AND media_data.watch_status_content = :watch_status AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            watch_status=watchStatus,
+            favorite=favorite,
+            type=type,
+            user=external_id).all()
+    else:
+        query += " AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            watch_status=watchStatus, type=type, user=external_id).all()
 
     for result in results:
         if type == "Movie":

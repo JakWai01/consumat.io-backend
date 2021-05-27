@@ -24,7 +24,7 @@ from consumatio.external.models import *
 import os
 from flask import request
 from flask import Flask
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 from consumatio.external.logger import get_logger_instance
 
 query = QueryType()
@@ -170,17 +170,18 @@ def resolve_watchTime(*_, type: str) -> int:
 
 
 @query.field("list")
-def resolve_list(*_, type: str, watchStatus: str) -> dict:
+def resolve_list(*_, type: str, watchStatus: str, favorite: bool) -> dict:
     """
     API endpoint for "list" queries.
     :param type: <str> Choose between "tv", "movie", "season" and "episode"
-    :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished"
+    :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished" or "any"
+    :param favorite: <bool> to query media marked as favorite (best used with watchStatus = "any")
     :return: <dict> Movie, TV, Season or Episode
     """
     logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
         type, watchStatus))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_list(tmdb, external_id, type, watchStatus)
+    return get_list(tmdb, external_id, type, watchStatus, favorite)
 
 
 mutation = MutationType()
@@ -349,7 +350,6 @@ season = ObjectType("Season")
 season.set_alias("tvCode", "tv_code")
 season.set_alias("seasonNumber", "season_number")
 season.set_alias("posterPath", "poster_path")
-season.set_alias("watchStatus", "watch_status")
 season.set_alias("ratingUser", "rating_user")
 season.set_alias("numberOfEpisodes", "number_of_episodes")
 season.set_alias("airDate", "air_date")
@@ -361,7 +361,6 @@ episode.set_alias("seasonNumber", "season_number")
 episode.set_alias("airDate", "air_date")
 episode.set_alias("ratingAverage", "rating_average")
 episode.set_alias("stillPath", "still_path")
-episode.set_alias("watchStatus", "watch_status")
 episode.set_alias("ratingUser", "rating_user")
 
 media_page = ObjectType("MediaPage")
@@ -385,8 +384,17 @@ schema = make_executable_schema(type_defs, query, mutation, rating,
                                 media_page, director, cast,
                                 numberOfWatchedEpisodes, favorite)
 
-if __name__ == "__main__":
-    migrate.init_app(app, db)
-    app.run(debug=True, port=PORT, host="0.0.0.0")
+# Run migrations
+migrate.init_app(app, db)
+
+with app.app_context():
+    upgrade(directory=os.path.join(os.path.dirname(__file__), "..", "..",
+                                   "migrations"))
 
 api = app
+
+if __name__ == "__main__":
+    if os.getenv('DEBUG') != None:
+        app.run(debug=True, port=PORT, host="0.0.0.0")
+    else:
+        app.run(port=PORT, host="0.0.0.0")
