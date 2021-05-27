@@ -1,50 +1,46 @@
-from consumatio.usecases.movie_details import MovieDetails
-from consumatio.usecases.tv_details import TVDetails
+from consumatio.usecases.movie_details import *
+from consumatio.usecases.tv_details import *
 from consumatio.external.models import *
 from sqlalchemy import text
 
 
-class List:
-    def get_list(self: object, tmdb: object, database: object, user: str,
-                 type: str, watchStatus: str, favorite: bool):
-        watch_list = []
-        # results = query where user == user and watch_status == watch_status and type == type
-        # results = db.session.query().from_statement(
-        #     text("SELECT * FROM media_data")).all()
+def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
+             favorite: bool):
+    watch_list = []
 
-        query = "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data"
-        results = []
+    query = "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data"
+    results = []
 
-        if watchStatus == "any" and favorite:
-            query += " AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-            results = MediaData.query.from_statement(text(query)).params(
-                favorite=favorite, type=type, user=user).all()
-        elif watchStatus == "any":
-            query += " AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-            results = MediaData.query.from_statement(text(query)).params(
-                type=type, user=user).all()
-        elif favorite:
-            query += " AND media_data.watch_status_content = :watch_status AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-            results = MediaData.query.from_statement(text(query)).params(
-                watch_status=watchStatus, favorite=favorite, type=type, user=user).all()
-        else:
-            query += " AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
-            results = MediaData.query.from_statement(text(query)).params(
-                watch_status=watchStatus, type=type, user=user).all()
+    if watchStatus == "any" and favorite:
+        query += " AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            favorite=favorite, type=type, user=external_id).all()
+    elif watchStatus == "any":
+        query += " AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            type=type, user=external_id).all()
+    elif favorite:
+        query += " AND media_data.watch_status_content = :watch_status AND media_data.favorite_content = :favorite AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            watch_status=watchStatus,
+            favorite=favorite,
+            type=type,
+            user=external_id).all()
+    else:
+        query += " AND media_data.watch_status_content = :watch_status AND media_data.media_type_content = :type AND user_data.external_id_content = :user;"
+        results = MediaData.query.from_statement(text(query)).params(
+            watch_status=watchStatus, type=type, user=external_id).all()
 
-        for result in results:
-            if type == "Movie":
-                movie_details = MovieDetails()
-                dict = movie_details.get_movie_details(user, tmdb,
-                                                       result.media_id_content,
-                                                       "DE")
-                dict["__typename"] = "Movie"
-                watch_list.append(dict)
-            elif type == "TV":
-                tv_details = TVDetails()
-                dict = tv_details.get_tv_details(user, tmdb,
-                                                 result.media_id_content, "DE")
-                dict["__typename"] = "TV"
-                watch_list.append(dict)
+    for result in results:
+        if type == "Movie":
+            dict = get_movie_details(external_id, tmdb,
+                                     result.media_id_content, "DE")
+            dict["__typename"] = "Movie"
+            watch_list.append(dict)
+        elif type == "TV":
+            dict = get_tv_details(external_id, tmdb, result.media_id_content,
+                                  "DE")
+            dict["__typename"] = "TV"
+            watch_list.append(dict)
 
-        return watch_list
+    return watch_list
