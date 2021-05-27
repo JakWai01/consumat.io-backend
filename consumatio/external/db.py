@@ -171,6 +171,7 @@ class Database():
         :return: None
         """
         self.check_all_media_types(media)
+        self.check_rating_value(rating)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -194,7 +195,9 @@ class Database():
             media_id_content=media_id).first()
         media_data.number_of_watched_episodes = number_of_watched_episodes
         self.db.session.commit()
-        logger.info("number of watched episodes successfully entered into the database")
+        logger.info(
+            "number of watched episodes successfully entered into the database"
+        )
 
     def watch_status_exists(self: object, user_id: int, media: str,
                             media_id: int) -> bool:
@@ -205,7 +208,7 @@ class Database():
         :param media_id: <int> Id of the media to check watch status for
         :return: <bool> True of watch status exists, False if not
         """
-        self.check_media_watch_status(media)
+        self.check_root_media_type(media)
         media_data = MediaData.query.filter_by(
             user_id_content=user_id,
             media_type_content=media,
@@ -229,7 +232,7 @@ class Database():
         :return: None
         """
         self.check_watch_status(watch_status)
-        self.check_media_watch_status(media)
+        self.check_root_media_type(media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -305,9 +308,9 @@ class Database():
                 "The media: {} is invalid -> valide arguments:{} ".format(
                     media, valid_media))
 
-    def check_media_watch_status(self: object, media: str) -> None:
+    def check_root_media_type(self: object, media: str) -> None:
         """
-        Check if media has valid values concerning the watch status mutation
+        Check if media has valid values concerning the watch status and rating mutation
         :param media: <str> Media type of a certain media
         :return: None
         """
@@ -316,3 +319,17 @@ class Database():
             raise InvalidParameter(
                 "The media: {} is invalid -> valide arguments:{} ".format(
                     media, valid_media))
+
+    def check_rating_value(self: object, rating: int) -> None:
+        """
+        Check if rating has valid value concerning the watch rating mutation
+        :param media: <int> Rating value
+        :return: None
+        """
+        lower_bound = 0
+        uppper_bound = 10
+        if rating is not None and (rating < lower_bound
+                                   or rating > uppper_bound):
+            raise InvalidParameter(
+                "The rating: {} is invalid -> valide value:{} - {} or null".
+                format(rating, lower_bound, uppper_bound))
