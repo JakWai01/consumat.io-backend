@@ -24,9 +24,7 @@ def get_episode_details(external_id: str, tmdb: object, code: int,
                   code_data=dict_episode_details.get("code")).first()
 
     favorite = None
-    rating = None
     if result != None:
-        rating = result.rating_content
         favorite = result.favorite_content
 
     dict = {
@@ -38,7 +36,6 @@ def get_episode_details(external_id: str, tmdb: object, code: int,
         "air_date": dict_episode_details.get("air_date"),
         "rating_average": dict_episode_details.get("rating_average"),
         "still_path": dict_episode_details.get("still_path"),
-        "rating_user": rating,
         "favorite": favorite,
     }
 
