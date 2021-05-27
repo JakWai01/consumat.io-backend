@@ -18,13 +18,6 @@ def set_rating(tmdb: object, database: object, external_id: str, media: str,
         database.user(external_id)
     user_id = database.get_user_id(external_id)
 
-    if media == "Season":
-        code = tmdb.get_season_details(code, seasonNumber).get("code")
-
-    if media == "Episode":
-        code = tmdb.get_episode_details(code, seasonNumber,
-                                        episodeNumber).get("code")
-
     if not database.media_data_exists(user_id, media, code):
         database.media_Data(user_id, media, code)
 
