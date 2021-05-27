@@ -5,7 +5,7 @@ Backend for [github.com/alphahorizonio/consumat.io](https://github.com/alphahori
 [![hydrun CI](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/hydrun.yaml/badge.svg)](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/hydrun.yaml)
 [![Docker CI](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/docker.yaml/badge.svg)](https://github.com/alphahorizonio/consumat.io-backend/actions/workflows/docker.yaml)
 [![Matrix](https://img.shields.io/matrix/consumatio:matrix.org)](https://matrix.to/#/#consumatio:matrix.org?via=matrix.org)
-[![Docker Pulls](https://img.shields.io/docker/pulls/alphahorizonio/consumatio-backend?label=docker%20pulls)](https://hub.docker.com/r/alphahorizonio/consumatio-backend)
+[![Docker Pulls](https://img.shields.io/docker/pulls/alphahorizonio/consumatio-backend?label=docker%20pulls)](https://img.shields.io/docker/pulls/alphahorizonio/consumatio-backend?label=docker%20pulls)
 [![Binary Downloads](https://img.shields.io/github/downloads/alphahorizonio/consumat.io-backend/total?label=binary%20downloads)](https://github.com/alphahorizonio/consumat.io-backend/releases)
 
 ## Overview
