@@ -20,11 +20,9 @@ def get_season_details(external_id: str, tmdb: object, code: int,
         )).params(user_value=external_id,
                   code_data=dict_season_details.get("code")).first()
 
-    rating = None
     favorite = None
     number_of_watched_episodes = None
     if result != None:
-        rating = result.rating_content
         number_of_watched_episodes = result.number_of_watched_episodes
         favorite = result.favorite_content
 
@@ -35,7 +33,6 @@ def get_season_details(external_id: str, tmdb: object, code: int,
         "title": dict_season_details.get("title"),
         "overview": dict_season_details.get("overview"),
         "poster_path": dict_season_details.get("poster_path"),
-        "rating_user": rating,
         "favorite": favorite,
         "number_of_episodes": dict_season_details.get("number_of_episodes"),
         "air_date": dict_season_details.get("air_date"),
