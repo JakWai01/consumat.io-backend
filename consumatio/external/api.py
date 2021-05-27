@@ -199,14 +199,12 @@ def resolve_favorite(*_, code: int, media: str, favorite: bool,
 
 
 @mutation.field("rating")
-def resolve_rating(*_, code: int, media: str, rating: float, seasonNumber: int,
-                   episodeNumber: int) -> dict:
+def resolve_rating(*_, code: int, media: str, rating: int) -> dict:
     logger.info(
-        "rating was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', rating:'{}'"
-        .format(media, code, seasonNumber, episodeNumber, rating))
+        "rating was queried -> media:'{}', code:'{}', rating:'{}'".format(
+            media, code, rating))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_rating(tmdb, database, external_id, media, code, seasonNumber,
-                      episodeNumber, rating)
+    return set_rating(tmdb, database, external_id, media, code, rating)
 
 
 @mutation.field("numberOfWatchedEpisodes")
@@ -312,8 +310,6 @@ logger = get_logger_instance()
 
 db.init_app(app)
 
-movie = ObjectType("Movie")
-
 favorite = MutationType()
 favorite.set_field("favorite", resolve_favorite)
 
@@ -321,10 +317,13 @@ rating = MutationType()
 rating.set_field("rating", resolve_rating)
 
 numberOfWatchedEpisodes = MutationType()
-rating.set_field("numberOfWatchedEpisodes", resolve_number_of_watched_episodes)
+numberOfWatchedEpisodes.set_field("numberOfWatchedEpisodes",
+                                  resolve_number_of_watched_episodes)
 
 watchStatus = MutationType()
 watchStatus.set_field("watchStatus", resolve_watch_status)
+
+movie = ObjectType("Movie")
 movie.set_alias("ratingAverage", "rating_average")
 movie.set_alias("releaseInitial", "release_date")
 movie.set_alias("backdropPath", "backdrop_path")
@@ -350,7 +349,6 @@ season = ObjectType("Season")
 season.set_alias("tvCode", "tv_code")
 season.set_alias("seasonNumber", "season_number")
 season.set_alias("posterPath", "poster_path")
-season.set_alias("ratingUser", "rating_user")
 season.set_alias("numberOfEpisodes", "number_of_episodes")
 season.set_alias("airDate", "air_date")
 season.set_alias("numberOfWatchedEpisodes", "number_of_watched_episodes")
@@ -361,7 +359,6 @@ episode.set_alias("seasonNumber", "season_number")
 episode.set_alias("airDate", "air_date")
 episode.set_alias("ratingAverage", "rating_average")
 episode.set_alias("stillPath", "still_path")
-episode.set_alias("ratingUser", "rating_user")
 
 media_page = ObjectType("MediaPage")
 media_page.set_alias("totalPages", "total_pages")
