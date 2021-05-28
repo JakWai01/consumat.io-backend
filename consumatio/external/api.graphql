@@ -13,7 +13,7 @@ type Query {
 }
 
 type Mutation {
-    rating(code: Int!, media: String!, rating: Float!, seasonNumber: Int, episodeNumber: Int) : Payload!
+    rating(code: Int!, media: String!, rating: Int) : Payload!
     favorite(code: Int!, media: String!, favorite: Boolean!, seasonNumber: Int, episodeNumber: Int) : Payload!
     watchStatus(code: Int!, media: String!, watchStatus: String) : Payload!
     numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
@@ -47,7 +47,7 @@ type Movie {
     directors: [Director]
     tmdbUrl: String
     watchStatus: String
-    ratingUser: Float
+    ratingUser: Int
     favorite: Boolean
 }
 
@@ -90,7 +90,7 @@ type TV {
     numberOfSeasons: Int
     tmdbUrl: String
     watchStatus: String
-    ratingUser: Float
+    ratingUser: Int
     favorite: Boolean
     runtime: Int
 }
@@ -102,8 +102,6 @@ type Season {
     title: String
     overview: String
     posterPath: String
-    watchStatus: String
-    ratingUser: Float
     favorite: Boolean
     numberOfEpisodes: Int
     airDate: String
@@ -119,7 +117,5 @@ type Episode {
     airDate: String
     ratingAverage: Float 
     stillPath: String
-    watchStatus: String
-    ratingUser: Float
     favorite: Boolean
 }
