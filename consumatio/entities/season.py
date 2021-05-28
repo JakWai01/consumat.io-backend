@@ -10,7 +10,6 @@ class Season(Entity):
     title: str
     overview: str
     poster_path: str
-    rating_user: float
     favorite: bool
     number_of_episodes: int
     air_date: str

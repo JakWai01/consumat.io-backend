@@ -22,7 +22,7 @@ class TV(Entity):
     number_of_seasons: int
     tmdb_url: str
     watch_status: str
-    rating_user: float
+    rating_user: int
     favorite: bool
     runtime: int
 
