@@ -13,21 +13,22 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
     """
     runtime = 0
     if type == 'Movie':
-        results = MediaData.query.from_statement(
-            text(
-                "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = :type AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=external_id, type=type).all()
+        results = MediaData.query.join(User).filter(
+            User.user_id_content == MediaData.user_id_content_media_data,
+            MediaData.media_type_content == type,
+            User.external_id_content == external_id,
+            MediaData.watch_status_content == 'Finished').all()
 
         for result in results:
             data = tmdb.get_movie_details(result.media_id_content)
 
             runtime += data.get("runtime")
     elif type == 'TV':
-        results = MediaData.query.from_statement(
-            text(
-                "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Episode' AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=external_id, type=type).all()
-
+        results = MediaData.query.join(User).filter(
+            User.user_id_content == MediaData.user_id_content_media_data,
+            MediaData.media_type_content == 'Episode',
+            User.external_id_content == external_id,
+            MediaData.watch_status_content == 'Finished').all()
         for result in results:
             data = tmdb.get_tv_details(result.media_id_content)
 

@@ -14,11 +14,11 @@ def get_season(external_id: str, tmdb: object, code: int,
     """
     dict_season_details = tmdb.get_season_details(code, season_number)
 
-    result = MediaData.query.from_statement(
-        text(
-            "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Season' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        )).params(user_value=external_id,
-                  code_data=dict_season_details.get("code")).first()
+    result = MediaData.query.join(User).filter(
+        User.user_id_content == MediaData.user_id_content_media_data,
+        MediaData.media_type_content == 'Season',
+        User.external_id_content == external_id,
+        MediaData.media_id_content == dict_season_details.get("code")).first()
 
     favorite = None
     number_of_watched_episodes = None
