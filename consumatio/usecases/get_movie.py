@@ -1,6 +1,5 @@
 from consumatio.entities.movie import Movie
 from consumatio.external.models import *
-from sqlalchemy import text
 
 
 def get_movie(external_id: str, tmdb: object, code: int, country: str) -> dict:
