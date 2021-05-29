@@ -1,5 +1,5 @@
-def get_popular_details(external_id: str, tmdb: object, type: str,
-                        country: str, page: int) -> dict:
+def get_popular(external_id: str, tmdb: object, type: str, country: str,
+                page: int) -> dict:
     """
     Make all relevant API request for this usecase (popular items) and assemble them into a dictionary
     :param tmdb: <object> Tmdb object

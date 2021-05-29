@@ -3,8 +3,8 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_season_details(external_id: str, tmdb: object, code: int,
-                       season_number: int) -> dict:
+def get_season(external_id: str, tmdb: object, code: int,
+               season_number: int) -> dict:
     """
     Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
     :param tmdb: <object> Tmdb object
