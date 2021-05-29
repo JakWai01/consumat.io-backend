@@ -1,5 +1,4 @@
 from consumatio.external.models import *
-from sqlalchemy import text
 from consumatio.external.exceptions.invalid_parameter import *
 
 

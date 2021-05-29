@@ -1,5 +1,4 @@
 from consumatio.external.models import *
-from sqlalchemy import text
 
 
 def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
