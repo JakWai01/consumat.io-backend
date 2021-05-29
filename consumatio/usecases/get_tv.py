@@ -15,10 +15,11 @@ def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
     dict_tv_providers = tmdb.get_tv_providers(code, country)
     dict_tv_credits = tmdb.get_tv_credits(code)
 
-    result = MediaData.query.from_statement(
-        text(
-            "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'TV' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        )).params(user_value=external_id, code_data=code).first()
+    result = MediaData.query.join(User).filter(
+        User.user_id_content == MediaData.user_id_content_media_data,
+        MediaData.media_type_content == 'TV',
+        User.external_id_content == external_id,
+        MediaData.media_id_content == code).first()
 
     rating = None
     watch_status = None

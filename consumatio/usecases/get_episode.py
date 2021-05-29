@@ -17,11 +17,11 @@ def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
     dict_episode_details = tmdb.get_episode_details(code, season_number,
                                                     episode_number)
 
-    result = MediaData.query.from_statement(
-        text(
-            "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Episode' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-        )).params(user_value=external_id,
-                  code_data=dict_episode_details.get("code")).first()
+    result = MediaData.query.join(User).filter(
+        User.user_id_content == MediaData.user_id_content_media_data,
+        MediaData.media_type_content == 'Episode',
+        User.external_id_content == external_id, MediaData.media_id_content ==
+        dict_episode_details.get("code")).first()
 
     favorite = None
     if result != None:

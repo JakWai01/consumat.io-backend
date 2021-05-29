@@ -12,17 +12,18 @@ def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
     """
     count = 0
     if type in "MovieEpisodeTVSeason":
-        results = MediaData.query.from_statement(
-            text(
-                "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = :type AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=external_id, type=type).all()
+        results = MediaData.query.join(User).filter(
+            User.user_id_content == MediaData.user_id_content_media_data,
+            MediaData.media_type_content == type,
+            User.external_id_content == external_id,
+            MediaData.watch_status_content == 'Finished').all()
 
         count = len(results)
     else:
-        results = MediaData.query.from_statement(
-            text(
-                "SELECT * FROM media_data, user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND user_data.external_id_content = :user AND media_data.watch_status_content = 'Finished';"
-            )).params(user=external_id, type=type).all()
+        results = MediaData.query.join(User).filter(
+            User.user_id_content == MediaData.user_id_content_media_data,
+            User.external_id_content == external_id,
+            MediaData.watch_status_content == 'Finished').all()
 
         for result in results:
             if result.media_type_content == "Movie":
