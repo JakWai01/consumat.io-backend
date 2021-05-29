@@ -1,4 +1,4 @@
-from consumatio.usecases.season_details import *
+from consumatio.usecases.get_season_details import *
 
 
 def get_tv_season_details(external_id: str, tmdb: object, code: int) -> list:

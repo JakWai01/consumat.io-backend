@@ -1,4 +1,4 @@
-from consumatio.usecases.episode_details import get_episode_details
+from consumatio.usecases.get_episode_details import get_episode_details
 
 
 def get_tv_episode_details(external_id: str, tmdb: object, code: int,

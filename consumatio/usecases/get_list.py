@@ -1,5 +1,5 @@
-from consumatio.usecases.movie_details import *
-from consumatio.usecases.tv_details import *
+from consumatio.usecases.get_movie_details import *
+from consumatio.usecases.get_tv_details import *
 from consumatio.external.models import *
 from sqlalchemy import text
 
