@@ -1,14 +1,14 @@
 from ariadne import ObjectType, QueryType, make_executable_schema, graphql_sync, load_schema_from_path, UnionType, MutationType
 from consumatio.external.tmdb import Tmdb
 from consumatio.usecases.set_number_of_watched_episodes import *
-from consumatio.usecases.get_movie_details import *
-from consumatio.usecases.get_tv_details import *
-from consumatio.usecases.get_season_details import *
-from consumatio.usecases.get_episode_details import *
-from consumatio.usecases.get_search_details import *
-from consumatio.usecases.get_popular_details import *
-from consumatio.usecases.get_tv_season_details import *
-from consumatio.usecases.get_tv_episode_details import *
+from consumatio.usecases.get_movie import *
+from consumatio.usecases.get_tv import *
+from consumatio.usecases.get_season import *
+from consumatio.usecases.get_episode import *
+from consumatio.usecases.get_search import *
+from consumatio.usecases.get_popular import *
+from consumatio.usecases.get_tv_seasons import *
+from consumatio.usecases.get_season_episodes import *
 from consumatio.usecases.get_watch_count import *
 from consumatio.usecases.get_list import *
 from consumatio.usecases.get_watch_time import *
@@ -22,7 +22,6 @@ from ariadne.constants import PLAYGROUND_HTML
 from consumatio.external.exceptions.undefined_environment_variable import UndefinedEnvironmentVariable
 from consumatio.external.models import *
 import os
-from flask import request
 from flask import Flask
 from flask_migrate import Migrate, upgrade
 from consumatio.external.logger import get_logger_instance
@@ -41,7 +40,7 @@ def resolve_movie(*_, code: int, country: str) -> dict:
     logger.info("Movie was queried -> code:{}, country:'{}'".format(
         code, country))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_movie_details(external_id, tmdb, code, country)
+    return get_movie(external_id, tmdb, code, country)
 
 
 @query.field("tv")
@@ -55,7 +54,7 @@ def resolve_tv(*_, code: int, country: str) -> dict:
     logger.info("TV was queried -> code:{}, country:'{}'".format(
         code, country))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_tv_details(external_id, tmdb, code, country)
+    return get_tv(external_id, tmdb, code, country)
 
 
 @query.field("season")
@@ -69,7 +68,7 @@ def resolve_season(*_, code: int, seasonNumber: str) -> dict:
     logger.info("Season was queried -> code:{}, season_number:{}".format(
         code, seasonNumber))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_season_details(external_id, tmdb, code, seasonNumber)
+    return get_season(external_id, tmdb, code, seasonNumber)
 
 
 @query.field("episode")
@@ -86,8 +85,7 @@ def resolve_episode(*_, code: int, seasonNumber: int,
         "Episode was queried -> code:{}, season_number:{}, episode_number:{}".
         format(code, seasonNumber, episodeNumber))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_episode_details(external_id, tmdb, code, seasonNumber,
-                               episodeNumber)
+    return get_episode(external_id, tmdb, code, seasonNumber, episodeNumber)
 
 
 @query.field("search")
@@ -100,7 +98,7 @@ def resolve_search(*_, keyword: str, page: int) -> dict:
     """
     logger.info("Search was queried -> keyword:'{}'".format(keyword))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_search_details(external_id, tmdb, keyword, page)
+    return get_search(external_id, tmdb, keyword, page)
 
 
 @query.field("popular")
@@ -115,11 +113,11 @@ def resolve_popular(*_, type: str, country: str, page: int) -> dict:
     logger.info("Popular was queried -> type:'{}', country:'{}'".format(
         type, country))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_popular_details(external_id, tmdb, type, country, page)
+    return get_popular(external_id, tmdb, type, country, page)
 
 
 @query.field("tvSeasons")
-def resolve_tvSeasons(*_, code: int) -> list:
+def resolve_tv_seasons(*_, code: int) -> list:
     """
     API endpoint for "tvSeasons" queries.
     :param code: <int> Code of the TV show to get the seasons for
@@ -127,11 +125,11 @@ def resolve_tvSeasons(*_, code: int) -> list:
     """
     logger.info("TVSeasons was queried -> code:'{}'".format(code))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_tv_season_details(external_id, tmdb, code)
+    return get_tv_seasons(external_id, tmdb, code)
 
 
 @query.field("seasonEpisodes")
-def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
+def resolve_season_episodes(*_, code: str, seasonNumber: int) -> dict:
     """
     API endpoint for "seasonEpisodes" queries.
     :param code: <int> Code of the TV show to get the episodes for 
@@ -142,11 +140,11 @@ def resolve_tvEpisodes(*_, code: str, seasonNumber: int) -> dict:
         "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".format(
             code, seasonNumber))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return get_tv_episode_details(external_id, tmdb, code, seasonNumber)
+    return get_season_episodes(external_id, tmdb, code, seasonNumber)
 
 
 @query.field("watchCount")
-def resolve_watchCount(*_, type: str) -> int:
+def resolve_watch_count(*_, type: str) -> int:
     """
     API endpoint for "watchCount" queries.
     :param type: <str> Type to return count for (Movie, TV, genre, Episode)
@@ -158,7 +156,7 @@ def resolve_watchCount(*_, type: str) -> int:
 
 
 @query.field("watchTime")
-def resolve_watchTime(*_, type: str) -> int:
+def resolve_watch_time(*_, type: str) -> int:
     """
     API endpoint for "watchTime" queries.
     :param type: <str> Type to return count for (Movie, TV)
@@ -204,7 +202,7 @@ def resolve_rating(*_, code: int, media: str, rating: int) -> dict:
         "rating was queried -> media:'{}', code:'{}', rating:'{}'".format(
             media, code, rating))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_rating(tmdb, database, external_id, media, code, rating)
+    return set_rating(database, external_id, media, code, rating)
 
 
 @mutation.field("numberOfWatchedEpisodes")
@@ -316,12 +314,14 @@ favorite.set_field("favorite", resolve_favorite)
 rating = MutationType()
 rating.set_field("rating", resolve_rating)
 
-numberOfWatchedEpisodes = MutationType()
-numberOfWatchedEpisodes.set_field("numberOfWatchedEpisodes",
-                                  resolve_number_of_watched_episodes)
+number_of_watched_episodes = MutationType()
+# TODO: Alias
+number_of_watched_episodes.set_field("numberOfWatchedEpisodes",
+                                     resolve_number_of_watched_episodes)
 
-watchStatus = MutationType()
-watchStatus.set_field("watchStatus", resolve_watch_status)
+watch_status = MutationType()
+# TODO: Alias
+watch_status.set_field("watchStatus", resolve_watch_status)
 
 movie = ObjectType("Movie")
 movie.set_alias("ratingAverage", "rating_average")
@@ -377,11 +377,10 @@ type_defs = load_schema_from_path(
     os.path.join(os.path.dirname(__file__), "api.graphql"))
 
 schema = make_executable_schema(type_defs, query, mutation, rating,
-                                watchStatus, movie, tv, season, episode,
+                                watch_status, movie, tv, season, episode,
                                 media_page, director, cast,
-                                numberOfWatchedEpisodes, favorite)
+                                number_of_watched_episodes, favorite)
 
-# Run migrations
 migrate.init_app(app, db)
 
 with app.app_context():

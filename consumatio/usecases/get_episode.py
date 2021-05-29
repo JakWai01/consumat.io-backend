@@ -3,8 +3,8 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_episode_details(external_id: str, tmdb: object, code: int,
-                        season_number: int, episode_number: int) -> dict:
+def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
+                episode_number: int) -> dict:
     """
     Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
     :param external_id: <str> External ID provided by OAuth

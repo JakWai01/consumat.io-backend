@@ -3,8 +3,7 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def get_movie_details(external_id: str, tmdb: object, code: int,
-                      country: str) -> dict:
+def get_movie(external_id: str, tmdb: object, code: int, country: str) -> dict:
     """
     Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
     :param tmdb: <object> Tmdb object

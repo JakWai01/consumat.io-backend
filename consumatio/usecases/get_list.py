@@ -1,5 +1,5 @@
-from consumatio.usecases.get_movie_details import *
-from consumatio.usecases.get_tv_details import *
+from consumatio.usecases.get_movie import *
+from consumatio.usecases.get_tv import *
 from consumatio.external.models import *
 from sqlalchemy import text
 
@@ -33,13 +33,11 @@ def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
 
     for result in results:
         if type == "Movie":
-            dict = get_movie_details(external_id, tmdb,
-                                     result.media_id_content, "DE")
+            dict = get_movie(external_id, tmdb, result.media_id_content, "DE")
             dict["__typename"] = "Movie"
             watch_list.append(dict)
         elif type == "TV":
-            dict = get_tv_details(external_id, tmdb, result.media_id_content,
-                                  "DE")
+            dict = get_tv(external_id, tmdb, result.media_id_content, "DE")
             dict["__typename"] = "TV"
             watch_list.append(dict)
 
