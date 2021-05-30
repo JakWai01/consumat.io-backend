@@ -38,13 +38,15 @@ class MediaData(db.Model):
         db.Integer, db.ForeignKey('user_data.user_id_content'), nullable=False)
     number_of_watched_episodes = db.Column(db.Integer, nullable=True)
     favorite_content = db.Column(db.Boolean, unique=False, default=False)
+    tv_code = db.Column(db.Integer, nullable=True)
 
     def __init__(self, watch_status: str, rating: float, media_id: int,
                  media_type: str, user_id: int,
-                 number_of_watched_episodes: int):
+                 number_of_watched_episodes: int, tv_code: int):
         self.watch_status_content = watch_status
         self.rating_content = rating
         self.media_id_content = media_id
         self.media_type_content = media_type
         self.user_id_content_media_data = user_id
         self.number_of_watched_episodes = number_of_watched_episodes
+        self.tv_code = tv_code
