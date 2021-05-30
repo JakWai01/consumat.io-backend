@@ -108,8 +108,8 @@ class Database():
             logger.info("media_data entry exists in database")
             return True
 
-    def media_Data(self: object, user_id: int, media: str,
-                   media_id: int) -> None:
+    def media_Data(self: object, user_id: int, media: str, media_id: int,
+                   tv_code: int) -> None:
         """
         Add media data to database
         :param user_id: <int> User id of a user
@@ -118,7 +118,8 @@ class Database():
         :return: None
         """
         self.check_all_media_types(media)
-        media_data = MediaData(None, None, media_id, media, user_id, None)
+        media_data = MediaData(None, None, media_id, media, user_id, None,
+                               tv_code)
         self.db.session.add(media_data)
         self.db.session.commit()
 

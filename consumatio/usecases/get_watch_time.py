@@ -1,3 +1,4 @@
+from consumatio.usecases.get_season import get_season
 from consumatio.external.models import *
 from consumatio.external.exceptions.invalid_parameter import *
 
@@ -25,13 +26,21 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
     elif type == 'TV':
         results = MediaData.query.join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
-            MediaData.media_type_content == 'Episode',
-            User.external_id_content == external_id,
-            MediaData.watch_status_content == 'Finished').all()
-        for result in results:
-            data = tmdb.get_tv_details(result.media_id_content)
+            MediaData.media_type_content == 'Season',
+            User.external_id_content == external_id).all()
 
-            runtime += data.get("runtime")
+        for result in results:
+            data = tmdb.get_tv_details(result.tv_code)
+
+            for i in range(1, data.get("number_of_seasons") + 1):
+                season = get_season(external_id, tmdb, result.tv_code, i)
+                number_of_watched_episodes = season.get(
+                    "number_of_watched_episodes")
+
+                if number_of_watched_episodes == None:
+                    number_of_watched_episodes = 0
+
+                runtime += data.get("runtime") * number_of_watched_episodes
     else:
         raise InvalidParameter(
             "The watchStatus: {} is invalid -> valide arguments:{} ".format(
