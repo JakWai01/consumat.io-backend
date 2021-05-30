@@ -295,7 +295,7 @@ if (DATABASE_URI == None):
     raise UndefinedEnvironmentVariable(
         "Please sepcify a valid API key for DATABASE_URI environment variable")
 
-PORT = int(os.environ['PORT'])
+PORT = os.getenv("PORT")
 if (PORT == None):
     raise UndefinedEnvironmentVariable(
         "Please specify a valid API key for PORT environment variable")
