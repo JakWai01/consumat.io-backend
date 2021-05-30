@@ -18,15 +18,18 @@ def set_favorite(tmdb: object, database: object, external_id: str, media: str,
         database.user(external_id)
     user_id = database.get_user_id(external_id)
 
+    tv_code = None
     if media == "Season":
-        code = tmdb.get_season_details(code, seasonNumber).get("code")
-
+        result = tmdb.get_season_details(code, seasonNumber)
+        code = result.get("code")
+        tv_code = result.get("tv_code")
     if media == "Episode":
-        code = tmdb.get_episode_details(code, seasonNumber,
-                                        episodeNumber).get("code")
+        result = tmdb.get_episode_details(code, seasonNumber, episodeNumber)
+        code = result.get("code")
+        tv_code = result.get("tv_code")
 
     if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code)
+        database.media_Data(user_id, media, code, tv_code)
 
     database.favorite(user_id, media, code, favorite)
     return {"status": True}

@@ -1,5 +1,5 @@
-def set_rating(tmdb: object, database: object, external_id: str, media: str,
-               code: int, rating: int) -> dict:
+def set_rating(database: object, external_id: str, media: str, code: int,
+               rating: int) -> dict:
     """
     :param tmdb: <object> TMDB object to make API requests
     :param database: <object> Database object to access the database
