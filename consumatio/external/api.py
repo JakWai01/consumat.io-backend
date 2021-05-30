@@ -186,23 +186,23 @@ mutation = MutationType()
 
 
 @mutation.field("favorite")
-def resolve_favorite(*_, code: int, media: str, favorite: bool,
+def resolve_favorite(*_, code: int, type: str, favorite: bool,
                      seasonNumber: int, episodeNumber: int) -> dict:
     logger.info(
-        "favorite was queried -> media:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
-        .format(media, code, seasonNumber, episodeNumber, favorite))
+        "favorite was queried -> type:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
+        .format(type, code, seasonNumber, episodeNumber, favorite))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_favorite(tmdb, database, external_id, media, code, seasonNumber,
+    return set_favorite(tmdb, database, external_id, type, code, seasonNumber,
                         episodeNumber, favorite)
 
 
 @mutation.field("rating")
-def resolve_rating(*_, code: int, media: str, rating: int) -> dict:
+def resolve_rating(*_, code: int, type: str, rating: int) -> dict:
     logger.info(
-        "rating was queried -> media:'{}', code:'{}', rating:'{}'".format(
-            media, code, rating))
+        "rating was queried -> type:'{}', code:'{}', rating:'{}'".format(
+            type, code, rating))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_rating(database, external_id, media, code, rating)
+    return set_rating(database, external_id, type, code, rating)
 
 
 @mutation.field("numberOfWatchedEpisodes")
@@ -218,12 +218,12 @@ def resolve_number_of_watched_episodes(*_, code: int, seasonNumber: int,
 
 
 @mutation.field("watchStatus")
-def resolve_watch_status(*_, code: int, media: str, watchStatus: str) -> dict:
+def resolve_watch_status(*_, code: int, type: str, watchStatus: str) -> dict:
     logger.info(
-        "watchStatus was queried -> code:'{}', media:'{}', watchStatus:'{}'".
-        format(code, media, watchStatus))
+        "watchStatus was queried -> code:'{}', type:'{}', watchStatus:'{}'".
+        format(code, type, watchStatus))
     external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-    return set_watch_status(database, external_id, code, media, watchStatus)
+    return set_watch_status(database, external_id, code, type, watchStatus)
 
 
 app = Flask(__name__)
