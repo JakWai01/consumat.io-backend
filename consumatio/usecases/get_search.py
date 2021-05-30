@@ -1,5 +1,5 @@
-def get_search_details(external_id: str, tmdb: object, keyword: str,
-                       page: int) -> dict:
+def get_search(external_id: str, tmdb: object, keyword: str,
+               page: int) -> dict:
     """
     Make all relevant API request for this usecase (search) and assemble them into a dictionary
     :param tmdb: <object> Tmdb object
