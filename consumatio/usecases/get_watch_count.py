@@ -1,3 +1,4 @@
+from consumatio.external.exceptions.invalid_parameter import InvalidParameter
 from consumatio.external.models import *
 
 
@@ -10,7 +11,8 @@ def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
     :return: <int> Count of media watched
     """
     count = 0
-    if type in "MovieEpisodeTVSeason":
+    # Same problem right here
+    if type in "MovieTV":
         results = MediaData.query.join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             MediaData.media_type_content == type,
@@ -18,6 +20,8 @@ def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
             MediaData.watch_status_content == 'Finished').all()
 
         count = len(results)
+    elif type in "SeasonEpisode":
+        raise InvalidParameter("Can't query watchCount for", type)
     else:
         results = MediaData.query.join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
