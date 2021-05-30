@@ -61,7 +61,7 @@ $ docker run --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres 
 # Install dependencies
 $ make depend
 # Start the backend
-$ DATABASE_URI="postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres" TMDB_KEY="mytmdbkey" BACKEND_SECRET="mysecret" make dev
+$ TMDB_KEY="mytmdbkey" BACKEND_SECRET="mysecret" make dev
 ```
 
 The backend should now be started and the GraphQL playground should be available on [http://localhost:5000/](http://localhost:5000/). Whenever you change a source file, the backend will automatically be re-compiled and restarted.
@@ -80,7 +80,7 @@ To authorize in the playground, set the following HTTP headers:
 If you want to create and apply a migration, run the following; migrations are also applied ("upgraded") automatically on startup:
 
 ```shell
-$ MSG="mymigrationdescription" DATABASE_URI="postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres" make migrations
+$ MSG="mymigrationdescription" make migrations
 ```
 
 You can also connect using `psql`:
