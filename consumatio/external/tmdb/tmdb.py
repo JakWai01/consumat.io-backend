@@ -14,7 +14,7 @@ from consumatio.gateways.episode_gateways.episode_images_to_dict import *
 from consumatio.gateways.search_gateways.search_result_to_dict import *
 from consumatio.gateways.popular_gateways.popular_tv_to_dict import *
 from consumatio.gateways.popular_gateways.popular_movies_to_dict import *
-from consumatio.external.db import Database
+from consumatio.external.db.db import Database
 from consumatio.external.logger import get_logger_instance
 import json
 
