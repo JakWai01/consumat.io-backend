@@ -19,7 +19,7 @@ from consumatio.usecases.get_watch_time import *
 from consumatio.usecases.set_favorite import *
 from consumatio.usecases.set_number_of_watched_episodes import *
 from consumatio.usecases.set_rating import *
-from consumatio.usecases.get_rated import *
+from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from flask import request
 from flask_cors import CORS
@@ -112,7 +112,7 @@ def register_query_resolvers(query, tmdb):
 
     @query.field("byRating")
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
-                      releasedFrom: str, country: str, page: int) -> dict:
+                          releasedFrom: str, country: str, page: int) -> dict:
         """
         API endpoint for (top) rated queries.
         :param type: <str> Popular item type "movie" or "tv"
@@ -123,11 +123,11 @@ def register_query_resolvers(query, tmdb):
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
-        logger.info("Rated was queried -> type:'{}', country:'{}'".format(
+        logger.info("byRating was queried -> type:'{}', country:'{}'".format(
             type, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_rated(external_id, tmdb, type, tmdbRating, minVotes,
-                         releasedFrom, country, page)
+        return get_by_rating(external_id, tmdb, type, tmdbRating, minVotes,
+                             releasedFrom, country, page)
 
     @query.field("tvSeasons")
     def resolve_tv_seasons(*_, code: int) -> list:

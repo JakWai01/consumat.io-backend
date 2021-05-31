@@ -1,6 +1,6 @@
-def get_rated(external_id: str, tmdb: object, type: str, vote_avg: float,
-              vote_count: int, released_from: str, country: str,
-              page: int) -> dict:
+def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
+                  vote_count: int, released_from: str, country: str,
+                  page: int) -> dict:
     """
     Make all relevant API request for this usecase (items by rating) and assemble them into a dictionary
     :param tmdb: <object> Tmdb object
