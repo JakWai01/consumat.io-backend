@@ -4,10 +4,11 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def search_result_to_dict(data: dict, user: str) -> dict:
+def search_result_to_dict(data: dict, external_id: str) -> dict:
     """
     Create dictionary for internal representation
     :param data: <dict> API response
+    :param external_id: <str> External representation of the user
     :return: <dict> Internal representation
     """
     result_list = []
@@ -25,7 +26,7 @@ def search_result_to_dict(data: dict, user: str) -> dict:
                 query = MediaData.query.from_statement(
                     text(
                         "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'TV' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                    )).params(user_value=user,
+                    )).params(user_value=external_id,
                               code_data=result.get("id")).first()
 
                 rating = None
@@ -68,7 +69,7 @@ def search_result_to_dict(data: dict, user: str) -> dict:
                 query = MediaData.query.from_statement(
                     text(
                         "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                    )).params(user_value=user,
+                    )).params(user_value=external_id,
                               code_data=result.get("id")).first()
 
                 rating = None
