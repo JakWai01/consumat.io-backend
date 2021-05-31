@@ -110,8 +110,8 @@ def register_query_resolvers(query, tmdb):
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_popular(external_id, tmdb, type, country, page)
 
-    @query.field("rated")
-    def resolve_rated(*_, type: str, tmdbRating: float, minVotes: int,
+    @query.field("byRating")
+    def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
                       releasedFrom: str, country: str, page: int) -> dict:
         """
         API endpoint for (top) rated queries.
