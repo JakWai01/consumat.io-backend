@@ -1,1 +1,1 @@
-web: gunicorn -b :$PORT --chdir ./consumatio/external api:api
+web: gunicorn -b :$PORT main:api

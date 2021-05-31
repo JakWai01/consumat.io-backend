@@ -5,7 +5,7 @@ build:
 	mkdir -p /tmp/out
 	mkdir -p /tmp/build/build-$$(uname -m)
 	mkdir -p /tmp/spec/spec-$$(uname -m)
-	pyinstaller -n consumatio-backend.linux-$$(uname -m) --distpath /tmp/out --workpath /tmp/build/build-$$(uname -m) --specpath /tmp/spec/spec-$$(uname -m) --onefile ./consumatio/external/api.py
+	pyinstaller -n consumatio-backend.linux-$$(uname -m) --distpath /tmp/out --workpath /tmp/build/build-$$(uname -m) --specpath /tmp/spec/spec-$$(uname -m) --onefile main.py --add-data $${PWD}/consumatio/external/api.graphql:consumatio/external/api.graphql --add-data $${PWD}/migrations:migrations --hidden-import logging.config
 
 	# Stage dynamically-linked binaries
 	mkdir -p out
@@ -24,7 +24,7 @@ install: release
 	sudo install out/release/consumatio-backend.linux-$$(uname -m) /usr/local/bin/consumatio-backend
 	
 dev:
-	DEBUG=true PORT=5000 python3 -m consumatio.external.api
+	DEBUG=true python3 main.py
 
 clean:
 	rm -rf out
