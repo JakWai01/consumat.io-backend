@@ -3,7 +3,7 @@ from consumatio.external.models import *
 from sqlalchemy import text
 
 
-def popular_tv_to_dict(data: dict, user: str) -> dict:
+def popular_tv_to_dict(data: dict, external_id: str) -> dict:
     """
     Create dictionary for internal representation
     :param data: <dict> API response
@@ -21,7 +21,8 @@ def popular_tv_to_dict(data: dict, user: str) -> dict:
             query = MediaData.query.from_statement(
                 text(
                     "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                )).params(user_value=user, code_data=result.get("id")).first()
+                )).params(user_value=external_id,
+                          code_data=result.get("id")).first()
 
             rating = None
             watch_status = None
