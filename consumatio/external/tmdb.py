@@ -206,6 +206,30 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return popular_tv_to_dict(data, user)
 
+    def get_movies_by_rating(self: object, country: str, user: str, vote_avg: float, votes: int, released_from: str, page: int) -> dict:
+        """
+        Fetch movies by tmdb rating (desc)
+        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> tv results
+        """
+        logger.info("Fetch 'popular_tv' from tmdb")
+        query = f'https://api.themoviedb.org/3/discover/movie?api_key={self.api_key}&language=en-US&region={country}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&primary_release_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
+        data = self.get_data(query, self.db)
+        return popular_movies_to_dict(data, user)
+
+    def get_tv_by_rating(self: object, country: str, user: str, vote_avg: float, votes: int, released_from: str, page: int) -> dict:
+        """
+        Fetch tv by tmdb rating (desc)
+        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> tv results
+        """
+        logger.info("Fetch 'popular_tv' from tmdb")
+        query = f'https://api.themoviedb.org/3/discover/tv?api_key={self.api_key}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&first_air_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
+        data = self.get_data(query, self.db)
+        return popular_tv_to_dict(data, user)
+
     def get_data(self: object, query: str, db: object) -> dict:
         """
         Check if data is cached and get the data then either from the cache or by making a new API request.
