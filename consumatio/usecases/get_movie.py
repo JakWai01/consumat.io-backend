@@ -35,6 +35,7 @@ def get_movie(external_id: str, tmdb: object, code: int, country: str) -> dict:
         "overview": dict_movie_details.get("overview"),
         "popularity": dict_movie_details.get("popularity"),
         "rating_average": dict_movie_details.get("rating_average"),
+        "rating_count": dict_movie_details.get("rating_count"),
         "release_date": dict_movie_details.get("release_date"),
         "runtime": dict_movie_details.get("runtime"),
         "status": dict_movie_details.get("status"),

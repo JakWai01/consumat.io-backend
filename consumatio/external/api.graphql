@@ -5,6 +5,7 @@ type Query {
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String, page: Int): MediaPage
     popular(type: String, country: String, page: Int): MediaPage
+    rated(type: String, country: String, tmdbRating: Float, minVotes: Int, releasedFrom: String, page: Int): MediaPage
     list(type: String, watchStatus: String, favorite: Boolean): [Media]
     tvSeasons(code: Int): [Season]
     seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
@@ -37,6 +38,7 @@ type Movie {
     overview: String
     popularity: Float
     ratingAverage: Float
+    ratingCount: Int
     releaseInitial: String
     runtime: Int
     status: String
@@ -78,6 +80,7 @@ type TV {
     overview: String
     popularity: Float
     ratingAverage: Float
+    ratingCount: Int
     releaseInitial: String
     releaseFinal: String
     status: String
