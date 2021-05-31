@@ -19,8 +19,8 @@ from consumatio.external.db import Database
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ariadne.constants import PLAYGROUND_HTML
-from consumatio.external.exceptions.undefined_environment_variable import UndefinedEnvironmentVariable
-from consumatio.external.models import *
+from consumatio.exceptions.undefined_environment_variable import UndefinedEnvironmentVariable
+from consumatio.external.db.models import *
 import os
 from flask import Flask
 from flask_migrate import Migrate, upgrade

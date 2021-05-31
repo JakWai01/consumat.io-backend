@@ -1,6 +1,6 @@
 from consumatio.usecases.get_season import get_season
-from consumatio.external.models import *
-from consumatio.external.exceptions.invalid_parameter import *
+from consumatio.external.db.models import *
+from consumatio.exceptions.invalid_parameter import *
 
 
 def get_watch_time(tmdb: object, external_id: str, type: str) -> int:

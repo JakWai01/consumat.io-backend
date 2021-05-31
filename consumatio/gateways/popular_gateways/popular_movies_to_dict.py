@@ -1,5 +1,5 @@
 from consumatio.entities.movie import Movie
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 from sqlalchemy import text
 
 

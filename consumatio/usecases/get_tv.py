@@ -1,5 +1,5 @@
 from consumatio.entities.tv import TV
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 
 
 def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:

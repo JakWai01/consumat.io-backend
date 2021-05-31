@@ -1,5 +1,5 @@
 from consumatio.entities.season import Season
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 
 
 def get_season(external_id: str, tmdb: object, code: int,
