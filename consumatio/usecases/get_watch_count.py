@@ -1,5 +1,5 @@
-from consumatio.external.exceptions.invalid_parameter import InvalidParameter
-from consumatio.external.models import *
+from consumatio.exceptions.invalid_parameter import InvalidParameter
+from consumatio.external.db.models import *
 
 
 def get_watch_count(tmdb: object, external_id: str, type: str) -> int:

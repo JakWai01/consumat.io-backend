@@ -1,5 +1,5 @@
 from consumatio.entities.episode import Episode
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 
 
 def get_episode(external_id: str, tmdb: object, code: int, season_number: int,

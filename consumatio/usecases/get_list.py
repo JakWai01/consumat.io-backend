@@ -1,6 +1,6 @@
 from consumatio.usecases.get_movie import *
 from consumatio.usecases.get_tv import *
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 
 
 def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
