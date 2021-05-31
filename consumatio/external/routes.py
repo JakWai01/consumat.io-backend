@@ -1,7 +1,10 @@
 from ariadne import graphql_sync
 from ariadne.constants import PLAYGROUND_HTML
 from consumatio.constants import CONSUMATIO_SECRET_HEADER_KEY
+from consumatio.external.logger import get_logger_instance
 from flask import jsonify, request
+
+logger = get_logger_instance()
 
 
 def register_routes(app, schema, backend_secret):
@@ -11,7 +14,7 @@ def register_routes(app, schema, backend_secret):
         If get request was made on "/", route to playground.
         :return: <str>, <statuscode> Return playground html with status code 200
         """
-        log.DEBUG("Routed to playground -> code:{}".format(200))
+        logger.debug("Routed to playground -> code:{}".format(200))
 
         return PLAYGROUND_HTML, 200
 
