@@ -11,7 +11,6 @@ def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
     :return: <int> Count of media watched
     """
     count = 0
-    # Same problem right here
     if type in "MovieTV":
         results = MediaData.query.join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
