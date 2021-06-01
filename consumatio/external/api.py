@@ -19,6 +19,7 @@ from consumatio.usecases.get_watch_time import *
 from consumatio.usecases.set_favorite import *
 from consumatio.usecases.set_number_of_watched_episodes import *
 from consumatio.usecases.set_rating import *
+from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from flask import request
 from flask_cors import CORS
@@ -108,6 +109,25 @@ def register_query_resolvers(query, tmdb):
             type, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_popular(external_id, tmdb, type, country, page)
+
+    @query.field("byRating")
+    def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
+                          releasedFrom: str, country: str, page: int) -> dict:
+        """
+        API endpoint for (top) rated queries.
+        :param type: <str> Popular item type "movie" or "tv"
+        :param vote_avg: <float> filter media with average rating greater than set value
+        :param vote_count: <int> minimum number of votes
+        :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
+        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> Details of the movie/tv
+        """
+        logger.info("byRating was queried -> type:'{}', country:'{}'".format(
+            type, country))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return get_by_rating(external_id, tmdb, type, tmdbRating, minVotes,
+                             releasedFrom, country, page)
 
     @query.field("tvSeasons")
     def resolve_tv_seasons(*_, code: int) -> list:
@@ -243,6 +263,7 @@ def get_schema(tmdb, database):
     # Register aliases for objects
     movie = ObjectType("Movie")
     movie.set_alias("ratingAverage", "rating_average")
+    movie.set_alias("ratingCount", "rating_count")
     movie.set_alias("releaseInitial", "release_date")
     movie.set_alias("backdropPath", "backdrop_path")
     movie.set_alias("posterPath", "poster_path")
@@ -252,6 +273,7 @@ def get_schema(tmdb, database):
 
     tv = ObjectType("TV")
     tv.set_alias("ratingAverage", "rating_average")
+    tv.set_alias("ratingCount", "rating_count")
     tv.set_alias("releaseInitial", "first_air_date")
     tv.set_alias("releaseFinal", "last_air_date")
     tv.set_alias("backdropPath", "backdrop_path")
