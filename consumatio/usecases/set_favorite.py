@@ -1,3 +1,6 @@
+from consumatio.exceptions.invalid_parameter import InvalidParameter
+
+
 def set_favorite(tmdb: object, database: object, external_id: str, media: str,
                  code: int, seasonNumber: int, episodeNumber: int,
                  favorite: bool) -> dict:
@@ -12,6 +15,27 @@ def set_favorite(tmdb: object, database: object, external_id: str, media: str,
     :param favorite: <bool> Boolean to set favorite to
     :return: <dict> Successful response
     """
+
+    if media == "TV" and (episodeNumber != None or seasonNumber != None):
+        raise InvalidParameter(
+            "Please don't specify an episodeNumber or a seasonNumber when favoriting a ",
+            media)
+
+    if media == "Movie" and (episodeNumber != None or seasonNumber != None):
+        raise InvalidParameter(
+            "Please don't specify an episodeNumber or a seasonNumber when favoriting a ",
+            media)
+
+    if media == "Season" and (episodeNumber != None or seasonNumber == None):
+        raise InvalidParameter(
+            "Please specify a seasonNumber and don't specify a episodeNumber when favoriting a ",
+            media)
+
+    if media == "Episode" and (episodeNumber == None or seasonNumber == None):
+        raise InvalidParameter(
+            "Please specify a seasonNumber and episodeNumber when favoriting a ",
+            media)
+
     user_id = 0
 
     if not database.user_exists(external_id):
