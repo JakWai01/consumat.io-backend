@@ -23,11 +23,17 @@ def search_result_to_dict(data: dict, external_id: str) -> dict:
         for result in results:
             if result.get("media_type") == "tv":
 
-                query = MediaData.query.from_statement(
-                    text(
-                        "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'TV' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                    )).params(user_value=external_id,
-                              code_data=result.get("id")).first()
+                # query = MediaData.query.from_statement(
+                #     text(
+                #         "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'TV' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+                #     )).params(user_value=external_id,
+                #               code_data=result.get("id")).first()
+                query = MediaData.query.join(User).filter(
+                    User.user_id_content ==
+                    MediaData.user_id_content_media_data,
+                    MediaData.media_type_content == 'TV',
+                    User.external_id_content == external_id,
+                    MediaData.media_id_content == result.get("id")).first()
 
                 rating = None
                 watch_status = None
@@ -57,7 +63,8 @@ def search_result_to_dict(data: dict, external_id: str) -> dict:
                     "watch_status": watch_status,
                     "rating_user": rating,
                     "favorite": None,
-                    "runtime": None
+                    "runtime": None,
+                    "rating_count": result.get("vote_count")
                 }
 
                 tv = TV.from_dict(dict)
@@ -66,11 +73,17 @@ def search_result_to_dict(data: dict, external_id: str) -> dict:
 
                 dict["__typename"] = "TV"
             elif result.get("media_type") == "movie":
-                query = MediaData.query.from_statement(
-                    text(
-                        "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                    )).params(user_value=external_id,
-                              code_data=result.get("id")).first()
+                # query = MediaData.query.from_statement(
+                #     text(
+                #         "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
+                #     )).params(user_value=external_id,
+                #               code_data=result.get("id")).first()
+                query = MediaData.query.join(User).filter(
+                    User.user_id_content ==
+                    MediaData.user_id_content_media_data,
+                    MediaData.media_type_content == 'Movie',
+                    User.external_id_content == external_id,
+                    MediaData.media_id_content == result.get("id")).first()
 
                 rating = None
                 watch_status = None
@@ -96,7 +109,8 @@ def search_result_to_dict(data: dict, external_id: str) -> dict:
                     f'https://www.themoviedb.org/movie/{result.get("id")}',
                     "watch_status": watch_status,
                     "rating_user": rating,
-                    "favorite": None
+                    "favorite": None,
+                    "rating_count": result.get("vote_count")
                 }
 
                 movie = Movie.from_dict(dict)
