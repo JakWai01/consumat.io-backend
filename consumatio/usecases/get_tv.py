@@ -51,7 +51,8 @@ def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
         "watch_status": watch_status,
         "rating_user": rating,
         "favorite": favorite,
-        "runtime": dict_tv_details.get("runtime")
+        "runtime": dict_tv_details.get("runtime"),
+        "rating_count": dict_tv_details.get("vote_count")
     }
 
     tv = TV.from_dict(dict)
