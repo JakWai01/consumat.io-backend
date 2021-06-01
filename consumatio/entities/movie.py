@@ -10,6 +10,7 @@ class Movie(Entity):
     overview: str
     popularity: float
     rating_average: float
+    rating_count: int
     release_date: str
     runtime: int
     status: str
