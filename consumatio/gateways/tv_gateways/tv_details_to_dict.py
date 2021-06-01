@@ -25,6 +25,7 @@ def tv_details_to_dict(data: dict) -> dict:
         "overview": data["overview"],
         "popularity": data["popularity"],
         "rating_average": data["vote_average"],
+        "rating_count": data["vote_count"],
         "first_air_date": data["first_air_date"],
         "last_air_date": data["last_air_date"],
         "status": data["status"],

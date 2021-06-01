@@ -10,6 +10,7 @@ class TV(Entity):
     overview: str
     popularity: float
     rating_average: float
+    rating_count: int
     first_air_date: str
     last_air_date: str
     status: str

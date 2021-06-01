@@ -18,11 +18,12 @@ def popular_movies_to_dict(data: dict, external_id: str) -> dict:
     else:
         results = data["results"]
         for result in results:
-            query = MediaData.query.from_statement(
-                text(
-                    "SELECT * FROM media_data , user_data WHERE user_data.user_id_content = media_data.user_id_content_media_data AND media_data.media_type_content = 'Movie' AND user_data.external_id_content = :user_value AND media_data.media_id_content=:code_data;"
-                )).params(user_value=external_id,
-                          code_data=result.get("id")).first()
+
+            query = MediaData.query.join(User).filter(
+                User.user_id_content == MediaData.user_id_content_media_data,
+                MediaData.media_type_content == "Movie",
+                User.external_id_content == external_id,
+                MediaData.media_id_content == result.get("id")).first()
 
             rating = None
             watch_status = None
@@ -36,6 +37,7 @@ def popular_movies_to_dict(data: dict, external_id: str) -> dict:
                 "overview": result.get("overview"),
                 "popularity": result.get("popularity"),
                 "rating_average": result.get("vote_average"),
+                "rating_count": result.get("vote_count"),
                 "release_date": result.get("release_date"),
                 "runtime": None,
                 "status": None,

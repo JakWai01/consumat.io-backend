@@ -35,6 +35,7 @@ def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
         "overview": dict_tv_details.get("overview"),
         "popularity": dict_tv_details.get("popularity"),
         "rating_average": dict_tv_details.get("rating_average"),
+        "rating_average": dict_tv_details.get("rating_count"),
         "first_air_date": dict_tv_details.get("first_air_date"),
         "last_air_date": dict_tv_details.get("last_air_date"),
         "status": dict_tv_details.get("status"),
