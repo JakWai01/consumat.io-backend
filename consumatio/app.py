@@ -6,7 +6,6 @@ from flask_migrate import Migrate, upgrade
 
 from consumatio.external.api.api import get_schema
 from consumatio.external.db.db import Database
-from consumatio.external.logger import get_logger_instance
 from consumatio.external.db.models import *
 from consumatio.external.api.routes import register_routes
 from consumatio.external.tmdb.tmdb import Tmdb

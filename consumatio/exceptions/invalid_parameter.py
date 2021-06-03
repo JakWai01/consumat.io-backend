@@ -1,5 +1,5 @@
 class InvalidParameter(Exception):
     """
-    Exception raised when WatchStatus in Table MediaData in Database is invalide
+    Exception raised when invalid parameters where provided
     """
     pass

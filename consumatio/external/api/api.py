@@ -22,7 +22,6 @@ from consumatio.usecases.set_rating import *
 from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from flask import request
-from flask_cors import CORS
 
 logger = get_logger_instance()
 
