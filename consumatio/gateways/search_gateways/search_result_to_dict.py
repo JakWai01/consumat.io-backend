@@ -1,7 +1,6 @@
 from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
 from consumatio.external.db.models import *
-from sqlalchemy import text
 
 
 def search_result_to_dict(data: dict, external_id: str) -> dict:

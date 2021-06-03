@@ -5,7 +5,7 @@ from consumatio.external.db.models import *
 def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
                 episode_number: int) -> dict:
     """
-    Make all relevant API requests for this usecase (details, images) and assemble them into a dictionary
+    Make all relevant API requests (details, images) and assemble an Episode
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv show to get data for

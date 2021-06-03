@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Entity(ABC):
     @abstractmethod
-    def from_dict(self: object, dict: dict):
+    def from_dict(cls: object, dict: dict):
         pass
 
     @abstractmethod

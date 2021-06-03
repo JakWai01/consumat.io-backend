@@ -1,7 +1,8 @@
 def get_search(external_id: str, tmdb: object, keyword: str,
                page: int) -> dict:
     """
-    Make all relevant API request for this usecase (search) and assemble them into a dictionary
+    Assemble search results
+    :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param keyword: <str> Search string
     :param page: <int> Search page (minimum:1 maximum:1000)

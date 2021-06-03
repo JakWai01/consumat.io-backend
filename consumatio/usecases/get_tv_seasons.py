@@ -4,7 +4,8 @@ from consumatio.usecases.get_season import *
 def get_tv_seasons(external_id: str, tmdb: object, code: int) -> list:
     """
     Get a list of all seasons of a TV show
-    :param tmdb: <object> tmdb object to make API requests
+    :param external_id: <str> External ID provided by OAuth
+    :param tmdb: <object> Tmdb object 
     :param code: <int> Id of the TV show
     :return: <list> List of Seasons
     """

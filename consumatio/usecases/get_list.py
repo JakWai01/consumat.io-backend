@@ -4,7 +4,16 @@ from consumatio.external.db.models import *
 
 
 def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
-             favorite: bool):
+             favorite: bool) -> list:
+    """
+    Get list from database with respect to the values of watchStatus and favorite
+    :param tmdb: <object> Tmdb object 
+    :param external_id: <str> External ID provided by OAuth
+    :param type: <str> Type of the media to query
+    :param watchStatus: <str> watchStatus of the media to be contained in the list
+    :param favorite: <bool> True if the media in the list should contain only favorites
+    :return: <list> List of the media requested with respect to the values of watchStatus and favorite
+    """
     watch_list = []
     results = []
 

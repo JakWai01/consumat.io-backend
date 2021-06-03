@@ -9,7 +9,7 @@ def season_details_to_dict(data: dict, tv_id: int) -> dict:
     number_of_episodes = 0
 
     if "episodes" in data:
-        for i in range(len(data["episodes"])):
+        for episode in data["episodes"]:
             number_of_episodes += 1
 
     dict = {

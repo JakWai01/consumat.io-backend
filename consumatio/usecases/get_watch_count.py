@@ -4,10 +4,10 @@ from consumatio.external.db.models import *
 
 def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
     """
-    Get count of watched media of a certain type (e.g. "Movie", "Season" or "Drama")
+    Get count of watched media of a certain type or genre (e.g. "Movie", "Season" or "Drama")
     :param tmdb: <object> TMDB object to make API requests
     :param external_id: <str> External id of the user
-    :param type: <str> Type of the media to get count for (e.g. "Movie", "Season" or "Drama")
+    :param type: <str> Type of the media to get count for, including genres (e.g. "Movie", "Season" or "Drama")
     :return: <int> Count of media watched
     """
     count = 0
