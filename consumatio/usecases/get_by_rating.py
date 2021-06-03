@@ -3,6 +3,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
                   page: int) -> dict:
     """
     Make all relevant API request for this usecase (items by rating) and assemble them into a dictionary
+    :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param type: <str> Popular item type "movie" or "tv"
     :param vote_avg: <float> filter media with average rating greater than set value

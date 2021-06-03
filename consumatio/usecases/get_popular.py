@@ -1,7 +1,8 @@
 def get_popular(external_id: str, tmdb: object, type: str, country: str,
                 page: int) -> dict:
     """
-    Make all relevant API request for this usecase (popular items) and assemble them into a dictionary
+    Get popular Movies/TV Shows for a provided country
+    :param external_id: <str> External ID provided by OAuth 
     :param tmdb: <object> Tmdb object
     :param type: <str> Popular item type "movie" or "tv"
     :param country: <str> Country code (uppercase) currently only applicable for movies

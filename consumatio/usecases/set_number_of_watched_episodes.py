@@ -3,6 +3,7 @@ def set_number_of_watched_episodes(tmdb: object, database: object,
                                    seasonNumber: int,
                                    numberOfWatchedEpisodes: int) -> dict:
     """
+    Set the number_of_watched_episodes for a particular Season
     :param tmdb: <object> TMDB object to make API requests
     :param database: <object> Database object to access the database
     :param external_id: <str> External ID provided by OAuth

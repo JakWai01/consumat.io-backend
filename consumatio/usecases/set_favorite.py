@@ -5,6 +5,7 @@ def set_favorite(tmdb: object, database: object, external_id: str, media: str,
                  code: int, seasonNumber: int, episodeNumber: int,
                  favorite: bool) -> dict:
     """
+    Set favorite for a particular Movie, TV, Season or Episode
     :param tmdb: <object> TMDB object to make API requests
     :param database: <object> Database object to access database
     :param external_id: <str> External Id provided by OAuth
