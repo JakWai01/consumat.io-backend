@@ -1,4 +1,3 @@
-from re import search
 from consumatio.gateways.search_gateways.search_result_to_dict import *
 
 
@@ -53,7 +52,7 @@ def test_tv_search_results_to_dict():
         }]
     }
 
-    assert search_result_to_dict(tv_json, "example@example.com") == tv_dict
+    assert search_result_to_dict(tv_json) == tv_dict
 
 
 def test_movie_search_results_to_dict():
@@ -104,8 +103,7 @@ def test_movie_search_results_to_dict():
         1
     }
 
-    assert search_result_to_dict(movie_json,
-                                 "example@example.com") == movie_dict
+    assert search_result_to_dict(movie_json) == movie_dict
 
 
 def test_person_search_results_to_dict():
@@ -180,7 +178,7 @@ def test_person_search_results_to_dict():
         1
     }
 
-    assert search_result_to_dict(person_json, "example@example.com") == {
+    assert search_result_to_dict(person_json) == {
         'results': [],
         'total_pages': 1
     }
@@ -198,7 +196,5 @@ def test_empty_search_results_to_dict():
 
     empty_dict = []
 
-    assert search_result_to_dict(empty_json,
-                                 "example@example.com") == empty_dict
-    assert search_result_to_dict(without_result_json,
-                                 "example@example.com") == empty_dict
+    assert search_result_to_dict(empty_json) == empty_dict
+    assert search_result_to_dict(without_result_json) == empty_dict
