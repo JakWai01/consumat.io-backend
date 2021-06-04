@@ -1,9 +1,7 @@
-from consumatio.entities.movie import Movie
-from consumatio.entities.tv import TV
 from consumatio.external.db.models import *
 
 
-def search_result_to_dict(data: dict, external_id: str) -> dict:
+def search_result_to_dict(data: dict) -> dict:
     """
     Create dictionary for internal representation
     :param data: <dict> API response
