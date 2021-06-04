@@ -14,7 +14,6 @@ def get_search(external_id: str, tmdb: object, keyword: str,
     :return: <dict> Search details
     """
     dict_search_details = tmdb.get_search_result(keyword, page)
-    print(dict_search_details)
 
     results = dict_search_details["results"]
     result_list = []

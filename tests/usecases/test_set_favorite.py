@@ -1,5 +1,5 @@
+from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.external.db.db import Database
-from consumatio.external.tmdb.tmdb import Tmdb
 from consumatio.usecases.set_favorite import set_favorite
 import os
 from consumatio.external.db.models import *
@@ -13,7 +13,7 @@ def test_set_favorite_movie():
         "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
         None, False)
     app.configure()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
     app.app.app_context().push()
 
@@ -46,7 +46,7 @@ def test_set_favorite_tv():
         "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
         None, False)
     app.configure()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
     app.app.app_context().push()
 
@@ -79,7 +79,7 @@ def test_set_favorite_season():
         "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
         None, False)
     app.configure()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
     app.app.app_context().push()
 
@@ -112,7 +112,7 @@ def test_set_favorite_episode():
         "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
         None, False)
     app.configure()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
     app.app.app_context().push()
 

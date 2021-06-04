@@ -1,5 +1,4 @@
 from consumatio.external.db.db import Database
-from consumatio.external.tmdb.tmdb import Tmdb
 from consumatio.usecases.set_rating import set_rating
 import os
 from consumatio.external.db.models import *

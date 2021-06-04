@@ -1,4 +1,4 @@
-from consumatio.external.tmdb.tmdb import Tmdb
+from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.usecases.get_watch_time import get_watch_time
 import os
 from consumatio.external.db.models import *
@@ -14,7 +14,7 @@ def test_get_watch_time_movie():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "Movie")
 
@@ -28,6 +28,6 @@ def test_get_watch_time_tv():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "TV")
