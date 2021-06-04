@@ -1,3 +1,5 @@
+from consumatio.usecases.set_watch_status import set_watch_status
+from consumatio.external.db.db import Database
 from consumatio.external.tmdb.tmdb import Tmdb
 from consumatio.usecases.get_list import get_list
 import os

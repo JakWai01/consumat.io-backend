@@ -1,4 +1,4 @@
-from consumatio.external.tmdb.tmdb import Tmdb
+from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.usecases.get_by_rating import get_by_rating
 import os
 from consumatio.external.db.models import *
@@ -14,7 +14,7 @@ def test_get_by_rating_movie():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     dict = {
         'total_pages':
@@ -386,7 +386,7 @@ def test_get_by_rating_movie():
                                  10, "2021-01-01", "DE", 1)
 
 
-def test_get_by_rating_movie():
+def test_get_by_rating_tv():
     tmdb_key = os.getenv("TMDB_KEY")
     app = App(
         tmdb_key, "mysecret",
@@ -395,7 +395,7 @@ def test_get_by_rating_movie():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     dict = {
         'total_pages':

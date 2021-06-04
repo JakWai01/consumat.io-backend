@@ -1,4 +1,4 @@
-from consumatio.external.tmdb.tmdb import Tmdb
+from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.usecases.get_popular import get_popular
 import os
 from consumatio.external.db.models import *
@@ -14,7 +14,7 @@ def test_get_popular_movie():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     dict = {
         'results': [{
@@ -944,7 +944,7 @@ def test_get_popular_tv():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     dict = {
         'total_pages':
