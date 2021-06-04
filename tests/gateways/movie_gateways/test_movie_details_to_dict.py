@@ -79,7 +79,8 @@ def test_movie_details_to_dict():
         "runtime": 139,
         "status": "Released",
         "poster_path": None,
-        "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg"
+        "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
+        "rating_count": 3439
     }
 
     assert movie_details_to_dict(json) == dict
