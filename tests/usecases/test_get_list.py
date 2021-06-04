@@ -1,6 +1,5 @@
+from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.usecases.set_watch_status import set_watch_status
-from consumatio.external.db.db import Database
-from consumatio.external.tmdb.tmdb import Tmdb
 from consumatio.usecases.get_list import get_list
 import os
 from consumatio.external.db.models import *
@@ -16,7 +15,7 @@ def test_get_list_movie():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, None)
 
@@ -30,7 +29,7 @@ def test_get_list_movie_watch_status():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", "Finished",
                           None)
@@ -45,7 +44,7 @@ def test_get_list_movie_favorite():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, True)
 
@@ -59,7 +58,7 @@ def test_get_list_movie_watch_status_favorite():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", "Finished",
                           True)
@@ -74,7 +73,7 @@ def test_get_list_tv():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, None)
 
@@ -88,7 +87,7 @@ def test_get_list_tv_watch_status():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", "Finished",
                           None)
@@ -103,7 +102,7 @@ def test_get_list_tv_favorite():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, True)
 
@@ -117,7 +116,7 @@ def test_get_list_tv_watch_status_favorite():
     app.configure()
 
     app.app.app_context().push()
-    tmdb = Tmdb(tmdb_key, db)
+    tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", "Finished",
                           True)
