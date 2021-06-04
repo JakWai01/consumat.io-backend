@@ -3,7 +3,6 @@ from consumatio.usecases.get_movie import get_movie
 import os
 from consumatio.external.db.models import *
 from consumatio.app import App
-from flask_migrate import Migrate, upgrade
 
 
 def test_get_movie():
@@ -198,4 +197,4 @@ def test_get_movie():
         None
     }
 
-    assert dict == get_movie("qwe@qwe.com", tmdb, 12, "DE")
+    assert dict == get_movie("07e2fd2df@07e2fd2df.com", tmdb, 12, "DE")
