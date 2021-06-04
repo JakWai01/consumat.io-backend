@@ -218,7 +218,7 @@ class Tmdb():
         logger.info("Fetch 'movies_by_rating' from tmdb")
         query = f'https://api.themoviedb.org/3/discover/movie?api_key={self.api_key}&language=en-US&region={country}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&primary_release_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
         data = self.get_data(query, self.db)
-        return popular_movies_to_dict(data, user)
+        return popular_movies_to_dict(data)
 
     def get_tv_by_rating(self: object, country: str, user: str,
                          vote_avg: float, votes: int, released_from: str,
@@ -232,7 +232,7 @@ class Tmdb():
         logger.info("Fetch 'tv_by_rating' from tmdb")
         query = f'https://api.themoviedb.org/3/discover/tv?api_key={self.api_key}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&first_air_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
         data = self.get_data(query, self.db)
-        return popular_tv_to_dict(data, user)
+        return popular_tv_to_dict(data)
 
     def get_data(self: object, query: str, db: object) -> dict:
         """

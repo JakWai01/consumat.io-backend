@@ -16,7 +16,7 @@ def test_get_tv_seasons():
     app.app.app_context().push()
     tmdb = Tmdb(tmdb_key, db)
 
-    dict = [{
+    list = [{
         'air_date':
         '2011-04-17',
         'code':
@@ -231,4 +231,4 @@ def test_get_tv_seasons():
         1399
     }]
 
-    assert dict == get_tv_seasons("d41d8cd98@d41d8cd98.com", tmdb, 1399)
+    assert list == get_tv_seasons("d41d8cd98@d41d8cd98.com", tmdb, 1399)
