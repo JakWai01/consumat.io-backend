@@ -35,7 +35,8 @@ def test_tv():
         watch_status="WATCHED",
         rating_user=7.7,
         favorite=False,
-        runtime=60)
+        runtime=60,
+        rating_count=1)
 
     assert tv.code == 1399
     assert tv.title == "Game of Thrones"
@@ -63,6 +64,7 @@ def test_tv():
     assert tv.rating_user == 7.7
     assert tv.favorite == False
     assert tv.runtime == 60
+    assert tv.rating_count == 1
 
 
 def test_tv_from_dict():
@@ -115,7 +117,9 @@ def test_tv_from_dict():
         "favorite":
         False,
         "runtime":
-        60
+        60,
+        "rating_count":
+        1
     }
 
     tv = TV.from_dict(dict)
@@ -146,6 +150,7 @@ def test_tv_from_dict():
     assert tv.rating_user == 7.7
     assert tv.favorite == False
     assert tv.runtime == 60
+    assert tv.rating_count == 1
 
 
 def test_tv_to_dict():
@@ -198,7 +203,9 @@ def test_tv_to_dict():
         "favorite":
         False,
         "runtime":
-        60
+        60,
+        "rating_count":
+        1
     }
 
     tv = TV.from_dict(dict)
@@ -256,7 +263,9 @@ def test_tv_model_comparison():
         "favorite":
         False,
         "runtime":
-        60
+        60,
+        "rating_count":
+        1
     }
 
     tv1 = TV.from_dict(dict)

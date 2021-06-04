@@ -50,7 +50,8 @@ def test_movie():
         tmdb_url="https://www.themoviedb.org/movie/508442",
         watch_status="WATCHED",
         rating_user=7.9,
-        favorite=True)
+        favorite=True,
+        rating_count=1)
 
     assert movie.code == 550
     assert movie.title == "Fight Club"
@@ -95,6 +96,7 @@ def test_movie():
     assert movie.watch_status == "WATCHED"
     assert movie.rating_user == 7.9
     assert movie.favorite == True
+    assert movie.rating_count == 1
 
 
 def test_movie_from_dict():
@@ -159,7 +161,9 @@ def test_movie_from_dict():
         "rating_user":
         7.9,
         "favorite":
-        True
+        True,
+        "rating_count":
+        1
     }
 
     movie = Movie.from_dict(dict)
@@ -207,6 +211,7 @@ def test_movie_from_dict():
     assert movie.watch_status == "WATCHED"
     assert movie.rating_user == 7.9
     assert movie.favorite == True
+    assert movie.rating_count == 1
 
 
 def test_movie_to_dict():
@@ -271,7 +276,9 @@ def test_movie_to_dict():
         "rating_user":
         7.9,
         "favorite":
-        True
+        True,
+        "rating_count":
+        1
     }
 
     movie = Movie.from_dict(dict)
@@ -341,7 +348,9 @@ def test_movie_model_comparison():
         "rating_user":
         7.9,
         "favorite":
-        True
+        True,
+        "rating_count":
+        1
     }
 
     movie1 = Movie.from_dict(dict)
