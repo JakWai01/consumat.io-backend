@@ -1,8 +1,7 @@
 import os
 
 from ariadne import (MutationType, ObjectType, QueryType, UnionType,
-                     graphql_sync, load_schema_from_path,
-                     make_executable_schema)
+                     load_schema_from_path, make_executable_schema)
 from consumatio.constants import CONSUMATIO_NAMESPACE_HEADER_KEY
 from consumatio.external.logger import get_logger_instance
 from consumatio.usecases.get_episode import *

@@ -183,8 +183,7 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return search_result_to_dict(data, external_id)
 
-    def get_popular_movies(self: object, country: str, external_id: str,
-                           page: int) -> dict:
+    def get_popular_movies(self: object, country: str, page: int) -> dict:
         """
         Fetch tmdb popular movies endpoint
         :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
@@ -195,9 +194,9 @@ class Tmdb():
         logger.info("Fetch 'popular_movies' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language=en-US&region={country}&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_movies_to_dict(data, external_id)
+        return popular_movies_to_dict(data)
 
-    def get_popular_tv(self: object, external_id: str, page: int) -> dict:
+    def get_popular_tv(self: object, page: int) -> dict:
         """
         Fetch tmdb popular tv shows endpoint
         :param page: <int> Search page (minimum:1 maximum:1000)
@@ -206,9 +205,11 @@ class Tmdb():
         logger.info("Fetch 'popular_tv' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language=en-US&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
-        return popular_tv_to_dict(data, external_id)
+        return popular_tv_to_dict(data)
 
-    def get_movies_by_rating(self: object, country: str, user: str, vote_avg: float, votes: int, released_from: str, page: int) -> dict:
+    def get_movies_by_rating(self: object, country: str, user: str,
+                             vote_avg: float, votes: int, released_from: str,
+                             page: int) -> dict:
         """
         Fetch movies by tmdb rating (desc)
         :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
@@ -220,7 +221,9 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return popular_movies_to_dict(data, user)
 
-    def get_tv_by_rating(self: object, country: str, user: str, vote_avg: float, votes: int, released_from: str, page: int) -> dict:
+    def get_tv_by_rating(self: object, country: str, user: str,
+                         vote_avg: float, votes: int, released_from: str,
+                         page: int) -> dict:
         """
         Fetch tv by tmdb rating (desc)
         :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
