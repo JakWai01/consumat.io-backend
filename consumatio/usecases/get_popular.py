@@ -77,7 +77,6 @@ def get_popular(external_id: str, tmdb: object, type: str, country: str,
 
     elif type == "TV":
         dict_tv_results = tmdb.get_popular_tv(page)
-
         results = dict_tv_results["results"]
         result_list = []
 
