@@ -13,7 +13,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
     :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> Search details
     """
-    dict_search_details = tmdb.get_search_result(external_id, keyword, page)
+    dict_search_details = tmdb.get_search_result(keyword, page)
 
     results = dict_search_details["results"]
     result_list = []
@@ -83,6 +83,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content
+                favorite = query.favorite_content
 
             dict = {
                 "code": result.get("code"),
