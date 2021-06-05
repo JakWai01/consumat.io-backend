@@ -1,7 +1,7 @@
 import datetime
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 from consumatio.external.logger import get_logger_instance
-from consumatio.external.exceptions.invalid_parameter import InvalidParameter
+from consumatio.exceptions.invalid_parameter import InvalidParameter
 
 logger = get_logger_instance()
 

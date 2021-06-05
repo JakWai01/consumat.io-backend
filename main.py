@@ -5,7 +5,7 @@ import os
 import click
 
 from consumatio.app import App
-from consumatio.external.exceptions.undefined_environment_variable import \
+from consumatio.exceptions.undefined_environment_variable import \
     UndefinedEnvironmentVariable
 
 DEFAULT_DATABASE_URI = "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres"
