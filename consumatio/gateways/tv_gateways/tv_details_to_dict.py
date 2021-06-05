@@ -18,6 +18,10 @@ def tv_details_to_dict(data: dict) -> dict:
         }
         created_by_list.append(creator_dict)
 
+    episode_runtime = 0
+    if len(data["episode_run_time"]) != 0:
+        episode_runtime = data["episode_run_time"][0]
+
     dict = {
         "code": data["id"],
         "title": data["name"],
@@ -34,7 +38,7 @@ def tv_details_to_dict(data: dict) -> dict:
         "number_of_seasons": data["number_of_seasons"],
         "backdrop_path": data["backdrop_path"],
         "poster_path": data["poster_path"],
-        "runtime": data["episode_run_time"][0]
+        "runtime": episode_runtime
     }
 
     return dict
