@@ -17,9 +17,8 @@ def get_search(external_id: str, tmdb: object, keyword: str,
 
     results = dict_search_details["results"]
     result_list = []
-
     for result in results:
-        if "first_air_date" in results:
+        if "first_air_date" in result:
             # TV
             dict = {}
 
@@ -27,7 +26,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'TV',
                 User.external_id_content == external_id,
-                MediaData.media_id_content == results.get("code")).first()
+                MediaData.media_id_content == result.get("code")).first()
 
             rating = None
             watch_status = None
@@ -66,7 +65,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             tv = TV.from_dict(dict)
             dict = tv.to_dict()
 
-            dict["__typename"] == "TV"
+            dict["__typename"] = "TV"
         else:
             # Movie
             dict = {}
