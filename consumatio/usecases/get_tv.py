@@ -1,10 +1,11 @@
 from consumatio.entities.tv import TV
-from consumatio.external.models import *
+from consumatio.external.db.models import *
 
 
 def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
     """
-    Make all relevant API requests for this usecase (details, images, providers, credits) and assemble them into a dictionary
+    Make all relevant API requests for this usecase (details, images, providers, credits) and assemble a TV 
+    :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv show to get data for
     :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
@@ -51,7 +52,8 @@ def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
         "watch_status": watch_status,
         "rating_user": rating,
         "favorite": favorite,
-        "runtime": dict_tv_details.get("runtime")
+        "runtime": dict_tv_details.get("runtime"),
+        "rating_count": dict_tv_details.get("vote_count")
     }
 
     tv = TV.from_dict(dict)

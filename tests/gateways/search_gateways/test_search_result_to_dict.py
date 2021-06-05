@@ -3,6 +3,8 @@ from consumatio.gateways.search_gateways.search_result_to_dict import *
 
 def test_tv_search_results_to_dict():
     tv_json = {
+        "total_pages":
+        1,
         "results": [{
             "backdrop_path": "/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
             "first_air_date": "2008-01-20",
@@ -23,33 +25,34 @@ def test_tv_search_results_to_dict():
         }]
     }
 
-    tv_dict = [{
-        "__typename": "TV",
-        "code": 1396,
-        "title": "Breaking Bad",
-        "genres": None,
-        "overview":
-        "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
-        "popularity": 264.148,
-        "rating_average": 8.7,
-        "first_air_date": "2008-01-20",
-        "last_air_date": None,
-        "status": None,
-        "backdrop_path": "/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg",
-        "poster_path": "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
-        "providers": None,
-        "creators": None,
-        "cast": None,
-        "number_of_episodes": None,
-        "number_of_seasons": None,
-        "tmdb_url": f'https://www.themoviedb.org/tv/1396',
-        "watch_status": None,
-        "rating_user": None,
-        "favorite": None,
-        "runtime": None
-    }]
+    tv_dict = {
+        'total_pages':
+        1,
+        'results': [{
+            'code': 1396,
+            'title': 'Breaking Bad',
+            'genres': None,
+            'overview':
+            "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+            'popularity': 264.148,
+            'rating_average': 8.7,
+            'first_air_date': '2008-01-20',
+            'last_air_date': None,
+            'status': None,
+            'backdrop_path': '/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',
+            'poster_path': '/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',
+            'providers': None,
+            'creators': None,
+            'cast': None,
+            'number_of_episodes': None,
+            'number_of_seasons': None,
+            'tmdb_url': 'https://www.themoviedb.org/tv/1396',
+            'runtime': None,
+            'rating_count': 6923
+        }]
+    }
 
-    assert search_result_to_dict(tv_json, "example@example.com") == tv_dict
+    assert search_result_to_dict(tv_json) == tv_dict
 
 
 def test_movie_search_results_to_dict():
@@ -71,34 +74,36 @@ def test_movie_search_results_to_dict():
             "video": False,
             "vote_average": 8.5,
             "vote_count": 24947
-        }]
+        }],
+        "total_pages":
+        1
     }
 
-    movie_dict = [{
-        "__typename": "Movie",
-        "code": 155,
-        "title": "The Dark Knight",
-        "genres": None,
-        "overview":
-        "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-        "popularity": 50.312,
-        "rating_average": 8.5,
-        "release_date": "2008-07-16",
-        "runtime": None,
-        "status": None,
-        "backdrop_path": "/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
-        "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-        "providers": None,
-        "cast": None,
-        "directors": None,
-        "tmdb_url": f'https://www.themoviedb.org/movie/{155}',
-        "watch_status": None,
-        "rating_user": None,
-        "favorite": None
-    }]
+    movie_dict = {
+        "results": [{
+            "code": 155,
+            "title": "The Dark Knight",
+            "genres": None,
+            "overview":
+            "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
+            "popularity": 50.312,
+            "rating_average": 8.5,
+            "release_date": "2008-07-16",
+            "runtime": None,
+            "status": None,
+            "backdrop_path": "/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+            "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            "providers": None,
+            "cast": None,
+            "directors": None,
+            "tmdb_url": f'https://www.themoviedb.org/movie/{155}',
+            "rating_count": 24947
+        }],
+        "total_pages":
+        1
+    }
 
-    assert search_result_to_dict(movie_json,
-                                 "example@example.com") == movie_dict
+    assert search_result_to_dict(movie_json) == movie_dict
 
 
 def test_person_search_results_to_dict():
@@ -168,13 +173,15 @@ def test_person_search_results_to_dict():
             8.655,
             "profile_path":
             "/7Jahy5LZX2Fo8fGJltMreAI49hC.jpg"
-        }]
+        }],
+        "total_pages":
+        1
     }
 
-    empty_dict = []
-
-    assert search_result_to_dict(person_json,
-                                 "example@example.com") == empty_dict
+    assert search_result_to_dict(person_json) == {
+        'results': [],
+        'total_pages': 1
+    }
 
 
 def test_empty_search_results_to_dict():
@@ -189,7 +196,5 @@ def test_empty_search_results_to_dict():
 
     empty_dict = []
 
-    assert search_result_to_dict(empty_json,
-                                 "example@example.com") == empty_dict
-    assert search_result_to_dict(without_result_json,
-                                 "example@example.com") == empty_dict
+    assert search_result_to_dict(empty_json) == empty_dict
+    assert search_result_to_dict(without_result_json) == empty_dict

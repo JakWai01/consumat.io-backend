@@ -5,7 +5,7 @@ build:
 	mkdir -p /tmp/out
 	mkdir -p /tmp/build/build-$$(uname -m)
 	mkdir -p /tmp/spec/spec-$$(uname -m)
-	pyinstaller -n consumatio-backend.linux-$$(uname -m) --distpath /tmp/out --workpath /tmp/build/build-$$(uname -m) --specpath /tmp/spec/spec-$$(uname -m) --onefile main.py --add-data $${PWD}/consumatio/external/api.graphql:consumatio/external/api.graphql --add-data $${PWD}/migrations:migrations --hidden-import logging.config
+	pyinstaller -n consumatio-backend.linux-$$(uname -m) --distpath /tmp/out --workpath /tmp/build/build-$$(uname -m) --specpath /tmp/spec/spec-$$(uname -m) --onefile main.py --add-data $${PWD}/consumatio/external/api/api.graphql:consumatio/external/api/api.graphql --add-data $${PWD}/migrations:migrations --hidden-import logging.config
 
 	# Stage dynamically-linked binaries
 	mkdir -p out

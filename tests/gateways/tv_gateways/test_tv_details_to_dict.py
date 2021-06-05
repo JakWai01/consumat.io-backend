@@ -221,7 +221,9 @@ def test_tv_details_to_dict():
         "poster_path":
         "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
         "runtime":
-        60
+        60,
+        "rating_count":
+        11504
     }
 
     assert tv_details_to_dict(json) == dict

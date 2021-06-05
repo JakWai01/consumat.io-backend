@@ -1,8 +1,7 @@
 import os
 
 from ariadne import (MutationType, ObjectType, QueryType, UnionType,
-                     graphql_sync, load_schema_from_path,
-                     make_executable_schema)
+                     load_schema_from_path, make_executable_schema)
 from consumatio.constants import CONSUMATIO_NAMESPACE_HEADER_KEY
 from consumatio.external.logger import get_logger_instance
 from consumatio.usecases.get_episode import *
@@ -22,7 +21,6 @@ from consumatio.usecases.set_rating import *
 from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from flask import request
-from flask_cors import CORS
 
 logger = get_logger_instance()
 

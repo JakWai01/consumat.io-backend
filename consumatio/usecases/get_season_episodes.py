@@ -5,8 +5,9 @@ def get_season_episodes(external_id: str, tmdb: object, code: int,
                         season_number: int) -> list:
     """
     Get a list of all episodes of a Season from a TV show
-    :param tmdb: <object> tmdb object to make API requests
-    :param code: <int> Id of the TV show
+    :param external_id: <str> External ID provided by OAuth
+    :param tmdb: <object> Tmdb object
+    :param code: <int> ID of the TV show
     :param season_number: <int> Number of the season from a certain TV show
     :return: <list> List of Episodes
     """
