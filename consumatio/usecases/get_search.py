@@ -17,7 +17,6 @@ def get_search(external_id: str, tmdb: object, keyword: str,
 
     results = dict_search_details["results"]
     result_list = []
-    print(results)
     for result in results:
         if "first_air_date" in result:
             # TV
