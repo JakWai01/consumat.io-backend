@@ -1,5 +1,4 @@
 import os
-
 from ariadne import (MutationType, ObjectType, QueryType, UnionType,
                      load_schema_from_path, make_executable_schema)
 from consumatio.constants import CONSUMATIO_NAMESPACE_HEADER_KEY
@@ -22,10 +21,10 @@ from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from flask import request
 
-logger = get_logger_instance()
 
 
 def register_query_resolvers(query, tmdb):
+    
     @query.field("movie")
     def resolve_movie(*_, code: int, country: str) -> dict:
         """
@@ -34,6 +33,7 @@ def register_query_resolvers(query, tmdb):
         :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the movie
         """
+        logger = get_logger_instance()
         logger.info("Movie was queried -> code:{}, country:'{}'".format(
             code, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -47,6 +47,7 @@ def register_query_resolvers(query, tmdb):
         :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the tv show
         """
+        logger = get_logger_instance()
         logger.info("TV was queried -> code:{}, country:'{}'".format(
             code, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -60,6 +61,7 @@ def register_query_resolvers(query, tmdb):
         :param seasonNumber: <int> Number of the season to get details for
         :return: <dict> Details of the season 
         """
+        logger = get_logger_instance()
         logger.info("Season was queried -> code:{}, season_number:{}".format(
             code, seasonNumber))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -75,6 +77,7 @@ def register_query_resolvers(query, tmdb):
         :param episodeNumber: <int> Number of the episode to get details for
         :return: <dict> Details of the episode
         """
+        logger = get_logger_instance()
         logger.info(
             "Episode was queried -> code:{}, season_number:{}, episode_number:{}"
             .format(code, seasonNumber, episodeNumber))
@@ -90,6 +93,7 @@ def register_query_resolvers(query, tmdb):
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Results of the search
         """
+        logger = get_logger_instance()
         logger.info("Search was queried -> keyword:'{}'".format(keyword))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_search(external_id, tmdb, keyword, page)
@@ -103,6 +107,7 @@ def register_query_resolvers(query, tmdb):
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
+        logger = get_logger_instance()
         logger.info("Popular was queried -> type:'{}', country:'{}'".format(
             type, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -121,6 +126,7 @@ def register_query_resolvers(query, tmdb):
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
+        logger = get_logger_instance()
         logger.info("byRating was queried -> type:'{}', country:'{}'".format(
             type, country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -134,6 +140,7 @@ def register_query_resolvers(query, tmdb):
         :param code: <int> Code of the TV show to get the seasons for
         :return: list of dicts consisting of seasons
         """
+        logger = get_logger_instance()
         logger.info("TVSeasons was queried -> code:'{}'".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_tv_seasons(external_id, tmdb, code)
@@ -146,6 +153,7 @@ def register_query_resolvers(query, tmdb):
         :param seasonNumber: <int> Number of the season to get the episodes for
         :return: list of dicts consisting of episodes
         """
+        logger = get_logger_instance()
         logger.info(
             "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".
             format(code, seasonNumber))
@@ -159,6 +167,7 @@ def register_query_resolvers(query, tmdb):
         :param type: <str> Type to return count for (Movie, TV, genre, Episode)
         :return: <int> Count of watched media of provided type
         """
+        logger = get_logger_instance()
         logger.info("watchCount was queired -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_watch_count(tmdb, external_id, type)
@@ -170,6 +179,7 @@ def register_query_resolvers(query, tmdb):
         :param type: <str> Type to return count for (Movie, TV)
         :return: <int> Runtime of watched media of provided type
         """
+        logger = get_logger_instance()
         logger.info("watchTime was queried -> type:'{}'".format((type)))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_watch_time(tmdb, external_id, type)
@@ -183,6 +193,7 @@ def register_query_resolvers(query, tmdb):
         :param favorite: <bool> to query media marked as favorite (best used with watchStatus = "any")
         :return: <dict> Movie, TV, Season or Episode
         """
+        logger = get_logger_instance()
         logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
             type, watchStatus))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -193,6 +204,7 @@ def register_mutation_resolvers(mutation, tmdb, database):
     @mutation.field("favorite")
     def resolve_favorite(*_, code: int, type: str, favorite: bool,
                          seasonNumber: int, episodeNumber: int) -> dict:
+        logger = get_logger_instance()
         logger.info(
             "favorite was queried -> type:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
             .format(type, code, seasonNumber, episodeNumber, favorite))
@@ -202,6 +214,7 @@ def register_mutation_resolvers(mutation, tmdb, database):
 
     @mutation.field("rating")
     def resolve_rating(*_, code: int, type: str, rating: int) -> dict:
+        logger = get_logger_instance()
         logger.info(
             "rating was queried -> type:'{}', code:'{}', rating:'{}'".format(
                 type, code, rating))
@@ -212,6 +225,7 @@ def register_mutation_resolvers(mutation, tmdb, database):
     def resolve_number_of_watched_episodes(
             *_, code: int, seasonNumber: int,
             numberOfWatchedEpisodes: int) -> dict:
+        logger = get_logger_instance()
         logger.info(
             "number of watched episodes was queried -> code:'{}', seasonNumber:'{}', numberOfWatchedEpisodes:'{}'"
             .format(code, seasonNumber, numberOfWatchedEpisodes))
@@ -223,6 +237,7 @@ def register_mutation_resolvers(mutation, tmdb, database):
     @mutation.field("watchStatus")
     def resolve_watch_status(*_, code: int, type: str,
                              watchStatus: str) -> dict:
+        logger = get_logger_instance()
         logger.info(
             "watchStatus was queried -> code:'{}', type:'{}', watchStatus:'{}'"
             .format(code, type, watchStatus))
