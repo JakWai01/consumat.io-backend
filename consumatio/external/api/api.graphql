@@ -62,11 +62,13 @@ type Genre {
 }
 
 type Director {
+    code: Int
     name: String
     imagePath: String
 }
 
 type Cast {
+    code: Int
     name: String
     role: String
     imagePath: String
