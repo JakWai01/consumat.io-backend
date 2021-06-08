@@ -166,13 +166,13 @@ class Database():
         """
         Add rating for a certain media to the database
         :param user_id: <int> User id of a user
-        :param media: <str> Type of the media to set rating for ("Movie", "TV", "Season", "Episode")
+        :param media: <str> Type of the media to set rating for ("Movie", "TV")
         :param media_id: <int> Id of the media to set rating for
         :param rating: <float> Rating to add to the database
         :return: None
         """
         self.check_all_media_types(media)
-        self.check_rating_value(rating)
+        self.check_rating_value(rating, media)
         media_data = MediaData.query.filter_by(
             user_id_content_media_data=user_id,
             media_type_content=media,
@@ -321,16 +321,18 @@ class Database():
                 "The media: {} is invalid -> valide arguments:{} ".format(
                     media, valid_media))
 
-    def check_rating_value(self: object, rating: int) -> None:
+    def check_rating_value(self: object, rating: int, media: str) -> None:
         """
         Check if rating has valid value concerning the watch rating mutation
         :param media: <int> Rating value
         :return: None
         """
         lower_bound = 0
-        uppper_bound = 10
-        if rating is not None and (rating < lower_bound
-                                   or rating > uppper_bound):
+        upper_bound = 10
+        valid_media = ["TV", "Movie"]
+
+        if rating is not None and (rating < lower_bound or rating > upper_bound
+                                   ) or media not in valid_media:
             raise InvalidParameter(
-                "The rating: {} is invalid -> valide value:{} - {} or null".
-                format(rating, lower_bound, uppper_bound))
+                "Please make sure the rating your rating is in range: {}-{} and you only rate {}"
+                .format(lower_bound, upper_bound, valid_media))

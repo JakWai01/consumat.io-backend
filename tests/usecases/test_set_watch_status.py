@@ -1,9 +1,11 @@
+from consumatio.exceptions.invalid_parameter import InvalidParameter
 from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.external.db.db import Database
 from consumatio.usecases.set_watch_status import set_watch_status
 import os
 from consumatio.external.db.models import *
 from consumatio.app import App
+import pytest
 
 
 def test_set_watch_status_movie():
@@ -60,6 +62,72 @@ def test_set_watch_status_tv():
         MediaData.media_id_content == 1399).first()
 
     assert "Finished" == query.watch_status_content
+
+    id = query.user_id_content_media_data
+
+    query = MediaData.query.filter(
+        MediaData.user_id_content_media_data == id).delete()
+
+    User.query.filter(User.external_id_content ==
+                      "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com").delete()
+
+    db.session.commit()
+
+
+def test_set_watch_status_season():
+    tmdb_key = os.getenv("TMDB_KEY")
+    app = App(
+        tmdb_key, "mysecret",
+        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        None, False)
+    app.configure()
+    tmdb = TmdbMock(tmdb_key, db)
+    database = Database(db)
+    app.app.app_context().push()
+
+    with pytest.raises(InvalidParameter):
+        set_watch_status(database,
+                         "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com", 12,
+                         "Season", "Finished")
+
+    query = MediaData.query.join(User).filter(
+        User.user_id_content == MediaData.user_id_content_media_data,
+        MediaData.media_type_content == "Season", User.external_id_content ==
+        "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com",
+        MediaData.media_id_content == 12).first()
+
+    id = query.user_id_content_media_data
+
+    query = MediaData.query.filter(
+        MediaData.user_id_content_media_data == id).delete()
+
+    User.query.filter(User.external_id_content ==
+                      "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com").delete()
+
+    db.session.commit()
+
+
+def test_set_watch_status_episode():
+    tmdb_key = os.getenv("TMDB_KEY")
+    app = App(
+        tmdb_key, "mysecret",
+        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        None, False)
+    app.configure()
+    tmdb = TmdbMock(tmdb_key, db)
+    database = Database(db)
+    app.app.app_context().push()
+
+    with pytest.raises(InvalidParameter):
+        set_watch_status(database,
+                         "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com", 12,
+                         "Episode", "Finished")
+
+    query = MediaData.query.join(User).filter(
+        User.user_id_content == MediaData.user_id_content_media_data,
+        MediaData.media_type_content == "Episode", User.external_id_content ==
+        "b5715dc83f4a921d36c@b5715dc83f4a921d36c.com",
+        MediaData.media_id_content == 12).first()
 
     id = query.user_id_content_media_data
 
