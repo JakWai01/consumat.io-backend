@@ -143,7 +143,7 @@ def test_get_tv():
             'name': 'Sky Ticket'
         }],
         'rating_average':
-        14600,
+        8.4,
         'rating_count':
         None,
         'rating_user':

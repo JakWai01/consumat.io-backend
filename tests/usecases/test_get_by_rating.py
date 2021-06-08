@@ -36,7 +36,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/337404'
+            'tmdb_url': 'https://www.themoviedb.org/movie/337404',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 663558,
             'title': 'New Gods: Nezha Reborn',
@@ -54,7 +58,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/663558'
+            'tmdb_url': 'https://www.themoviedb.org/movie/663558',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 791373,
             'title': "Zack Snyder's Justice League",
@@ -72,7 +80,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/791373'
+            'tmdb_url': 'https://www.themoviedb.org/movie/791373',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 615457,
             'title': 'Nobody',
@@ -90,7 +102,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/615457'
+            'tmdb_url': 'https://www.themoviedb.org/movie/615457',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 423108,
             'title': 'The Conjuring: The Devil Made Me Do It',
@@ -108,7 +124,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/423108'
+            'tmdb_url': 'https://www.themoviedb.org/movie/423108',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 385128,
             'title': 'F9',
@@ -126,7 +146,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/385128'
+            'tmdb_url': 'https://www.themoviedb.org/movie/385128',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 785534,
             'title': 'Paper Lives',
@@ -144,7 +168,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/785534'
+            'tmdb_url': 'https://www.themoviedb.org/movie/785534',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 527774,
             'title': 'Raya and the Last Dragon',
@@ -162,7 +190,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/527774'
+            'tmdb_url': 'https://www.themoviedb.org/movie/527774',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 399566,
             'title': 'Godzilla vs. Kong',
@@ -180,7 +212,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/399566'
+            'tmdb_url': 'https://www.themoviedb.org/movie/399566',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 458220,
             'title': 'Palmer',
@@ -198,7 +234,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/458220'
+            'tmdb_url': 'https://www.themoviedb.org/movie/458220',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 501929,
             'title': 'The Mitchells vs. the Machines',
@@ -216,7 +256,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/501929'
+            'tmdb_url': 'https://www.themoviedb.org/movie/501929',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 637649,
             'title': 'Wrath of Man',
@@ -234,7 +278,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/637649'
+            'tmdb_url': 'https://www.themoviedb.org/movie/637649',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 736069,
             'title': 'Justice Society: World War II',
@@ -252,7 +300,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/736069'
+            'tmdb_url': 'https://www.themoviedb.org/movie/736069',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 726684,
             'title': 'Miraculous World: Shanghai – The Legend of Ladydragon',
@@ -270,7 +322,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/726684'
+            'tmdb_url': 'https://www.themoviedb.org/movie/726684',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 586047,
             'title': 'Seobok',
@@ -288,7 +344,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/586047'
+            'tmdb_url': 'https://www.themoviedb.org/movie/586047',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 809236,
             'title': 'Have You Ever Seen Fireflies?',
@@ -306,7 +366,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/809236'
+            'tmdb_url': 'https://www.themoviedb.org/movie/809236',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 460465,
             'title': 'Mortal Kombat',
@@ -324,7 +388,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/460465'
+            'tmdb_url': 'https://www.themoviedb.org/movie/460465',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 773736,
             'title': 'TINA',
@@ -342,7 +410,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/773736'
+            'tmdb_url': 'https://www.themoviedb.org/movie/773736',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 583689,
             'title': 'Moxie',
@@ -360,7 +432,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/583689'
+            'tmdb_url': 'https://www.themoviedb.org/movie/583689',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }, {
             'code': 785976,
             'title': 'Pelé',
@@ -378,7 +454,11 @@ def test_get_by_rating_movie():
             'providers': None,
             'cast': None,
             'directors': None,
-            'tmdb_url': 'https://www.themoviedb.org/movie/785976'
+            'tmdb_url': 'https://www.themoviedb.org/movie/785976',
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            '__typename': 'Movie'
         }]
     }
 
@@ -415,12 +495,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/59amxr7vKdeaWfv09y8UG8yZ6v.jpg',
             'poster_path': '/8JJa4gduVytwpXQzFtZNibRA6S.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/115194',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 114547,
             'title': 'Secrets of Sulphur Springs',
@@ -436,12 +520,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/5zTeE4HqzzhN3w6FgyfVMPgtkqc.jpg',
             'poster_path': '/30MqitTOgIfeOhvwdMHkrM9p5mD.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/114547',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 110309,
             'title': 'SK8 the Infinity',
@@ -457,12 +545,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/ohOrfdh80HVY5QBD8kV2FYYSVwF.jpg',
             'poster_path': '/ksb6QlSCsRLr3MNmxc8ojOOLK6V.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/110309',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 116386,
             'title': 'Doom at Your Service',
@@ -478,12 +570,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/uMLihaxfbeCvraDmER37t2jTNKi.jpg',
             'poster_path': '/tgsWD4dJI5YFY8Kyk6vVjZoIKfO.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/116386',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 121509,
             'title': 'The Upshaws',
@@ -499,12 +595,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/2etWIt4JMD4wHzJIZVi7YeI5UZa.jpg',
             'poster_path': '/bgtpwAsKNfqJmgp3zBxuSHMBAaW.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/121509',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 95557,
             'title': 'Invincible',
@@ -520,12 +620,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg',
             'poster_path': '/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/95557',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 99071,
             'title': 'Redo of Healer',
@@ -541,12 +645,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/e30T3teKp6VZlIXhI0AhTDksvoy.jpg',
             'poster_path': '/hynFI7MltF1BBvroh3iJplnBZyc.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/99071',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 117376,
             'title': 'Vincenzo',
@@ -562,12 +670,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/sf7NCqyVUNoyjYuwW5oJke1T1lH.jpg',
             'poster_path': '/dvXJgEDQXhL9Ouot2WkBHpQiHGd.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/117376',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 116249,
             'title': 'Kid Cosmic',
@@ -583,12 +695,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/3twr9PEWUxb6FHVZ8hzOaBpSh8u.jpg',
             'poster_path': '/88HdcCMumGqGAt2kR3vVOr8NYiA.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/116249',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 95205,
             'title': 'The Equalizer',
@@ -604,12 +720,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/3C032MHjf4sXV3XpmvRLbsibAmZ.jpg',
             'poster_path': '/gAgShytJMWSYkjxa7ZDjSZhsnlc.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/95205',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 105971,
             'title': 'The Bad Batch',
@@ -625,12 +745,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/sjxtIUCWR74yPPcZFfTsToepfWm.jpg',
             'poster_path': '/WjQmEWFrOf98nT5aEfUfVYz9N2.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/105971',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 110070,
             'title': 'Horimiya',
@@ -646,12 +770,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/4u64tHtUkna1y4OkJcrXLEhhLLy.jpg',
             'poster_path': '/917VL7zHTaltnEBDrKWVITTsvLy.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/110070',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 105009,
             'title': 'Tokyo Revengers',
@@ -667,12 +795,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/wjw3wrmkjjApu83Y4SxmQ5gP2mZ.jpg',
             'poster_path': '/qSEKyf0fWhrCEQ3LTwLqe41eSvR.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/105009',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 112160,
             'title': 'The Way of the Househusband',
@@ -688,12 +820,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/3bC5QIJ3P1ebC7PKwzUVfgub8I.jpg',
             'poster_path': '/p63rAZt0s8kedJtdxGwD5VYZafc.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/112160',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 106158,
             'title': 'Law & Order: Organized Crime',
@@ -709,12 +845,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/tjogqNxMYdXb7UMr4DofAAUdzyb.jpg',
             'poster_path': '/ur8ZV6Dn4FzsU2zIQK7iDQKZcTE.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/106158',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 120462,
             'title': 'THEM',
@@ -730,12 +870,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/nRifrfdncHTRKUbk0MrAcuQmDFN.jpg',
             'poster_path': '/bJw1VZ4ACt5TnAvJbHcprzgYc1E.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/120462',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 112162,
             'title': 'Pacific Rim: The Black',
@@ -751,12 +895,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/o56X5GUWgzkGJ90QDWn6NNkGEN7.jpg',
             'poster_path': '/s3mOpPwrcKCPVkSWGqEwOah4jdX.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/112162',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 112163,
             'title': 'High-Rise Invasion',
@@ -772,12 +920,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/cT0o6RFi36TkMFG1wWyTyGb2jrR.jpg',
             'poster_path': '/5uXaWe0LXTpBQVBBXL1ynae1DED.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/112163',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 116174,
             'title': "It's a Sin",
@@ -793,12 +945,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/aveywEVwIppkrHRQavbB4ybnZPe.jpg',
             'poster_path': '/hkoQ9Ut0mmQC8BmlScrGD78PlXw.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/116174',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }, {
             'code': 80828,
             'title': 'The Nevers',
@@ -814,12 +970,16 @@ def test_get_by_rating_tv():
             'backdrop_path': '/6x8vW5utEZahp6V3sSWxCTW0mHW.jpg',
             'poster_path': '/v6Xmj8Fy7ZruVTz3y2Po7O0TQh4.jpg',
             'providers': None,
-            'creators': None,
             'cast': None,
+            'creators': None,
             'number_of_episodes': None,
             'number_of_seasons': None,
             'tmdb_url': 'https://www.themoviedb.org/tv/80828',
-            'runtime': None
+            'watch_status': None,
+            'rating_user': None,
+            'favorite': None,
+            'runtime': None,
+            '__typename': 'TV'
         }]
     }
 
