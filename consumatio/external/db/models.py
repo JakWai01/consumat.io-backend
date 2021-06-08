@@ -23,6 +23,8 @@ class User(db.Model):
     external_id_content = db.Column(db.String(255), nullable=False)
     media_data = db.relationship('MediaData',
                                  backref=db.backref('user_data', lazy=True))
+    language = db.Column(db.String(30), nullable=False, default="en-US")
+    country = db.Column(db.String(30), nullable=False, default="US")
 
     def __init__(self, external_id: str):
         self.external_id_content = external_id
