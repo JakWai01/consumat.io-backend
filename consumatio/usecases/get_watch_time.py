@@ -20,7 +20,7 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
             MediaData.watch_status_content == 'Finished').all()
 
         for result in results:
-            data = tmdb.get_movie_details(result.media_id_content)
+            data = tmdb.get_movie_details(external_id, result.media_id_content)
 
             runtime += data.get("runtime")
     elif type == 'TV':
@@ -30,7 +30,7 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
             User.external_id_content == external_id).all()
 
         for result in results:
-            data = tmdb.get_tv_details(result.tv_code)
+            data = tmdb.get_tv_details(external_id, result.tv_code)
 
             for i in range(1, data.get("number_of_seasons") + 1):
                 season = get_season(external_id, tmdb, result.tv_code, i)

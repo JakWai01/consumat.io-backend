@@ -87,6 +87,10 @@ class Database():
         user = User.query.filter_by(external_id_content=external_id).first()
         return user.user_id_content
 
+    def get_user(self: object, external_id: str) -> object:
+        return User.query.filter_by(external_id_content=external_id).first()
+
+
     def user_country(self: object, external_id: str, country: str) -> None:
         """
         modify users preffered country.
