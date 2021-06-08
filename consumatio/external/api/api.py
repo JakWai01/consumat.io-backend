@@ -1,3 +1,4 @@
+from consumatio.usecases.get_user_i18n import get_user_i18n
 import os
 from ariadne import (MutationType, ObjectType, QueryType, UnionType,
                      load_schema_from_path, make_executable_schema)
@@ -21,6 +22,7 @@ from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
 from consumatio.usecases.set_country import *
 from consumatio.usecases.set_language import *
+from consumatio.usecases.get_user_i18n import *
 from flask import request
 
 
@@ -198,6 +200,17 @@ def register_query_resolvers(query, tmdb):
             type, watchStatus))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_list(tmdb, external_id, type, watchStatus, favorite)
+
+    @query.field("user")
+    def resolve_user(*_) -> dict:
+        """
+        Get user preferences
+        :return: <dict> currently country & language fields
+        """
+        logger = get_logger_instance()
+        logger.info("user was queried")
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return get_user_i18n(external_id)
 
 
 def register_mutation_resolvers(mutation, tmdb, database):

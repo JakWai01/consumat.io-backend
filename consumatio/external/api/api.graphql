@@ -11,6 +11,7 @@ type Query {
     seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
     watchCount(type: String): Int
     watchTime(type: String): Int
+    user: i18n
 }
 
 type Mutation {
@@ -23,6 +24,11 @@ type Mutation {
 }
 
 union Media = Movie | TV 
+
+type i18n {
+    country: String
+    language: String
+}
 
 type Payload {
     status: Boolean!
