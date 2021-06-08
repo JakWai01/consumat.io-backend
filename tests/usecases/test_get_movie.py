@@ -197,4 +197,4 @@ def test_get_movie():
         None
     }
 
-    assert dict == get_movie("07e2fd2df@07e2fd2df.com", tmdb, 12, "DE")
+    assert dict == get_movie("07e2fd2df@07e2fd2df.com", tmdb, 12)
