@@ -43,11 +43,11 @@ def get_list(tmdb: object, external_id: str, type: str, watchStatus: str,
             User.external_id_content == external_id).all()
     for result in results:
         if type == "Movie":
-            dict = get_movie(external_id, tmdb, result.media_id_content, "DE")
+            dict = get_movie(external_id, tmdb, result.media_id_content)
             dict["__typename"] = "Movie"
             watch_list.append(dict)
         elif type == "TV":
-            dict = get_tv(external_id, tmdb, result.media_id_content, "DE")
+            dict = get_tv(external_id, tmdb, result.media_id_content)
             dict["__typename"] = "TV"
             watch_list.append(dict)
 
