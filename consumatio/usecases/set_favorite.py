@@ -45,12 +45,14 @@ def set_favorite(tmdb: object, database: object, external_id: str, media: str,
 
     tv_code = None
     if media == "Season":
-        result = tmdb.get_season_details(code, seasonNumber)
+        result = tmdb.get_season_details(external_id, code, seasonNumber)
         code = result.get("code")
         tv_code = result.get("tv_code")
     if media == "Episode":
-        result = tmdb.get_episode_details(code, seasonNumber, episodeNumber)
-        tv_code = tmdb.get_season_details(code, seasonNumber).get("tv_code")
+        result = tmdb.get_episode_details(external_id, code, seasonNumber,
+                                          episodeNumber)
+        tv_code = tmdb.get_season_details(external_id, code,
+                                          seasonNumber).get("tv_code")
         code = result.get("code")
 
     if not database.media_data_exists(user_id, media, code):

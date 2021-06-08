@@ -2,7 +2,7 @@ class TmdbMock:
     def __init__(self: object, tmdb_key: str, db: object):
         pass
 
-    def get_movie_details(self: object, movie_id: int) -> dict:
+    def get_movie_details(self: object, external_id: str, movie_id: int) -> dict:
         return {
             "code": 12,
             'title': 'Finding Nemo',
@@ -23,7 +23,7 @@ class TmdbMock:
             'poster_path': '/eHuGQ10FUzK1mdOY69wF5pGgEf5.jpg'
         }
 
-    def get_movie_providers(self: object, movie_id: int, country: str) -> dict:
+    def get_movie_providers(self: object, external_id: str, movie_id: int) -> dict:
         return {'providers': [{'name': 'Disney Plus'}]}
 
     def get_movie_credits(self: object, movie_id: int) -> dict:
@@ -165,7 +165,7 @@ class TmdbMock:
             }]
         }
 
-    def get_tv_details(self: object, tv_id: int) -> dict:
+    def get_tv_details(self: object, external_id: str, tv_id: int) -> dict:
         return {
             'code':
             1399,
@@ -211,7 +211,7 @@ class TmdbMock:
             60
         }
 
-    def get_tv_providers(self: object, tv_id: int, country: str) -> dict:
+    def get_tv_providers(self: object, external_id: str, tv_id: int) -> dict:
         return {'providers': [{'name': 'Sky Go'}, {'name': 'Sky Ticket'}]}
 
     def get_tv_credits(self: object, tv_id: int) -> dict:
@@ -299,7 +299,7 @@ class TmdbMock:
             }]
         }
 
-    def get_season_details(self: object, tv_id: int,
+    def get_season_details(self: object, external_id: str, tv_id: int,
                            season_number: int) -> dict:
         return {
             'code': 3624,
@@ -313,7 +313,7 @@ class TmdbMock:
             'poster_path': '/zwaj4egrhnXOBIit1tyb4Sbt3KP.jpg'
         }
 
-    def get_episode_details(self: object, tv_id: int, season_number: int,
+    def get_episode_details(self: object, external_id: str, tv_id: int, season_number: int,
                             episode_number: int) -> dict:
         return {
             'code': 63056,
@@ -327,7 +327,7 @@ class TmdbMock:
             'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg'
         }
 
-    def get_search_result(self: object, keyword: str, page: int) -> dict:
+    def get_search_result(self: object, external_id: str, keyword: str, page: int) -> dict:
         return {
             'total_pages':
             66,
@@ -612,7 +612,7 @@ class TmdbMock:
             }]
         }
 
-    def get_popular_movies(self: object, country: str, page: int) -> dict:
+    def get_popular_movies(self: object, external_id: str, page: int) -> dict:
         return {
             'total_pages':
             500,
@@ -981,7 +981,7 @@ class TmdbMock:
             }]
         }
 
-    def get_popular_tv(self: object, page: int) -> dict:
+    def get_popular_tv(self: object, external_id: str, page: int) -> dict:
         return {
             'total_pages':
             500,
@@ -1408,7 +1408,7 @@ class TmdbMock:
             }]
         }
 
-    def get_movies_by_rating(self: object, country: str, user: str,
+    def get_movies_by_rating(self: object, user: str,
                              vote_avg: float, votes: int, released_from: str,
                              page: int) -> dict:
         return {
@@ -1778,7 +1778,7 @@ class TmdbMock:
             }]
         }
 
-    def get_tv_by_rating(self: object, country: str, user: str,
+    def get_tv_by_rating(self: object, user: str,
                          vote_avg: float, votes: int, released_from: str,
                          page: int) -> dict:
         return {

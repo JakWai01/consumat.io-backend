@@ -1,16 +1,17 @@
 type Query {
-    movie(code: Int, country: String): Movie!
-    tv(code: Int, country: String): TV!
+    movie(code: Int): Movie!
+    tv(code: Int): TV!
     season(code: Int, seasonNumber: Int): Season!
     episode(code: Int, seasonNumber: Int, episodeNumber: Int): Episode!
     search(keyword: String, page: Int): MediaPage
-    popular(type: String, country: String, page: Int): MediaPage
-    byRating(type: String, country: String, tmdbRating: Float, minVotes: Int, releasedFrom: String, page: Int): MediaPage
+    popular(type: String, page: Int): MediaPage
+    byRating(type: String, tmdbRating: Float, minVotes: Int, releasedFrom: String, page: Int): MediaPage
     list(type: String, watchStatus: String, favorite: Boolean): [Media]
     tvSeasons(code: Int): [Season]
     seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
     watchCount(type: String): Int
     watchTime(type: String): Int
+    user: i18n
 }
 
 type Mutation {
@@ -18,9 +19,16 @@ type Mutation {
     favorite(code: Int!, type: String!, favorite: Boolean!, seasonNumber: Int, episodeNumber: Int) : Payload!
     watchStatus(code: Int!, type: String!, watchStatus: String) : Payload!
     numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
+    country(country: String!): Payload!
+    language(language: String!): Payload!
 }
 
 union Media = Movie | TV 
+
+type i18n {
+    country: String
+    language: String
+}
 
 type Payload {
     status: Boolean!
