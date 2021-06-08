@@ -87,6 +87,30 @@ class Database():
         user = User.query.filter_by(external_id_content=external_id).first()
         return user.user_id_content
 
+    def user_country(self: object, external_id: str, country: str) -> None:
+        """
+        modify users preffered country.
+        :param external_id: <str> External id provided by OAuth
+        :param country: <str> ISO 3166-1 alpha-2 country code (e.g. 'DE' or 'US')
+        :return: None
+        """
+        user = User.query.filter_by(user_id_content=external_id).first()
+        user.country = country
+        self.db.session.commit()
+        logger.info(f"user country changed to: {country}")
+
+    def user_language(self: object, external_id: str, language: str) -> None:
+        """
+        modify users preffered language.
+        :param external_id: <str> External id provided by OAuth
+        :param language: <str> RFC 5646 BCP language tag (e.g. 'de-DE' or 'en-US')
+        :return: None
+        """
+        user = User.query.filter_by(user_id_content=external_id).first()
+        user.language = language
+        self.db.session.commit()
+        logger.info(f"user language changed to: {language}")
+
     def media_data_exists(self: object, user_id: int, media: str,
                           media_id: int) -> bool:
         """

@@ -18,6 +18,8 @@ type Mutation {
     favorite(code: Int!, type: String!, favorite: Boolean!, seasonNumber: Int, episodeNumber: Int) : Payload!
     watchStatus(code: Int!, type: String!, watchStatus: String) : Payload!
     numberOfWatchedEpisodes(code: Int!,seasonNumber: Int!, numberOfWatchedEpisodes: Int): Payload!
+    country(country: String!): Payload!
+    language(language: String!): Payload!
 }
 
 union Media = Movie | TV 

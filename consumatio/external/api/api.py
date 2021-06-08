@@ -19,12 +19,12 @@ from consumatio.usecases.set_number_of_watched_episodes import *
 from consumatio.usecases.set_rating import *
 from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
+from consumatio.usecases.set_country import *
+from consumatio.usecases.set_language import *
 from flask import request
 
 
-
 def register_query_resolvers(query, tmdb):
-    
     @query.field("movie")
     def resolve_movie(*_, code: int, country: str) -> dict:
         """
@@ -244,7 +244,21 @@ def register_mutation_resolvers(mutation, tmdb, database):
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return set_watch_status(database, external_id, code, type, watchStatus)
 
-    return resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status
+    @mutation.field("country")
+    def resolve_country(*_, country: str) -> dict:
+        logger = get_logger_instance()
+        logger.info("country was queried -> country:'{}'".format(country))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return set_country(database, external_id, country)
+
+    @mutation.field("language")
+    def resolve_language(*_, language: str) -> dict:
+        logger = get_logger_instance()
+        logger.info("language was queried -> language:'{}'".format(language))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return set_language(database, external_id, language)
+
+    return resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status, resolve_country, resolve_language
 
 
 def get_schema(tmdb, database):
@@ -254,7 +268,7 @@ def get_schema(tmdb, database):
 
     # Setup mutations
     mutation = MutationType()
-    resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status = register_mutation_resolvers(
+    resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status, resolve_country, resolve_language = register_mutation_resolvers(
         mutation, tmdb, database)
 
     # Register aliases for mutations
@@ -272,6 +286,12 @@ def get_schema(tmdb, database):
     watch_status = MutationType()
     # TODO: Alias
     watch_status.set_field("watchStatus", resolve_watch_status)
+
+    country = MutationType()
+    country.set_field("country", resolve_country)
+
+    language = MutationType()
+    language.set_field("language", resolve_language)
 
     # Register aliases for objects
     movie = ObjectType("Movie")
