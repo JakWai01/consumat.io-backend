@@ -1,4 +1,3 @@
-from consumatio.usecases.get_user_i18n import get_user_i18n
 import os
 from ariadne import (MutationType, ObjectType, QueryType, UnionType,
                      load_schema_from_path, make_executable_schema)
