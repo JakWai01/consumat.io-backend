@@ -160,4 +160,4 @@ def test_get_tv():
         None
     }
 
-    assert dict == get_tv("03344f636@03344f636.com", tmdb, 1399, "DE")
+    assert dict == get_tv("03344f636@03344f636.com", tmdb, 1399)

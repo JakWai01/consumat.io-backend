@@ -2,17 +2,16 @@ from consumatio.entities.movie import Movie
 from consumatio.external.db.models import *
 
 
-def get_movie(external_id: str, tmdb: object, code: int, country: str) -> dict:
+def get_movie(external_id: str, tmdb: object, code: int) -> dict:
     """
     Make all relevant API requests (details, images, providers, credits) and assemble a Movie
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the movie to get data for
-    :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
     :return: <dict> Movie details
     """
-    dict_movie_details = tmdb.get_movie_details(code)
-    dict_movie_providers = tmdb.get_movie_providers(code, country)
+    dict_movie_details = tmdb.get_movie_details(external_id, code)
+    dict_movie_providers = tmdb.get_movie_providers(external_id, code)
     dict_movie_credits = tmdb.get_movie_credits(code)
 
     result = MediaData.query.join(User).filter(

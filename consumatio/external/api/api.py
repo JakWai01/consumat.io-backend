@@ -19,39 +19,36 @@ from consumatio.usecases.set_number_of_watched_episodes import *
 from consumatio.usecases.set_rating import *
 from consumatio.usecases.get_by_rating import *
 from consumatio.usecases.set_watch_status import *
+from consumatio.usecases.set_country import *
+from consumatio.usecases.set_language import *
+from consumatio.usecases.get_user_i18n import *
 from flask import request
 
 
-
 def register_query_resolvers(query, tmdb):
-    
     @query.field("movie")
-    def resolve_movie(*_, code: int, country: str) -> dict:
+    def resolve_movie(*_, code: int) -> dict:
         """
         API endpoint for "movie" queries.
         :param code: <int> Id of the movie to get details for
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the movie
         """
         logger = get_logger_instance()
-        logger.info("Movie was queried -> code:{}, country:'{}'".format(
-            code, country))
+        logger.info("Movie was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_movie(external_id, tmdb, code, country)
+        return get_movie(external_id, tmdb, code)
 
     @query.field("tv")
-    def resolve_tv(*_, code: int, country: str) -> dict:
+    def resolve_tv(*_, code: int) -> dict:
         """
         API endpoint for "tv" queries.
         :param code: <int> Id of the tv show to get details for
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the tv show
         """
         logger = get_logger_instance()
-        logger.info("TV was queried -> code:{}, country:'{}'".format(
-            code, country))
+        logger.info("TV was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_tv(external_id, tmdb, code, country)
+        return get_tv(external_id, tmdb, code)
 
     @query.field("season")
     def resolve_season(*_, code: int, seasonNumber: str) -> dict:
@@ -99,39 +96,35 @@ def register_query_resolvers(query, tmdb):
         return get_search(external_id, tmdb, keyword, page)
 
     @query.field("popular")
-    def resolve_popular(*_, type: str, country: str, page: int) -> dict:
+    def resolve_popular(*_, type: str, page: int) -> dict:
         """
         API endpoint for "popular" queries.
         :param type: <str> Choose between "tv" or "movie" to get popular results
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
         logger = get_logger_instance()
-        logger.info("Popular was queried -> type:'{}', country:'{}'".format(
-            type, country))
+        logger.info("Popular was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_popular(external_id, tmdb, type, country, page)
+        return get_popular(external_id, tmdb, type, page)
 
     @query.field("byRating")
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
-                          releasedFrom: str, country: str, page: int) -> dict:
+                          releasedFrom: str, page: int) -> dict:
         """
         API endpoint for (top) rated queries.
         :param type: <str> Popular item type "movie" or "tv"
         :param vote_avg: <float> filter media with average rating greater than set value
         :param vote_count: <int> minimum number of votes
         :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
         logger = get_logger_instance()
-        logger.info("byRating was queried -> type:'{}', country:'{}'".format(
-            type, country))
+        logger.info("byRating was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_by_rating(external_id, tmdb, type, tmdbRating, minVotes,
-                             releasedFrom, country, page)
+                             releasedFrom, page)
 
     @query.field("tvSeasons")
     def resolve_tv_seasons(*_, code: int) -> list:
@@ -199,6 +192,17 @@ def register_query_resolvers(query, tmdb):
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_list(tmdb, external_id, type, watchStatus, favorite)
 
+    @query.field("user")
+    def resolve_user(*_) -> dict:
+        """
+        Get user preferences
+        :return: <dict> currently country & language fields
+        """
+        logger = get_logger_instance()
+        logger.info("user was queried")
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return get_user_i18n(external_id)
+
 
 def register_mutation_resolvers(mutation, tmdb, database):
     @mutation.field("favorite")
@@ -244,7 +248,21 @@ def register_mutation_resolvers(mutation, tmdb, database):
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return set_watch_status(database, external_id, code, type, watchStatus)
 
-    return resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status
+    @mutation.field("country")
+    def resolve_country(*_, country: str) -> dict:
+        logger = get_logger_instance()
+        logger.info("country was queried -> country:'{}'".format(country))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return set_country(database, external_id, country)
+
+    @mutation.field("language")
+    def resolve_language(*_, language: str) -> dict:
+        logger = get_logger_instance()
+        logger.info("language was queried -> language:'{}'".format(language))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return set_language(database, external_id, language)
+
+    return resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status, resolve_country, resolve_language
 
 
 def get_schema(tmdb, database):
@@ -254,7 +272,7 @@ def get_schema(tmdb, database):
 
     # Setup mutations
     mutation = MutationType()
-    resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status = register_mutation_resolvers(
+    resolve_favorite, resolve_rating, resolve_number_of_watched_episodes, resolve_watch_status, resolve_country, resolve_language = register_mutation_resolvers(
         mutation, tmdb, database)
 
     # Register aliases for mutations
@@ -272,6 +290,12 @@ def get_schema(tmdb, database):
     watch_status = MutationType()
     # TODO: Alias
     watch_status.set_field("watchStatus", resolve_watch_status)
+
+    country = MutationType()
+    country.set_field("country", resolve_country)
+
+    language = MutationType()
+    language.set_field("language", resolve_language)
 
     # Register aliases for objects
     movie = ObjectType("Movie")

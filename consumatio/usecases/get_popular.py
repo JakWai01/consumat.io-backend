@@ -3,20 +3,18 @@ from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
 
 
-def get_popular(external_id: str, tmdb: object, type: str, country: str,
-                page: int) -> dict:
+def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
     """
     Get popular Movies/TV Shows for a provided country
     :param external_id: <str> External ID provided by OAuth 
     :param tmdb: <object> Tmdb object
     :param type: <str> Popular item type "movie" or "tv"
-    :param country: <str> Country code (uppercase) currently only applicable for movies
     :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> popular media
     """
     dict = {}
     if type == "Movie":
-        dict_movie_results = tmdb.get_popular_movies(country, page)
+        dict_movie_results = tmdb.get_popular_movies(external_id, page)
         results = dict_movie_results["results"]
         result_list = []
 
@@ -76,7 +74,7 @@ def get_popular(external_id: str, tmdb: object, type: str, country: str,
         }
 
     elif type == "TV":
-        dict_tv_results = tmdb.get_popular_tv(page)
+        dict_tv_results = tmdb.get_popular_tv(external_id, page)
         results = dict_tv_results["results"]
         result_list = []
 

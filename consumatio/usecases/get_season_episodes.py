@@ -11,7 +11,7 @@ def get_season_episodes(external_id: str, tmdb: object, code: int,
     :param season_number: <int> Number of the season from a certain TV show
     :return: <list> List of Episodes
     """
-    season_details = tmdb.get_season_details(code, season_number)
+    season_details = tmdb.get_season_details(external_id, code, season_number)
 
     number_of_episodes = season_details.get("number_of_episodes")
 

@@ -931,8 +931,7 @@ def test_get_popular_movie():
         500
     }
 
-    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "Movie", "DE",
-                               1)
+    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "Movie", 1)
 
 
 def test_get_popular_tv():
@@ -1452,4 +1451,4 @@ def test_get_popular_tv():
         }]
     }
 
-    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "TV", "DE", 1)
+    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "TV", 1)

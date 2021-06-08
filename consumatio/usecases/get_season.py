@@ -12,7 +12,7 @@ def get_season(external_id: str, tmdb: object, code: int,
     :param season_number: <int> Number of season to get details for
     :return: <dict> Season details
     """
-    dict_season_details = tmdb.get_season_details(code, season_number)
+    dict_season_details = tmdb.get_season_details(external_id, code, season_number)
     result = MediaData.query.join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'Season',
