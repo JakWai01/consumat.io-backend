@@ -31,7 +31,6 @@ def register_query_resolvers(query, tmdb):
         """
         API endpoint for "movie" queries.
         :param code: <int> Id of the movie to get details for
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the movie
         """
         logger = get_logger_instance()
@@ -44,7 +43,6 @@ def register_query_resolvers(query, tmdb):
         """
         API endpoint for "tv" queries.
         :param code: <int> Id of the tv show to get details for
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :return: <dict> Details of the tv show
         """
         logger = get_logger_instance()
@@ -102,7 +100,6 @@ def register_query_resolvers(query, tmdb):
         """
         API endpoint for "popular" queries.
         :param type: <str> Choose between "tv" or "movie" to get popular results
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """
@@ -120,7 +117,6 @@ def register_query_resolvers(query, tmdb):
         :param vote_avg: <float> filter media with average rating greater than set value
         :param vote_count: <int> minimum number of votes
         :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
-        :param country: <str> Country abbreviation to get corresponding providers (e.g. "DE" -> Germany)
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> Details of the movie/tv
         """

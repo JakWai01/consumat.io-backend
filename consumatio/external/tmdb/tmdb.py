@@ -44,8 +44,8 @@ class Tmdb():
     ) -> dict:
         """
         Fetch tmdb movie providers endpoint
+        :param user: External representation of user
         :param movie_id: <int> Id of the movie to fetch details for
-        :param country: <str> Country abbreviations to fetch providers for (e.g. "DE" -> Germany)
         :return: <dict> Movie providers
         """
         logger.info("Fetch 'movie_providers' from tmdb")
@@ -78,6 +78,7 @@ class Tmdb():
     def get_tv_details(self: object, user: str, tv_id: int) -> dict:
         """
         Fetch tmdb tv details endpoint
+        :param user: External representation of user
         :param tv_id: <int> Id of the tv show to fetch details for
         :return: <dict> TV show details
         """
@@ -89,8 +90,8 @@ class Tmdb():
     def get_tv_providers(self: object, user: str, tv_id: int) -> dict:
         """
         Fetch tmdb tv providers endpoint
+        :param user: External representation of user
         :param tv_id: <int> Id of the tv show to fetch providers for
-        :param country: <str> Country abbreviation to fetch providers for (e.g. "DE" -> Germany)
         :return: <dict> TV show providers
         """
         logger.info("Fetch'tv_providers' from tmdb")
@@ -190,8 +191,7 @@ class Tmdb():
     def get_popular_movies(self: object, user: str, page: int) -> dict:
         """
         Fetch tmdb popular movies endpoint
-        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
-        :param external_id: <str> External representation of the user
+        :param user: <str> External representation of the user
         :param page: <int> Search page (minimum:1 maximum:1000) 
         :return: <dict> movie results
         """
@@ -216,7 +216,7 @@ class Tmdb():
                              page: int) -> dict:
         """
         Fetch movies by tmdb rating (desc)
-        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
+        :param user: External representation of user
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> tv results
         """
@@ -229,7 +229,7 @@ class Tmdb():
                          released_from: str, page: int) -> dict:
         """
         Fetch tv by tmdb rating (desc)
-        :param country: <str> country ISO 3166-1 code (must be uppercase) to get region specific results
+        :param user: External representation of user
         :param page: <int> Search page (minimum:1 maximum:1000)
         :return: <dict> tv results
         """

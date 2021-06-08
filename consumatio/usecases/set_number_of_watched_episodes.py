@@ -18,7 +18,7 @@ def set_number_of_watched_episodes(tmdb: object, database: object,
         database.user(external_id)
     user_id = database.get_user_id(external_id)
 
-    data = tmdb.get_season_details(external_id, code, season_number)
+    data = tmdb.get_season_details(external_id, code, seasonNumber)
 
     if not database.media_data_exists(user_id, "Season", data.get("code")):
         database.media_Data(user_id, "Season", data.get("code"), code)
