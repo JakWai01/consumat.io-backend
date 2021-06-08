@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import *
+from sqlalchemy.sql import func
 import datetime
 
 db = SQLAlchemy()
@@ -39,6 +40,7 @@ class MediaData(db.Model):
     number_of_watched_episodes = db.Column(db.Integer, nullable=True)
     favorite_content = db.Column(db.Boolean, unique=False, default=False)
     tv_code = db.Column(db.Integer, nullable=True)
+    created_on = db.Column(db.DateTime(timezone=False), default=func.now())
 
     def __init__(self, watch_status: str, rating: float, media_id: int,
                  media_type: str, user_id: int,
