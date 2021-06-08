@@ -90,10 +90,9 @@ class Database():
     def get_user(self: object, external_id: str) -> object:
         return User.query.filter_by(external_id_content=external_id).first()
 
-
     def user_country(self: object, external_id: str, country: str) -> None:
         """
-        modify users preffered country.
+        modify users preferred country.
         :param external_id: <str> External id provided by OAuth
         :param country: <str> ISO 3166-1 alpha-2 country code (e.g. 'DE' or 'US')
         :return: None
@@ -105,7 +104,7 @@ class Database():
 
     def user_language(self: object, external_id: str, language: str) -> None:
         """
-        modify users preffered language.
+        modify users preferred language.
         :param external_id: <str> External id provided by OAuth
         :param language: <str> RFC 5646 BCP language tag (e.g. 'de-DE' or 'en-US')
         :return: None

@@ -9,7 +9,6 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
     :param external_id: <str> External ID provided by OAuth 
     :param tmdb: <object> Tmdb object
     :param type: <str> Popular item type "movie" or "tv"
-    :param country: <str> Country code (uppercase) currently only applicable for movies
     :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> popular media
     """

@@ -8,7 +8,6 @@ def get_tv(external_id: str, tmdb: object, code: int) -> dict:
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv show to get data for
-    :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
     :return: <dict> TV details
     """
     dict_tv_details = tmdb.get_tv_details(external_id, code)

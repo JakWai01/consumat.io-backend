@@ -13,7 +13,6 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
     :param vote_avg: <float> filter media with average rating greater than set value
     :param vote_count: <int> minimum number of votes
     :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
-    :param country: <str> Country code (uppercase) currently only applicable for movies
     :param page: <int> Search page (minimum:1 maximum:1000)
     :return: <dict> popular media
     """

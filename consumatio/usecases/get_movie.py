@@ -8,7 +8,6 @@ def get_movie(external_id: str, tmdb: object, code: int) -> dict:
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the movie to get data for
-    :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
     :return: <dict> Movie details
     """
     dict_movie_details = tmdb.get_movie_details(external_id, code)
