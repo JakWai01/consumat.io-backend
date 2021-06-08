@@ -13,7 +13,7 @@ def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
     :param episode_number: <int> Number of the episode in the corresponding season
     :return: <dict> Episode details
     """
-    dict_episode_details = tmdb.get_episode_details(code, season_number,
+    dict_episode_details = tmdb.get_episode_details(external_id, code, season_number,
                                                     episode_number)
 
     result = MediaData.query.join(User).filter(

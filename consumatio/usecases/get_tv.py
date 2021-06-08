@@ -2,7 +2,7 @@ from consumatio.entities.tv import TV
 from consumatio.external.db.models import *
 
 
-def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
+def get_tv(external_id: str, tmdb: object, code: int) -> dict:
     """
     Make all relevant API requests for this usecase (details, images, providers, credits) and assemble a TV 
     :param external_id: <str> External ID provided by OAuth
@@ -11,8 +11,8 @@ def get_tv(external_id: str, tmdb: object, code: int, country: str) -> dict:
     :param country: <str> Country abbreveation of the country to get providers for (e.g. "DE" -> Germany)
     :return: <dict> TV details
     """
-    dict_tv_details = tmdb.get_tv_details(code)
-    dict_tv_providers = tmdb.get_tv_providers(code, country)
+    dict_tv_details = tmdb.get_tv_details(external_id, code)
+    dict_tv_providers = tmdb.get_tv_providers(external_id, code)
     dict_tv_credits = tmdb.get_tv_credits(code)
 
     result = MediaData.query.join(User).filter(

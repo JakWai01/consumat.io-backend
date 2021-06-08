@@ -27,7 +27,7 @@ from flask import request
 
 def register_query_resolvers(query, tmdb):
     @query.field("movie")
-    def resolve_movie(*_, code: int, country: str) -> dict:
+    def resolve_movie(*_, code: int) -> dict:
         """
         API endpoint for "movie" queries.
         :param code: <int> Id of the movie to get details for
@@ -35,13 +35,12 @@ def register_query_resolvers(query, tmdb):
         :return: <dict> Details of the movie
         """
         logger = get_logger_instance()
-        logger.info("Movie was queried -> code:{}, country:'{}'".format(
-            code, country))
+        logger.info("Movie was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_movie(external_id, tmdb, code, country)
+        return get_movie(external_id, tmdb, code)
 
     @query.field("tv")
-    def resolve_tv(*_, code: int, country: str) -> dict:
+    def resolve_tv(*_, code: int) -> dict:
         """
         API endpoint for "tv" queries.
         :param code: <int> Id of the tv show to get details for
@@ -49,10 +48,9 @@ def register_query_resolvers(query, tmdb):
         :return: <dict> Details of the tv show
         """
         logger = get_logger_instance()
-        logger.info("TV was queried -> code:{}, country:'{}'".format(
-            code, country))
+        logger.info("TV was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_tv(external_id, tmdb, code, country)
+        return get_tv(external_id, tmdb, code)
 
     @query.field("season")
     def resolve_season(*_, code: int, seasonNumber: str) -> dict:
@@ -100,7 +98,7 @@ def register_query_resolvers(query, tmdb):
         return get_search(external_id, tmdb, keyword, page)
 
     @query.field("popular")
-    def resolve_popular(*_, type: str, country: str, page: int) -> dict:
+    def resolve_popular(*_, type: str, page: int) -> dict:
         """
         API endpoint for "popular" queries.
         :param type: <str> Choose between "tv" or "movie" to get popular results
@@ -109,14 +107,13 @@ def register_query_resolvers(query, tmdb):
         :return: <dict> Details of the movie/tv
         """
         logger = get_logger_instance()
-        logger.info("Popular was queried -> type:'{}', country:'{}'".format(
-            type, country))
+        logger.info("Popular was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_popular(external_id, tmdb, type, country, page)
+        return get_popular(external_id, tmdb, type, page)
 
     @query.field("byRating")
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
-                          releasedFrom: str, country: str, page: int) -> dict:
+                          releasedFrom: str, page: int) -> dict:
         """
         API endpoint for (top) rated queries.
         :param type: <str> Popular item type "movie" or "tv"
@@ -128,11 +125,10 @@ def register_query_resolvers(query, tmdb):
         :return: <dict> Details of the movie/tv
         """
         logger = get_logger_instance()
-        logger.info("byRating was queried -> type:'{}', country:'{}'".format(
-            type, country))
+        logger.info("byRating was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_by_rating(external_id, tmdb, type, tmdbRating, minVotes,
-                             releasedFrom, country, page)
+                             releasedFrom, page)
 
     @query.field("tvSeasons")
     def resolve_tv_seasons(*_, code: int) -> list:

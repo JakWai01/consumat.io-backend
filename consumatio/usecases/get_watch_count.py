@@ -29,10 +29,10 @@ def get_watch_count(tmdb: object, external_id: str, type: str) -> int:
 
         for result in results:
             if result.media_type_content == "Movie":
-                data = tmdb.get_movie_details(result.media_id_content)
+                data = tmdb.get_movie_details(external_id, result.media_id_content)
 
             if result.media_type_content == "TV":
-                data = tmdb.get_tv_details(result.media_id_content)
+                data = tmdb.get_tv_details(external_id, result.media_id_content)
 
             for genre in data.get("genres"):
                 if genre.get("name") == type:
