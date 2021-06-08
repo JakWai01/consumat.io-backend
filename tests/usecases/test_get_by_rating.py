@@ -463,7 +463,7 @@ def test_get_by_rating_movie():
     }
 
     assert dict == get_by_rating("e3b0c4429@e3b0c4429.com", tmdb, "Movie", 5,
-                                 10, "2021-01-01", "DE", 1)
+                                 10, "2021-01-01", 1)
 
 
 def test_get_by_rating_tv():
@@ -984,4 +984,4 @@ def test_get_by_rating_tv():
     }
 
     assert dict == get_by_rating("e3b0c4429@e3b0c4429.com", tmdb, "TV", 5, 10,
-                                 "2021-01-01", "DE", 1)
+                                 "2021-01-01", 1)
