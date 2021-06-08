@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import *
+from sqlalchemy.sql import func
 import datetime
 
 db = SQLAlchemy()
@@ -22,6 +23,8 @@ class User(db.Model):
     external_id_content = db.Column(db.String(255), nullable=False)
     media_data = db.relationship('MediaData',
                                  backref=db.backref('user_data', lazy=True))
+    language = db.Column(db.String(30), nullable=False, default="en-US")
+    country = db.Column(db.String(30), nullable=False, default="US")
 
     def __init__(self, external_id: str):
         self.external_id_content = external_id
@@ -39,6 +42,7 @@ class MediaData(db.Model):
     number_of_watched_episodes = db.Column(db.Integer, nullable=True)
     favorite_content = db.Column(db.Boolean, unique=False, default=False)
     tv_code = db.Column(db.Integer, nullable=True)
+    created_on = db.Column(db.DateTime(timezone=False), default=func.now())
 
     def __init__(self, watch_status: str, rating: float, media_id: int,
                  media_type: str, user_id: int,
