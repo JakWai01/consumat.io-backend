@@ -18,6 +18,7 @@ from consumatio.usecases.set_favorite import *
 from consumatio.usecases.set_number_of_watched_episodes import *
 from consumatio.usecases.set_rating import *
 from consumatio.usecases.get_by_rating import *
+from consumatio.usecases.get_discover import *
 from consumatio.usecases.set_watch_status import *
 from consumatio.usecases.set_country import *
 from consumatio.usecases.set_language import *
@@ -111,6 +112,23 @@ def register_query_resolvers(query, tmdb):
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_popular(external_id, tmdb, type, page, db)
 
+    @query.field("discover")
+    def resolve_discover(*_, type: str, person: int, similarTo: int,
+                         page: int) -> dict:
+        """
+        Get list of recommended media based on user ratings/favorites (popular as fallback)
+        :param type: <str> Type of the media to query
+        :param person: <int> TMDB code of a person to get media w/ them (e.g. acotr or director)
+        :param similar_to: <int> TMDB code of a movie/tv show to get similar media
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> recommended media with respect to the values of watchStatus, favorites and rating
+        """
+        logger = get_logger_instance()
+        logger.info("Discover was queried -> type:'{}'".format(type))
+        external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
+        return get_discover(external_id, tmdb, type, person, similarTo, page,
+                            db)
+
     @query.field("byRating")
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
                           releasedFrom: str, page: int) -> dict:
@@ -139,7 +157,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("TVSeasons was queried -> code:'{}'".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_tv_seasons(external_id, tmdb, code)
+        return get_tv_seasons(external_id, tmdb, code, db)
 
     @query.field("seasonEpisodes")
     def resolve_season_episodes(*_, code: str, seasonNumber: int) -> dict:
@@ -154,7 +172,7 @@ def register_query_resolvers(query, tmdb):
             "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".
             format(code, seasonNumber))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_season_episodes(external_id, tmdb, code, seasonNumber)
+        return get_season_episodes(external_id, tmdb, code, seasonNumber, db)
 
     @query.field("watchCount")
     def resolve_watch_count(*_, type: str) -> int:

@@ -1,5 +1,5 @@
 from consumatio.entities.movie import Movie
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 
 
 def get_movie(external_id: str, tmdb: object, code: int, db: object) -> dict:
@@ -8,6 +8,7 @@ def get_movie(external_id: str, tmdb: object, code: int, db: object) -> dict:
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the movie to get data for
+    :param db: <object> Database object
     :return: <dict> Movie details
     """
     dict_movie_details = tmdb.get_movie_details(external_id, code)
@@ -19,13 +20,8 @@ def get_movie(external_id: str, tmdb: object, code: int, db: object) -> dict:
         MediaData.media_type_content == 'Movie',
         User.external_id_content == external_id,
         MediaData.media_id_content == code).first()
-    # result = MediaData.query.join(User).filter(
-    #     User.user_id_content == MediaData.user_id_content_media_data,
-    #     MediaData.media_type_content == 'Movie',
-    #     User.external_id_content == external_id,
-    #     MediaData.media_id_content == code).first()
 
-    favorite = None
+    favorite = False
     rating = None
     watch_status = None
     if result != None:

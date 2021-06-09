@@ -1,5 +1,5 @@
 from consumatio.exceptions.invalid_parameter import InvalidParameter
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 
 
 def get_watch_count(tmdb: object, external_id: str, type: str,
@@ -9,15 +9,11 @@ def get_watch_count(tmdb: object, external_id: str, type: str,
     :param tmdb: <object> TMDB object to make API requests
     :param external_id: <str> External id of the user
     :param type: <str> Type of the media to get count for, including genres (e.g. "Movie", "Season" or "Drama")
+    :param db: <object> Database object
     :return: <int> Count of media watched
     """
     count = 0
     if type in "MovieTV":
-        # results = MediaData.query.join(User).filter(
-        #     User.user_id_content == MediaData.user_id_content_media_data,
-        #     MediaData.media_type_content == type,
-        #     User.external_id_content == external_id,
-        #     MediaData.watch_status_content == 'Finished').all()
         results = db.session.query(MediaData).join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             MediaData.media_type_content == type,
@@ -28,10 +24,6 @@ def get_watch_count(tmdb: object, external_id: str, type: str,
     elif type in "SeasonEpisode":
         raise InvalidParameter("Can't query watchCount for", type)
     else:
-        # results = MediaData.query.join(User).filter(
-        #     User.user_id_content == MediaData.user_id_content_media_data,
-        #     User.external_id_content == external_id,
-        #     MediaData.watch_status_content == 'Finished').all()
         results = db.session.query(MediaData).join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             User.external_id_content == external_id,
