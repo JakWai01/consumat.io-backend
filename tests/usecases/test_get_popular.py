@@ -29,7 +29,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -82,7 +82,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -129,7 +129,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -173,7 +173,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -219,7 +219,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -262,7 +262,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -307,7 +307,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -351,7 +351,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -399,7 +399,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -445,7 +445,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -490,7 +490,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -534,7 +534,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -582,7 +582,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -627,7 +627,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -672,7 +672,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -715,7 +715,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -758,7 +758,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -802,7 +802,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -847,7 +847,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -892,7 +892,7 @@ def test_get_popular_movie():
             'directors':
             None,
             'favorite':
-            None,
+            False,
             'genres':
             None,
             'overview':
@@ -931,7 +931,7 @@ def test_get_popular_movie():
         500
     }
 
-    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "Movie", 1)
+    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "Movie", 1, db)
 
 
 def test_get_popular_tv():
@@ -970,7 +970,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/63174',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -995,7 +995,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/91557',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1020,7 +1020,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/60735',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1045,7 +1045,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/71712',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1070,7 +1070,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/120168',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1095,7 +1095,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/95057',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1120,7 +1120,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/1416',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1145,7 +1145,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/88396',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1170,7 +1170,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/95557',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1195,7 +1195,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/80240',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1220,7 +1220,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/62286',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1245,7 +1245,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/69050',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1270,7 +1270,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/1399',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1295,7 +1295,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/69478',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1320,7 +1320,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/93484',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1345,7 +1345,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/1402',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1370,7 +1370,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/18165',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1395,7 +1395,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/79008',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1420,7 +1420,7 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/79460',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -1445,10 +1445,10 @@ def test_get_popular_tv():
             'tmdb_url': 'https://www.themoviedb.org/tv/105971',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }]
     }
 
-    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "TV", 1)
+    assert dict == get_popular("8ecf8427e@8ecf8427e.com", tmdb, "TV", 1, db)
