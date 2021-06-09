@@ -17,6 +17,7 @@ def popular_tv_to_dict(data: dict) -> dict:
         for result in results:
 
             dict = {
+                "__typename": "TV",
                 "code": result.get("id"),
                 "title": result.get("name"),
                 "genres": None,

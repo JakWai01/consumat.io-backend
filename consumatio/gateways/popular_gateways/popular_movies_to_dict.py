@@ -17,6 +17,7 @@ def popular_movies_to_dict(data: dict) -> dict:
         for result in results:
 
             dict = {
+                "__typename": "Movie",
                 "code": result.get("id"),
                 "title": result.get("title"),
                 "genres": None,
