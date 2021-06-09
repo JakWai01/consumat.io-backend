@@ -12,15 +12,16 @@ def get_season(external_id: str, tmdb: object, code: int,
     :param season_number: <int> Number of season to get details for
     :return: <dict> Season details
     """
-    dict_season_details = tmdb.get_season_details(external_id, code, season_number)
+    dict_season_details = tmdb.get_season_details(external_id, code,
+                                                  season_number)
     result = MediaData.query.join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'Season',
         User.external_id_content == external_id,
         MediaData.media_id_content == dict_season_details.get("code")).first()
 
-    favorite = None
-    number_of_watched_episodes = None
+    favorite = False
+    number_of_watched_episodes = 0
     if result != None:
         number_of_watched_episodes = result.number_of_watched_episodes
         favorite = result.favorite_content
