@@ -135,7 +135,7 @@ class Database():
             logger.info("media_data entry exists in database")
             return True
 
-    def media_Data(self: object, user_id: int, media: str, media_id: int,
+    def media_data(self: object, user_id: int, media: str, media_id: int,
                    tv_code: int) -> None:
         """
         Add media data to database

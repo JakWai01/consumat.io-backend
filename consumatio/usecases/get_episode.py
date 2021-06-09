@@ -22,7 +22,7 @@ def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
         User.external_id_content == external_id, MediaData.media_id_content ==
         dict_episode_details.get("code")).first()
 
-    favorite = None
+    favorite = False
     if result != None:
         favorite = result.favorite_content
 

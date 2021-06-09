@@ -30,7 +30,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content
@@ -78,7 +78,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content
