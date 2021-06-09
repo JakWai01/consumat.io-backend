@@ -56,7 +56,7 @@ def set_favorite(tmdb: object, database: object, external_id: str, media: str,
         code = result.get("code")
 
     if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code, tv_code)
+        database.media_data(user_id, media, code, tv_code)
 
     database.favorite(user_id, media, code, favorite)
     return {"status": True}
