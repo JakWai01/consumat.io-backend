@@ -22,7 +22,7 @@ def get_tv(external_id: str, tmdb: object, code: int) -> dict:
 
     rating = None
     watch_status = None
-    favorite = None
+    favorite = False
     if result != None:
         rating = result.rating_content
         watch_status = result.watch_status_content

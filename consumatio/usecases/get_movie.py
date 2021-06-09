@@ -20,7 +20,7 @@ def get_movie(external_id: str, tmdb: object, code: int) -> dict:
         User.external_id_content == external_id,
         MediaData.media_id_content == code).first()
 
-    favorite = None
+    favorite = False
     rating = None
     watch_status = None
     if result != None:

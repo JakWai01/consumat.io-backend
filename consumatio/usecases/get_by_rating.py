@@ -34,7 +34,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
 
             if query != None:
                 rating = query.rating_content
@@ -97,7 +97,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
 
             if query != None:
                 rating = query.rating_content
