@@ -27,7 +27,7 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
 
             if query != None:
                 rating = query.rating_content
@@ -87,7 +87,7 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
 
             if query != None:
                 rating = query.rating_content
