@@ -1,5 +1,5 @@
 from consumatio.entities.tv import TV
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 
 
 def get_tv(external_id: str, tmdb: object, code: int, db: object) -> dict:
@@ -8,17 +8,13 @@ def get_tv(external_id: str, tmdb: object, code: int, db: object) -> dict:
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv show to get data for
+    :param db: <object> Database object
     :return: <dict> TV details
     """
     dict_tv_details = tmdb.get_tv_details(external_id, code)
     dict_tv_providers = tmdb.get_tv_providers(external_id, code)
     dict_tv_credits = tmdb.get_tv_credits(code)
 
-    # result = MediaData.query.join(User).filter(
-    #     User.user_id_content == MediaData.user_id_content_media_data,
-    #     MediaData.media_type_content == 'TV',
-    #     User.external_id_content == external_id,
-    #     MediaData.media_id_content == code).first()
     result = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'TV',
@@ -27,7 +23,7 @@ def get_tv(external_id: str, tmdb: object, code: int, db: object) -> dict:
 
     rating = None
     watch_status = None
-    favorite = None
+    favorite = False
     if result != None:
         rating = result.rating_content
         watch_status = result.watch_status_content

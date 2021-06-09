@@ -1,4 +1,4 @@
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 from consumatio.entities.tv import TV
 from consumatio.entities.movie import Movie
 
@@ -11,6 +11,7 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
     :param tmdb: <object> Tmdb object
     :param keyword: <str> Search string
     :param page: <int> Search page (minimum:1 maximum:1000)
+    :param db: <object> Database object
     :return: <dict> Search details
     """
     dict_search_details = tmdb.get_search_result(external_id, keyword, page)
@@ -22,11 +23,6 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
             # TV
             dict = {}
 
-            # query = MediaData.query.join(User).filter(
-            #     User.user_id_content == MediaData.user_id_content_media_data,
-            #     MediaData.media_type_content == 'TV',
-            #     User.external_id_content == external_id,
-            #     MediaData.media_id_content == result.get("code")).first()
             query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'TV',
@@ -35,7 +31,7 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content
@@ -75,11 +71,6 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
             # Movie
             dict = {}
 
-            # query = MediaData.query.join(User).filter(
-            #     User.user_id_content == MediaData.user_id_content_media_data,
-            #     MediaData.media_type_content == 'Movie',
-            #     User.external_id_content == external_id,
-            #     MediaData.media_id_content == result.get("code")).first()
             query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'Movie',
@@ -88,7 +79,7 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
 
             rating = None
             watch_status = None
-            favorite = None
+            favorite = False
             if query != None:
                 rating = query.rating_content
                 watch_status = query.watch_status_content

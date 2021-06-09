@@ -6,6 +6,7 @@ type Query {
     search(keyword: String, page: Int): MediaPage
     popular(type: String, page: Int): MediaPage
     byRating(type: String, tmdbRating: Float, minVotes: Int, releasedFrom: String, page: Int): MediaPage
+    discover(type: String, person: Int, similarTo: Int, page: Int): MediaPage
     list(type: String, watchStatus: String, favorite: Boolean): [Media]
     tvSeasons(code: Int): [Season]
     seasonEpisodes(code: Int, seasonNumber: Int): [Episode]
