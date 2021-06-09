@@ -3,8 +3,8 @@ from consumatio.entities.tv import TV
 from consumatio.entities.movie import Movie
 
 
-def get_search(external_id: str, tmdb: object, keyword: str,
-               page: int) -> dict:
+def get_search(external_id: str, tmdb: object, keyword: str, page: int,
+               db: object) -> dict:
     """
     Assemble search results
     :param external_id: <str> External ID provided by OAuth
@@ -22,7 +22,12 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             # TV
             dict = {}
 
-            query = MediaData.query.join(User).filter(
+            # query = MediaData.query.join(User).filter(
+            #     User.user_id_content == MediaData.user_id_content_media_data,
+            #     MediaData.media_type_content == 'TV',
+            #     User.external_id_content == external_id,
+            #     MediaData.media_id_content == result.get("code")).first()
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'TV',
                 User.external_id_content == external_id,
@@ -70,7 +75,12 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             # Movie
             dict = {}
 
-            query = MediaData.query.join(User).filter(
+            # query = MediaData.query.join(User).filter(
+            #     User.user_id_content == MediaData.user_id_content_media_data,
+            #     MediaData.media_type_content == 'Movie',
+            #     User.external_id_content == external_id,
+            #     MediaData.media_id_content == result.get("code")).first()
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'Movie',
                 User.external_id_content == external_id,

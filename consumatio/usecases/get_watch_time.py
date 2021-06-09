@@ -3,7 +3,8 @@ from consumatio.external.db.models import *
 from consumatio.exceptions.invalid_parameter import *
 
 
-def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
+def get_watch_time(tmdb: object, external_id: str, type: str,
+                   db: object) -> int:
     """
     Get time of watched media of a certain type ("Movie", "TV")
     :param tmdb: <object> TMDB object to make API requests
@@ -13,7 +14,12 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
     """
     runtime = 0
     if type == 'Movie':
-        results = MediaData.query.join(User).filter(
+        # results = MediaData.query.join(User).filter(
+        #     User.user_id_content == MediaData.user_id_content_media_data,
+        #     MediaData.media_type_content == type,
+        #     User.external_id_content == external_id,
+        #     MediaData.watch_status_content == 'Finished').all()
+        results = db.session.query(MediaData).join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             MediaData.media_type_content == type,
             User.external_id_content == external_id,
@@ -24,7 +30,11 @@ def get_watch_time(tmdb: object, external_id: str, type: str) -> int:
 
             runtime += data.get("runtime")
     elif type == 'TV':
-        results = MediaData.query.join(User).filter(
+        # results = MediaData.query.join(User).filter(
+        #     User.user_id_content == MediaData.user_id_content_media_data,
+        #     MediaData.media_type_content == 'Season',
+        #     User.external_id_content == external_id).all()
+        results = db.session.query(MediaData).join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             MediaData.media_type_content == 'Season',
             User.external_id_content == external_id).all()

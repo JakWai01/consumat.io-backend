@@ -3,7 +3,8 @@ from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
 
 
-def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
+def get_popular(external_id: str, tmdb: object, type: str, page: int,
+                db: object) -> dict:
     """
     Get popular Movies/TV Shows for a provided country
     :param external_id: <str> External ID provided by OAuth 
@@ -19,7 +20,12 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            # query = MediaData.query.join(User).filter(
+            #     User.user_id_content == MediaData.user_id_content_media_data,
+            #     MediaData.media_type_content == "Movie",
+            #     User.external_id_content == external_id,
+            #     MediaData.media_id_content == result["code"]).first()
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "Movie",
                 User.external_id_content == external_id,
@@ -79,7 +85,12 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            # query = MediaData.query.join(User).filter(
+            #     User.user_id_content == MediaData.user_id_content_media_data,
+            #     MediaData.media_type_content == "TV",
+            #     User.external_id_content == external_id,
+            #     MediaData.media_id_content == result["code"]).first()
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "TV",
                 User.external_id_content == external_id,
