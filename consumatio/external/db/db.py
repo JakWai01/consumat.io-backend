@@ -17,6 +17,7 @@ class Database():
         :param body: <str> Response of the query 
         """
         cache = Cache(query, body)
+        # Just use this command with the db object and enter objects of the certain types inside
         self.db.session.add(cache)
         self.db.session.commit()
 

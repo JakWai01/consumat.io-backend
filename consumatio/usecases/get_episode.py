@@ -3,7 +3,7 @@ from consumatio.external.db.models import *
 
 
 def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
-                episode_number: int) -> dict:
+                episode_number: int, db: object) -> dict:
     """
     Make all relevant API requests (details, images) and assemble an Episode
     :param external_id: <str> External ID provided by OAuth
@@ -13,10 +13,16 @@ def get_episode(external_id: str, tmdb: object, code: int, season_number: int,
     :param episode_number: <int> Number of the episode in the corresponding season
     :return: <dict> Episode details
     """
-    dict_episode_details = tmdb.get_episode_details(external_id, code, season_number,
+    dict_episode_details = tmdb.get_episode_details(external_id, code,
+                                                    season_number,
                                                     episode_number)
 
-    result = MediaData.query.join(User).filter(
+    # result = MediaData.query.join(User).filter(
+    #     User.user_id_content == MediaData.user_id_content_media_data,
+    #     MediaData.media_type_content == 'Episode',
+    #     User.external_id_content == external_id, MediaData.media_id_content ==
+    #     dict_episode_details.get("code")).first()
+    result = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'Episode',
         User.external_id_content == external_id, MediaData.media_id_content ==

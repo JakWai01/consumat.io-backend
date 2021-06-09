@@ -2,7 +2,7 @@ from consumatio.entities.tv import TV
 from consumatio.external.db.models import *
 
 
-def get_tv(external_id: str, tmdb: object, code: int) -> dict:
+def get_tv(external_id: str, tmdb: object, code: int, db: object) -> dict:
     """
     Make all relevant API requests for this usecase (details, images, providers, credits) and assemble a TV 
     :param external_id: <str> External ID provided by OAuth
@@ -14,7 +14,12 @@ def get_tv(external_id: str, tmdb: object, code: int) -> dict:
     dict_tv_providers = tmdb.get_tv_providers(external_id, code)
     dict_tv_credits = tmdb.get_tv_credits(code)
 
-    result = MediaData.query.join(User).filter(
+    # result = MediaData.query.join(User).filter(
+    #     User.user_id_content == MediaData.user_id_content_media_data,
+    #     MediaData.media_type_content == 'TV',
+    #     User.external_id_content == external_id,
+    #     MediaData.media_id_content == code).first()
+    result = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'TV',
         User.external_id_content == external_id,
