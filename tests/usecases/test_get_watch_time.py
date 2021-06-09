@@ -16,7 +16,7 @@ def test_get_watch_time_movie():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "Movie")
+    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "Movie", db)
 
 
 def test_get_watch_time_tv():
@@ -30,4 +30,4 @@ def test_get_watch_time_tv():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "TV")
+    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "TV", db)
