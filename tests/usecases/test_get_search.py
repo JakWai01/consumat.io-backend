@@ -41,7 +41,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/tv/1769',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -64,7 +64,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/226979',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 401123,
@@ -86,7 +86,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/401123',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 71761,
@@ -109,7 +109,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/tv/71761',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -132,7 +132,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/43155',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 4591,
@@ -156,7 +156,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/tv/4591',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             'runtime': None,
             '__typename': 'TV'
         }, {
@@ -179,7 +179,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/679548',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 67102,
@@ -201,7 +201,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/67102',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 456768,
@@ -223,7 +223,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/456768',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 617120,
@@ -245,7 +245,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/617120',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 637254,
@@ -267,7 +267,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/637254',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 67506,
@@ -289,7 +289,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/67506',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 160647,
@@ -311,7 +311,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/160647',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 749645,
@@ -333,7 +333,7 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/749645',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }, {
             'code': 355161,
@@ -355,9 +355,9 @@ def test_get_search():
             'tmdb_url': 'https://www.themoviedb.org/movie/355161',
             'watch_status': None,
             'rating_user': None,
-            'favorite': None,
+            'favorite': False,
             '__typename': 'Movie'
         }]
     }
 
-    assert dict == get_search("da39a3ee5e@da39a3ee5e.com", tmdb, "test", 1)
+    assert dict == get_search("da39a3ee5e@da39a3ee5e.com", tmdb, "test", 1, db)

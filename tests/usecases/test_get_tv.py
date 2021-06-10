@@ -110,7 +110,7 @@ def test_get_tv():
             'name': 'D. B. Weiss'
         }],
         'favorite':
-        None,
+        False,
         'first_air_date':
         '2011-04-17',
         'genres': [{
@@ -160,4 +160,4 @@ def test_get_tv():
         None
     }
 
-    assert dict == get_tv("03344f636@03344f636.com", tmdb, 1399)
+    assert dict == get_tv("03344f636@03344f636.com", tmdb, 1399, db)

@@ -1,10 +1,10 @@
 from consumatio.usecases.get_popular import get_popular
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 import datetime
 
 
 def get_discover(external_id: str, tmdb: object, type: str, person: int,
-                 similar_to: int, page: int) -> dict:
+                 similar_to: int, page: int, db: object) -> dict:
     """
     Get list of recommended media based on user ratings/favorites (popular as fallback)
     :param external_id: <str> External ID provided by OAuth
@@ -12,19 +12,21 @@ def get_discover(external_id: str, tmdb: object, type: str, person: int,
     :param type: <str> Type of the media to query
     :param person: <int> TMDB code of a person to get media w/ them (e.g. acotr or director)
     :param similar_to: <int> TMDB code of a movie/tv show to get similar media
+    :param page: <int> Search page (minimum:1 maximum:1000)
+    :param db: <object> Database object
     :return: <list> List of the media requested with respect to the values of watchStatus and favorite
     """
     results = []
     total_pages = 0
 
-    media = MediaData.query.join(User).filter(
+    media = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == type, User.external_id_content ==
         external_id).filter((MediaData.rating_content != None)
                             | (MediaData.favorite_content == True)).order_by(
                                 MediaData.created_on.desc()).all()
 
-    watched = MediaData.query.join(User).filter(
+    watched = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.watch_status_content == "Finished",
         MediaData.media_type_content == type,
