@@ -145,8 +145,11 @@ class Database():
         :return: None
         """
         self.check_all_media_types(media)
-        media_data = MediaData(None, None, media_id, media, user_id, None,
-                               tv_code)
+        number_of_watched_episodes = None
+        if media == "Season":
+            number_of_watched_episodes = 0
+        media_data = MediaData(None, None, media_id, media, user_id,
+                               number_of_watched_episodes, tv_code)
         self.db.session.add(media_data)
         self.db.session.commit()
 
