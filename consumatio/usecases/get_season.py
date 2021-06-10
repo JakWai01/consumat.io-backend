@@ -1,20 +1,22 @@
 from consumatio.entities.season import Season
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 
 
-def get_season(external_id: str, tmdb: object, code: int,
-               season_number: int) -> dict:
+def get_season(external_id: str, tmdb: object, code: int, season_number: int,
+               db: object) -> dict:
     """
     Make all relevant API requests for this usecase (details, images) and assemble a Season
     :param external_id: <str> External ID provided by OAuth 
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the tv_show to get season details for
     :param season_number: <int> Number of season to get details for
+    :param db: <object> Database object
     :return: <dict> Season details
     """
     dict_season_details = tmdb.get_season_details(external_id, code,
                                                   season_number)
-    result = MediaData.query.join(User).filter(
+
+    result = db.session.query(MediaData).join(User).filter(
         User.user_id_content == MediaData.user_id_content_media_data,
         MediaData.media_type_content == 'Season',
         User.external_id_content == external_id,

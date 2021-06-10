@@ -1,15 +1,17 @@
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
 
 
-def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
+def get_popular(external_id: str, tmdb: object, type: str, page: int,
+                db: object) -> dict:
     """
     Get popular Movies/TV Shows for a provided country
     :param external_id: <str> External ID provided by OAuth 
     :param tmdb: <object> Tmdb object
     :param type: <str> Popular item type "movie" or "tv"
     :param page: <int> Search page (minimum:1 maximum:1000)
+    :param db: <object> Database object
     :return: <dict> popular media
     """
     dict = {}
@@ -19,7 +21,7 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "Movie",
                 User.external_id_content == external_id,
@@ -79,7 +81,7 @@ def get_popular(external_id: str, tmdb: object, type: str, page: int) -> dict:
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "TV",
                 User.external_id_content == external_id,

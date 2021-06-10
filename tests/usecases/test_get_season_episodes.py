@@ -26,7 +26,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -37,7 +37,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -48,7 +48,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -59,7 +59,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -70,7 +70,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -81,7 +81,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -92,7 +92,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -103,7 +103,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -114,7 +114,7 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }, {
         'code': 63056,
         'title': 'Winter Is Coming',
@@ -125,8 +125,8 @@ def test_get_season_episodes():
         'air_date': '2011-04-17',
         'rating_average': 7.661,
         'still_path': '/xIfvIM7YgkADTrqp23rm3CLaOVQ.jpg',
-        'favorite': None
+        'favorite': False
     }]
 
     assert list == get_season_episodes("8996fb924@8996fb924.com", tmdb, 1399,
-                                       1)
+                                       1, db)
