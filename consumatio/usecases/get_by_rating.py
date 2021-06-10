@@ -1,10 +1,11 @@
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 from consumatio.entities.movie import Movie
 from consumatio.entities.tv import TV
 
 
 def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
-                  vote_count: int, released_from: str, page: int) -> dict:
+                  vote_count: int, released_from: str, page: int,
+                  db: object) -> dict:
     """
     Make all relevant API request for this usecase (items by rating) and assemble them into a dictionary
     :param external_id: <str> External ID provided by OAuth
@@ -14,6 +15,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
     :param vote_count: <int> minimum number of votes
     :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
     :param page: <int> Search page (minimum:1 maximum:1000)
+    :param db: <object> Database object
     :return: <dict> popular media
     """
     dict = {}
@@ -26,7 +28,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "Movie",
                 User.external_id_content == external_id,
@@ -89,7 +91,7 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
         result_list = []
 
         for result in results:
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == "TV",
                 User.external_id_content == external_id,

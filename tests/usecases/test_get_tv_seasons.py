@@ -22,11 +22,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -54,11 +54,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -86,11 +86,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -118,11 +118,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -150,11 +150,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -182,11 +182,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -214,11 +214,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -246,11 +246,11 @@ def test_get_tv_seasons():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         'driven inhabitants of this visionary world, control of '
@@ -274,4 +274,4 @@ def test_get_tv_seasons():
         1399
     }]
 
-    assert list == get_tv_seasons("d41d8cd98@d41d8cd98.com", tmdb, 1399)
+    assert list == get_tv_seasons("d41d8cd98@d41d8cd98.com", tmdb, 1399, db)
