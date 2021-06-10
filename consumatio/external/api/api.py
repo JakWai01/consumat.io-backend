@@ -25,6 +25,9 @@ from consumatio.usecases.set_language import *
 from consumatio.usecases.get_user_i18n import *
 from flask import request
 
+# IS THIS CLEAN?
+from consumatio.external.db.models import db
+
 
 def register_query_resolvers(query, tmdb):
     @query.field("movie")
@@ -37,7 +40,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("Movie was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_movie(external_id, tmdb, code)
+        return get_movie(external_id, tmdb, code, db)
 
     @query.field("tv")
     def resolve_tv(*_, code: int) -> dict:
@@ -49,7 +52,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("TV was queried -> code:{}".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_tv(external_id, tmdb, code)
+        return get_tv(external_id, tmdb, code, db)
 
     @query.field("season")
     def resolve_season(*_, code: int, seasonNumber: str) -> dict:
@@ -63,7 +66,7 @@ def register_query_resolvers(query, tmdb):
         logger.info("Season was queried -> code:{}, season_number:{}".format(
             code, seasonNumber))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_season(external_id, tmdb, code, seasonNumber)
+        return get_season(external_id, tmdb, code, seasonNumber, db)
 
     @query.field("episode")
     def resolve_episode(*_, code: int, seasonNumber: int,
@@ -81,7 +84,7 @@ def register_query_resolvers(query, tmdb):
             .format(code, seasonNumber, episodeNumber))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_episode(external_id, tmdb, code, seasonNumber,
-                           episodeNumber)
+                           episodeNumber, db)
 
     @query.field("search")
     def resolve_search(*_, keyword: str, page: int) -> dict:
@@ -94,7 +97,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("Search was queried -> keyword:'{}'".format(keyword))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_search(external_id, tmdb, keyword, page)
+        return get_search(external_id, tmdb, keyword, page, db)
 
     @query.field("popular")
     def resolve_popular(*_, type: str, page: int) -> dict:
@@ -107,7 +110,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("Popular was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_popular(external_id, tmdb, type, page)
+        return get_popular(external_id, tmdb, type, page, db)
 
     @query.field("discover")
     def resolve_discover(*_, type: str, person: int, similarTo: int,
@@ -123,7 +126,8 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("Discover was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_discover(external_id, tmdb, type, person, similarTo, page)
+        return get_discover(external_id, tmdb, type, person, similarTo, page,
+                            db)
 
     @query.field("byRating")
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
@@ -141,7 +145,7 @@ def register_query_resolvers(query, tmdb):
         logger.info("byRating was queried -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
         return get_by_rating(external_id, tmdb, type, tmdbRating, minVotes,
-                             releasedFrom, page)
+                             releasedFrom, page, db)
 
     @query.field("tvSeasons")
     def resolve_tv_seasons(*_, code: int) -> list:
@@ -153,7 +157,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("TVSeasons was queried -> code:'{}'".format(code))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_tv_seasons(external_id, tmdb, code)
+        return get_tv_seasons(external_id, tmdb, code, db)
 
     @query.field("seasonEpisodes")
     def resolve_season_episodes(*_, code: str, seasonNumber: int) -> dict:
@@ -168,7 +172,7 @@ def register_query_resolvers(query, tmdb):
             "seasonEpisodes was queried -> code:'{}', seasonNumber:'{}'".
             format(code, seasonNumber))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_season_episodes(external_id, tmdb, code, seasonNumber)
+        return get_season_episodes(external_id, tmdb, code, seasonNumber, db)
 
     @query.field("watchCount")
     def resolve_watch_count(*_, type: str) -> int:
@@ -180,7 +184,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("watchCount was queired -> type:'{}'".format(type))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_watch_count(tmdb, external_id, type)
+        return get_watch_count(tmdb, external_id, type, db)
 
     @query.field("watchTime")
     def resolve_watch_time(*_, type: str) -> int:
@@ -192,7 +196,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("watchTime was queried -> type:'{}'".format((type)))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_watch_time(tmdb, external_id, type)
+        return get_watch_time(tmdb, external_id, type, db)
 
     @query.field("list")
     def resolve_list(*_, type: str, watchStatus: str, favorite: bool) -> dict:
@@ -207,7 +211,7 @@ def register_query_resolvers(query, tmdb):
         logger.info("List was queried -> type:'{}', watchStatus:'{}'".format(
             type, watchStatus))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_list(tmdb, external_id, type, watchStatus, favorite)
+        return get_list(tmdb, external_id, type, watchStatus, favorite, db)
 
     @query.field("user")
     def resolve_user(*_) -> dict:
@@ -218,7 +222,7 @@ def register_query_resolvers(query, tmdb):
         logger = get_logger_instance()
         logger.info("user was queried")
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
-        return get_user_i18n(external_id)
+        return get_user_i18n(external_id, db)
 
 
 def register_mutation_resolvers(mutation, tmdb, database):

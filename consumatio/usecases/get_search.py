@@ -1,16 +1,17 @@
-from consumatio.external.db.models import *
+from consumatio.external.db.models import MediaData, User
 from consumatio.entities.tv import TV
 from consumatio.entities.movie import Movie
 
 
-def get_search(external_id: str, tmdb: object, keyword: str,
-               page: int) -> dict:
+def get_search(external_id: str, tmdb: object, keyword: str, page: int,
+               db: object) -> dict:
     """
     Assemble search results
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param keyword: <str> Search string
     :param page: <int> Search page (minimum:1 maximum:1000)
+    :param db: <object> Database object
     :return: <dict> Search details
     """
     dict_search_details = tmdb.get_search_result(external_id, keyword, page)
@@ -22,7 +23,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             # TV
             dict = {}
 
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'TV',
                 User.external_id_content == external_id,
@@ -70,7 +71,7 @@ def get_search(external_id: str, tmdb: object, keyword: str,
             # Movie
             dict = {}
 
-            query = MediaData.query.join(User).filter(
+            query = db.session.query(MediaData).join(User).filter(
                 User.user_id_content == MediaData.user_id_content_media_data,
                 MediaData.media_type_content == 'Movie',
                 User.external_id_content == external_id,

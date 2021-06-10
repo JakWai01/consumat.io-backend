@@ -157,7 +157,7 @@ def test_get_movie():
             'name': 'Andrew Stanton'
         }],
         'favorite':
-        None,
+        False,
         'genres': [{
             'name': 'Animation'
         }, {
@@ -197,4 +197,4 @@ def test_get_movie():
         None
     }
 
-    assert dict == get_movie("07e2fd2df@07e2fd2df.com", tmdb, 12)
+    assert dict == get_movie("07e2fd2df@07e2fd2df.com", tmdb, 12, db)

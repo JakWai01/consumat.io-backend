@@ -17,7 +17,8 @@ def test_get_list_movie():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, None)
+    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, None,
+                          db)
 
 
 def test_get_list_movie_watch_status():
@@ -32,7 +33,7 @@ def test_get_list_movie_watch_status():
     tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", "Finished",
-                          None)
+                          None, db)
 
 
 def test_get_list_movie_favorite():
@@ -46,7 +47,8 @@ def test_get_list_movie_favorite():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, True)
+    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", None, True,
+                          db)
 
 
 def test_get_list_movie_watch_status_favorite():
@@ -61,7 +63,7 @@ def test_get_list_movie_watch_status_favorite():
     tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "Movie", "Finished",
-                          True)
+                          True, db)
 
 
 def test_get_list_tv():
@@ -75,7 +77,8 @@ def test_get_list_tv():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, None)
+    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, None,
+                          db)
 
 
 def test_get_list_tv_watch_status():
@@ -90,7 +93,7 @@ def test_get_list_tv_watch_status():
     tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", "Finished",
-                          None)
+                          None, db)
 
 
 def test_get_list_tv_favorite():
@@ -104,7 +107,8 @@ def test_get_list_tv_favorite():
     app.app.app_context().push()
     tmdb = TmdbMock(tmdb_key, db)
 
-    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, True)
+    assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", None, True,
+                          db)
 
 
 def test_get_list_tv_watch_status_favorite():
@@ -119,4 +123,4 @@ def test_get_list_tv_watch_status_favorite():
     tmdb = TmdbMock(tmdb_key, db)
 
     assert [] == get_list(tmdb, "c44298fc1@c44298fc1.com", "TV", "Finished",
-                          True)
+                          True, db)
