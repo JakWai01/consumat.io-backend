@@ -34,10 +34,12 @@ class Database():
             logger.info("Query doesn't exist in database")
 
             return False
-        elif (cached.last_changed - datetime.datetime.now()).days >= 10:
+        elif cached.last_changed < datetime.datetime.now(
+        ) - datetime.timedelta(days=10):
             logger.info("Query is stale")
 
             self.db.session.delete(cached)
+            db.session.commit()
             return False
         else:
             logger.info("Query exists in database")
