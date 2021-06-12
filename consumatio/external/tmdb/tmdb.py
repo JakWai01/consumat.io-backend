@@ -240,6 +240,47 @@ class Tmdb():
         data = self.get_data(query, self.db)
         return popular_tv_to_dict(data)
 
+    def get_recommended_movies(self: object, user: str, code: int,
+                               page: int) -> dict:
+        """
+        Fetch similar movies from tmdb by movie id
+        :param user: External representation of user
+        :param code: <int> id of the movie to fetch recommended items for
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> movie results
+        """
+        logger.info("Fetch 'recommended_movies' from tmdb")
+        query = f'https://api.themoviedb.org/3/movie/{code}/recommendations?api_key={self.api_key}&language={self.get_language(user)}&page={page}'
+        data = self.get_data(query, self.db)
+        return popular_movies_to_dict(data)
+
+    def get_movies_with(self: object, user: str, code: int, page: int) -> dict:
+        """
+        Fetch similar movies from tmdb by movie id
+        :param user: External representation of user
+        :param code: <int> id of the person to fetch recommended items for
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> movie results
+        """
+        logger.info("Fetch 'movies_with' from tmdb")
+        query = f'https://api.themoviedb.org/3/discover/movie?api_key={self.api_key}&language={self.get_language(user)}&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page={page}&with_people={code}&watch_region={self.get_country(user)}'
+        data = self.get_data(query, self.db)
+        return popular_movies_to_dict(data)
+
+    def get_recommended_tv(self: object, user: str, code: int,
+                           page: int) -> dict:
+        """
+        Fetch similar movies from tmdb by movie id
+        :param user: External representation of user
+        :param code: <int> id of the tv show to fetch recommended items for
+        :param page: <int> Search page (minimum:1 maximum:1000)
+        :return: <dict> tv results
+        """
+        logger.info("Fetch 'recommended_tv' from tmdb")
+        query = f'https://api.themoviedb.org/3/tv/{code}/recommendations?api_key={self.api_key}&language={self.get_language(user)}&page={page}'
+        data = self.get_data(query, self.db)
+        return popular_tv_to_dict(data)
+
     def get_data(self: object, query: str, db: object) -> dict:
         """
         Check if data is cached and get the data then either from the cache or by making a new API request.
