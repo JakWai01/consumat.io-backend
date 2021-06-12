@@ -8,7 +8,7 @@ from tests.tmdb.tmdb_mock import TmdbMock
 from tests.utils.setup_app import setup_app
 
 
-def test_get_tv():
+def test_get_season():
     tmdb = setup_app()[0]
 
     dict = {
@@ -17,11 +17,11 @@ def test_get_tv():
         'code':
         3624,
         'favorite':
-        None,
+        False,
         'number_of_episodes':
         10,
         'number_of_watched_episodes':
-        None,
+        0,
         'overview':
         'Trouble is brewing in the Seven Kingdoms of Westeros. For the '
         "driven inhabitants of this visionary world, control of Westeros' "
@@ -45,4 +45,4 @@ def test_get_tv():
         1399
     }
 
-    assert dict == get_season("42600ede0@42600ede0.com", tmdb, 1399, 1)
+    assert dict == get_season("42600ede0@42600ede0.com", tmdb, 1399, 1, db)

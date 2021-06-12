@@ -8,7 +8,7 @@ from tests.tmdb.tmdb_mock import TmdbMock
 from tests.utils.setup_app import setup_app
 
 
-def test_get_movie():
+def test_get_episode():
     tmdb = setup_app()[0]
 
     dict = {
@@ -19,7 +19,7 @@ def test_get_movie():
         'episode_number':
         1,
         'favorite':
-        None,
+        False,
         'overview':
         'Jon Arryn, the Hand of the King, is dead. King Robert Baratheon '
         "plans to ask his oldest friend, Eddard Stark, to take Jon's "
@@ -35,4 +35,4 @@ def test_get_movie():
         'Winter Is Coming'
     }
 
-    assert dict == get_episode("63af3075f@63af3075f.com", tmdb, 1399, 1, 1)
+    assert dict == get_episode("63af3075f@63af3075f.com", tmdb, 1399, 1, 1, db)
