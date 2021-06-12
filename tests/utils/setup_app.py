@@ -22,11 +22,17 @@ def setup_app():
     # Create app
     app = App(tmdb_key, backend_secret, database_uri, None, True)
 
-    # Start app
+    # Start app to drop the database
     app.configure()
     app.app.app_context().push()
 
-    # TODO: Drop & migrate DB for test
+    # Drop database
+    db.reflect()
+    db.drop_all()
+
+    # Start app again for testing
+    app.configure()
+    app.app.app_context().push()
 
     # Return any parts of the app to used during testing
     return TmdbMock(tmdb_key, db), Database(db), db
