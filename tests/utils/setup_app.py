@@ -34,5 +34,5 @@ def setup_app():
     app.configure()
     app.app.app_context().push()
 
-    # Return any parts of the app to used during testing
+    # Return any parts of the app used during testing
     return TmdbMock(tmdb_key, db), Database(db), db
