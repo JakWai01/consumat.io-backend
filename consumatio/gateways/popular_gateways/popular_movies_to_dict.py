@@ -1,3 +1,4 @@
+from consumatio.constants import TMDB_FRONTEND_PREFIX
 from consumatio.external.db.models import *
 
 
@@ -32,8 +33,7 @@ def popular_movies_to_dict(data: dict) -> dict:
                 "providers": None,
                 "cast": None,
                 "directors": None,
-                "tmdb_url":
-                f'https://www.themoviedb.org/movie/{result.get("id")}',
+                "tmdb_url": f'{TMDB_FRONTEND_PREFIX}/movie/{result.get("id")}',
             }
 
             result_list.append(dict)

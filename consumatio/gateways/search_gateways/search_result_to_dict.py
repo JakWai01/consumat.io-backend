@@ -1,3 +1,4 @@
+from consumatio.constants import TMDB_FRONTEND_PREFIX
 from consumatio.external.db.models import *
 
 
@@ -37,7 +38,7 @@ def search_result_to_dict(data: dict) -> dict:
                     "number_of_episodes": None,
                     "number_of_seasons": None,
                     "tmdb_url":
-                    f'https://www.themoviedb.org/tv/{result.get("id")}',
+                    f'{TMDB_FRONTEND_PREFIX}/tv/{result.get("id")}',
                     "runtime": None,
                     "rating_count": result.get("vote_count")
                 }
@@ -59,7 +60,7 @@ def search_result_to_dict(data: dict) -> dict:
                     "cast": None,
                     "directors": None,
                     "tmdb_url":
-                    f'https://www.themoviedb.org/movie/{result.get("id")}',
+                    f'{TMDB_FRONTEND_PREFIX}/movie/{result.get("id")}',
                     "rating_count": result.get("vote_count")
                 }
             else:

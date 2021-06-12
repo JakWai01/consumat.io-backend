@@ -1,22 +1,24 @@
+import json
+
 import requests
-from consumatio.gateways.movie_gateways.movie_details_to_dict import *
-from consumatio.gateways.movie_gateways.movie_providers_to_dict import *
-from consumatio.gateways.movie_gateways.movie_images_to_dict import *
-from consumatio.gateways.movie_gateways.movie_credits_to_dict import *
-from consumatio.gateways.tv_gateways.tv_credits_to_dict import *
-from consumatio.gateways.tv_gateways.tv_details_to_dict import *
-from consumatio.gateways.tv_gateways.tv_providers_to_dict import *
-from consumatio.gateways.tv_gateways.tv_images_to_dict import *
-from consumatio.gateways.season_gateways.season_details_to_dict import *
-from consumatio.gateways.season_gateways.season_images_to_dict import *
-from consumatio.gateways.episode_gateways.episode_details_to_dict import *
-from consumatio.gateways.episode_gateways.episode_images_to_dict import *
-from consumatio.gateways.search_gateways.search_result_to_dict import *
-from consumatio.gateways.popular_gateways.popular_tv_to_dict import *
-from consumatio.gateways.popular_gateways.popular_movies_to_dict import *
+from consumatio.constants import TMDB_API_PREFIX
 from consumatio.external.db.db import Database
 from consumatio.external.logger import get_logger_instance
-import json
+from consumatio.gateways.episode_gateways.episode_details_to_dict import *
+from consumatio.gateways.episode_gateways.episode_images_to_dict import *
+from consumatio.gateways.movie_gateways.movie_credits_to_dict import *
+from consumatio.gateways.movie_gateways.movie_details_to_dict import *
+from consumatio.gateways.movie_gateways.movie_images_to_dict import *
+from consumatio.gateways.movie_gateways.movie_providers_to_dict import *
+from consumatio.gateways.popular_gateways.popular_movies_to_dict import *
+from consumatio.gateways.popular_gateways.popular_tv_to_dict import *
+from consumatio.gateways.search_gateways.search_result_to_dict import *
+from consumatio.gateways.season_gateways.season_details_to_dict import *
+from consumatio.gateways.season_gateways.season_images_to_dict import *
+from consumatio.gateways.tv_gateways.tv_credits_to_dict import *
+from consumatio.gateways.tv_gateways.tv_details_to_dict import *
+from consumatio.gateways.tv_gateways.tv_images_to_dict import *
+from consumatio.gateways.tv_gateways.tv_providers_to_dict import *
 
 logger = get_logger_instance()
 
@@ -33,7 +35,7 @@ class Tmdb():
         :return: <dict> Movie details
         """
         logger.info("Fetch 'movie_details' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={self.api_key}&language={self.get_language(user)}'
+        query = f'{TMDB_API_PREFIX}/movie/{movie_id}?api_key={self.api_key}&language={self.get_language(user)}'
         data = self.get_data(query, self.db)
         return movie_details_to_dict(data)
 
@@ -49,7 +51,7 @@ class Tmdb():
         :return: <dict> Movie providers
         """
         logger.info("Fetch 'movie_providers' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/movie/{movie_id}/watch/providers?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_providers_to_dict(data, self.get_country(user))
 
@@ -60,7 +62,7 @@ class Tmdb():
         :return: <dict> Movie images
         """
         logger.info("Fetch 'movie_images' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/{movie_id}/images?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/movie/{movie_id}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_images_to_dict(data)
 
@@ -71,7 +73,7 @@ class Tmdb():
         :return: <dict> Movie credits
         """
         logger.info("Fetch 'movie_credits' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/movie/{movie_id}/credits?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return movie_credits_to_dict(data)
 
@@ -83,7 +85,7 @@ class Tmdb():
         :return: <dict> TV show details
         """
         logger.info("Fetch 'tv_details' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}?api_key={self.api_key}&language={self.get_language(user)}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}?api_key={self.api_key}&language={self.get_language(user)}'
         data = self.get_data(query, self.db)
         return tv_details_to_dict(data)
 
@@ -95,7 +97,7 @@ class Tmdb():
         :return: <dict> TV show providers
         """
         logger.info("Fetch'tv_providers' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/watch/providers?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/watch/providers?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_providers_to_dict(data, self.get_country(user))
 
@@ -106,7 +108,7 @@ class Tmdb():
         :return: <dict> TV show images
         """
         logger.info("Fetch 'tv_images' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/images?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_images_to_dict(data)
 
@@ -117,7 +119,7 @@ class Tmdb():
         :return: <dict> TV show credits 
         """
         logger.info("Fetch 'tv_credits' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/credits?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return tv_credits_to_dict(data)
 
@@ -130,7 +132,7 @@ class Tmdb():
         :return: <dict> Season details
         """
         logger.info("Fetch 'season_details' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}&language={self.get_language(user)}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/season/{season_number}?api_key={self.api_key}&language={self.get_language(user)}'
         data = self.get_data(query, self.db)
         return season_details_to_dict(data, tv_id)
 
@@ -143,7 +145,7 @@ class Tmdb():
         :return: <dict> Season images
         """
         logger.info("Fetch 'season_images' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/images?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/season/{season_number}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return season_images_to_dict(data)
 
@@ -157,7 +159,7 @@ class Tmdb():
         :return: <dict> Episode details
         """
         logger.info("Fetch 'episode_details' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/episode/{episode_number}?api_key={self.api_key}&language={self.get_language(user)}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/season/{season_number}/episode/{episode_number}?api_key={self.api_key}&language={self.get_language(user)}'
         data = self.get_data(query, self.db)
         return episode_details_to_dict(data)
 
@@ -171,7 +173,7 @@ class Tmdb():
         :return: <dict> Episode images 
         """
         logger.info("Fetch 'episode_images' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}/episode/{episode_number}/images?api_key={self.api_key}'
+        query = f'{TMDB_API_PREFIX}/tv/{tv_id}/season/{season_number}/episode/{episode_number}/images?api_key={self.api_key}'
         data = self.get_data(query, self.db)
         return episode_images_to_dict(data)
 
@@ -184,7 +186,7 @@ class Tmdb():
         :return: <dict> Search results
         """
         logger.info("Fetch 'search' from tmdb")
-        query = f'https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language={self.get_language(user)}&query={keyword}&page={page}&include_adult=false&region={self.get_country(user)}'
+        query = f'{TMDB_API_PREFIX}/search/multi?api_key={self.api_key}&language={self.get_language(user)}&query={keyword}&page={page}&include_adult=false&region={self.get_country(user)}'
         data = self.get_data(query, self.db)
         return search_result_to_dict(data)
 
@@ -196,7 +198,7 @@ class Tmdb():
         :return: <dict> movie results
         """
         logger.info("Fetch 'popular_movies' from tmdb")
-        query = f'https://api.themoviedb.org/3/movie/popular?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&page={page}&include_adult=false'
+        query = f'{TMDB_API_PREFIX}/movie/popular?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
         return popular_movies_to_dict(data)
 
@@ -207,7 +209,7 @@ class Tmdb():
         :return: <dict> tv results
         """
         logger.info("Fetch 'popular_tv' from tmdb")
-        query = f'https://api.themoviedb.org/3/tv/popular?api_key={self.api_key}&language={self.get_language(user)}&page={page}&include_adult=false'
+        query = f'{TMDB_API_PREFIX}/tv/popular?api_key={self.api_key}&language={self.get_language(user)}&page={page}&include_adult=false'
         data = self.get_data(query, self.db)
         return popular_tv_to_dict(data)
 
@@ -221,7 +223,7 @@ class Tmdb():
         :return: <dict> tv results
         """
         logger.info("Fetch 'movies_by_rating' from tmdb")
-        query = f'https://api.themoviedb.org/3/discover/movie?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&primary_release_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
+        query = f'{TMDB_API_PREFIX}/discover/movie?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&primary_release_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
         data = self.get_data(query, self.db)
         return popular_movies_to_dict(data)
 
@@ -234,7 +236,7 @@ class Tmdb():
         :return: <dict> tv results
         """
         logger.info("Fetch 'tv_by_rating' from tmdb")
-        query = f'https://api.themoviedb.org/3/discover/tv?api_key={self.api_key}&language={self.get_language(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&first_air_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}&watch_region={self.get_country(user)}'
+        query = f'{TMDB_API_PREFIX}/discover/tv?api_key={self.api_key}&language={self.get_language(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&first_air_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}&watch_region={self.get_country(user)}'
         data = self.get_data(query, self.db)
         return popular_tv_to_dict(data)
 
