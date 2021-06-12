@@ -16,6 +16,15 @@ if [ "$1" = 'binary' ]; then
     make depend
 
     make release
+elif [ "$1" = 'test' ]; then
+    # Install native development dependencies
+    apt install -y make patchelf zlib1g-dev upx scons
+
+    # Install dependencies
+    make depend
+
+    # Run tests
+    make test
 else
     # Install dependencies
     pip3 install -r requirements.txt
