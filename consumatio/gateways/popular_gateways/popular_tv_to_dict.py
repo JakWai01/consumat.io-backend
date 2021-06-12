@@ -9,15 +9,16 @@ def popular_tv_to_dict(data: dict) -> dict:
     :return: <dict> Internal representation
     """
     result_list = []
-    if "results" not in data:
-        return result_list
-    elif len(data["results"]) == 0:
-        return result_list
-    else:
+    total_pages = 0
+
+    if "results" in data and len(data["results"]) > 0:
         results = data["results"]
+        total_pages = data["total_pages"]
+
         for result in results:
 
             dict = {
+                "__typename": "TV",
                 "code": result.get("id"),
                 "title": result.get("name"),
                 "genres": None,
@@ -40,4 +41,5 @@ def popular_tv_to_dict(data: dict) -> dict:
             }
 
             result_list.append(dict)
-        return {"total_pages": data["total_pages"], "results": result_list}
+
+    return {"total_pages": total_pages, "results": result_list}

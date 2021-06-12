@@ -11,10 +11,10 @@ from tests.utils.setup_app import setup_app
 def test_get_watch_time_movie():
     tmdb = setup_app()[0]
 
-    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "Movie")
+    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "Movie", db)
 
 
 def test_get_watch_time_tv():
     tmdb = setup_app()[0]
 
-    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "TV")
+    assert 0 == get_watch_time(tmdb, "991b7852b@991b7852b.com", "TV", db)

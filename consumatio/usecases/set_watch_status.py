@@ -16,7 +16,7 @@ def set_watch_status(database: object, external_id: str, code: int, media: str,
     user_id = database.get_user_id(external_id)
 
     if not database.media_data_exists(user_id, media, code):
-        database.media_Data(user_id, media, code, tv_code=None)
+        database.media_data(user_id, media, code, tv_code=None)
 
     database.watch_status(user_id, media, code, watchStatus)
     return {"status": True}
