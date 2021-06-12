@@ -7,15 +7,11 @@ from consumatio.external.db.models import *
 from consumatio.usecases.set_number_of_watched_episodes import \
     set_number_of_watched_episodes
 from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_set_number_of_watched_episodes():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-    tmdb = TmdbMock(tmdb_key, db)
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_number_of_watched_episodes(tmdb, database, "7af927da3e@7af927da3e.com",
                                    1399, 1, 4)

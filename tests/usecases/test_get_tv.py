@@ -5,15 +5,11 @@ from consumatio.constants import DEFAULT_DATABASE_URI
 from consumatio.external.db.models import *
 from consumatio.usecases.get_tv import get_tv
 from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_get_tv():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-
-    app.app.app_context().push()
-    tmdb = TmdbMock(tmdb_key, db)
+    tmdb = setup_app()[0]
 
     dict = {
         'backdrop_path':
