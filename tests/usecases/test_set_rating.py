@@ -1,22 +1,17 @@
-from consumatio.exceptions.invalid_parameter import InvalidParameter
-import pytest
-from consumatio.external.db.db import Database
-from consumatio.usecases.set_rating import set_rating
 import os
-from consumatio.external.db.models import *
+
+import pytest
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.exceptions.invalid_parameter import InvalidParameter
+from consumatio.external.db.db import Database
+from consumatio.external.db.models import *
+from consumatio.usecases.set_rating import set_rating
+from tests.utils.setup_app import setup_app
 
 
 def test_set_rating_movie():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_rating(database, "d8007d620@d8007d620.com", "Movie", 12, 10)
 
@@ -40,15 +35,7 @@ def test_set_rating_movie():
 
 
 def test_set_rating_tv():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_rating(database, "d8007d620@d8007d620.com", "TV", 1399, 10)
 
@@ -72,15 +59,7 @@ def test_set_rating_tv():
 
 
 def test_set_rating_season():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     with pytest.raises(InvalidParameter):
         set_rating(database, "d8007d620@d8007d620.com", "Season", 1399, 10)
@@ -103,15 +82,7 @@ def test_set_rating_season():
 
 
 def test_set_rating_episode():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     with pytest.raises(InvalidParameter):
         set_rating(database, "d8007d620@d8007d620.com", "Episode", 1399, 10)

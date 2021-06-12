@@ -1,6 +1,9 @@
+from consumatio.constants import TMDB_FRONTEND_PREFIX
 from consumatio.external.db.models import MediaData, User
 from consumatio.entities.tv import TV
 from consumatio.entities.movie import Movie
+from consumatio.entities.tv import TV
+from consumatio.external.db.models import *
 
 
 def get_search(external_id: str, tmdb: object, keyword: str, page: int,
@@ -54,8 +57,7 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
                 "cast": None,
                 "number_of_episodes": None,
                 "number_of_seasons": None,
-                "tmdb_url":
-                f'https://www.themoviedb.org/tv/{result.get("code")}',
+                "tmdb_url": f'{TMDB_FRONTEND_PREFIX}/tv/{result.get("code")}',
                 "watch_status": watch_status,
                 "rating_user": rating,
                 "favorite": favorite,
@@ -101,7 +103,7 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
                 "cast": None,
                 "directors": None,
                 "tmdb_url":
-                f'https://www.themoviedb.org/movie/{result.get("code")}',
+                f'{TMDB_FRONTEND_PREFIX}/movie/{result.get("code")}',
                 "watch_status": watch_status,
                 "rating_user": rating,
                 "favorite": favorite,
