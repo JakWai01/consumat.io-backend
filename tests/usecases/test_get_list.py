@@ -1,17 +1,16 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.usecases.set_watch_status import set_watch_status
-from consumatio.usecases.get_list import get_list
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.models import *
+from consumatio.usecases.get_list import get_list
+from consumatio.usecases.set_watch_status import set_watch_status
+from tests.tmdb.tmdb_mock import TmdbMock
 
 
 def test_get_list_movie():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -22,10 +21,7 @@ def test_get_list_movie():
 
 def test_get_list_movie_watch_status():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -37,10 +33,7 @@ def test_get_list_movie_watch_status():
 
 def test_get_list_movie_favorite():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -51,10 +44,7 @@ def test_get_list_movie_favorite():
 
 def test_get_list_movie_watch_status_favorite():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -66,10 +56,7 @@ def test_get_list_movie_watch_status_favorite():
 
 def test_get_list_tv():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -80,10 +67,7 @@ def test_get_list_tv():
 
 def test_get_list_tv_watch_status():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -95,10 +79,7 @@ def test_get_list_tv_watch_status():
 
 def test_get_list_tv_favorite():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()
@@ -109,10 +90,7 @@ def test_get_list_tv_favorite():
 
 def test_get_list_tv_watch_status_favorite():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     app.app.app_context().push()

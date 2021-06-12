@@ -1,18 +1,17 @@
-from consumatio.exceptions.invalid_parameter import InvalidParameter
-import pytest
-from consumatio.external.db.db import Database
-from consumatio.usecases.set_rating import set_rating
 import os
-from consumatio.external.db.models import *
+
+import pytest
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.exceptions.invalid_parameter import InvalidParameter
+from consumatio.external.db.db import Database
+from consumatio.external.db.models import *
+from consumatio.usecases.set_rating import set_rating
 
 
 def test_set_rating_movie():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     database = Database(db)
@@ -41,10 +40,7 @@ def test_set_rating_movie():
 
 def test_set_rating_tv():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     database = Database(db)
@@ -73,10 +69,7 @@ def test_set_rating_tv():
 
 def test_set_rating_season():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     database = Database(db)
@@ -104,10 +97,7 @@ def test_set_rating_season():
 
 def test_set_rating_episode():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
 
     database = Database(db)

@@ -1,15 +1,17 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.usecases.get_by_rating import get_by_rating
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.models import *
+from consumatio.usecases.get_by_rating import get_by_rating
+from tests.tmdb.tmdb_mock import TmdbMock
 
 
 def test_get_by_rating_movie():
     tmdb_key = os.getenv("TMDB_KEY")
     app = App(
         tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        DEFAULT_DATABASE_URI,
         None, False)
     app.configure()
 
@@ -470,7 +472,7 @@ def test_get_by_rating_tv():
     tmdb_key = os.getenv("TMDB_KEY")
     app = App(
         tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        DEFAULT_DATABASE_URI,
         None, False)
     app.configure()
 
