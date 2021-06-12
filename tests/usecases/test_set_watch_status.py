@@ -6,14 +6,12 @@ import os
 from consumatio.external.db.models import *
 from consumatio.app import App
 import pytest
+from consumatio.constants import DEFAULT_DATABASE_URI
 
 
 def test_set_watch_status_movie():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -43,10 +41,7 @@ def test_set_watch_status_movie():
 
 def test_set_watch_status_tv():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -76,10 +71,7 @@ def test_set_watch_status_tv():
 
 def test_set_watch_status_season():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -109,10 +101,7 @@ def test_set_watch_status_season():
 
 def test_set_watch_status_episode():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)

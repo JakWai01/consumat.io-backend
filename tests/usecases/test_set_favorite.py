@@ -1,17 +1,16 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.external.db.db import Database
-from consumatio.usecases.set_favorite import set_favorite
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.db import Database
+from consumatio.external.db.models import *
+from consumatio.usecases.set_favorite import set_favorite
+from tests.tmdb.tmdb_mock import TmdbMock
 
 
 def test_set_favorite_movie():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -41,10 +40,7 @@ def test_set_favorite_movie():
 
 def test_set_favorite_tv():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -74,10 +70,7 @@ def test_set_favorite_tv():
 
 def test_set_favorite_season():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)
@@ -107,10 +100,7 @@ def test_set_favorite_season():
 
 def test_set_favorite_episode():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)

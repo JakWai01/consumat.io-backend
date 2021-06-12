@@ -26,6 +26,9 @@ install: release
 dev:
 	DEBUG=true python3 main.py
 
+test:
+	pytest tests/
+
 clean:
 	rm -rf out
 

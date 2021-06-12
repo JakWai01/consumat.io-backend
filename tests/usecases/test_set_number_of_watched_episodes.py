@@ -1,17 +1,17 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.external.db.db import Database
-from consumatio.usecases.set_number_of_watched_episodes import set_number_of_watched_episodes
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.db import Database
+from consumatio.external.db.models import *
+from consumatio.usecases.set_number_of_watched_episodes import \
+    set_number_of_watched_episodes
+from tests.tmdb.tmdb_mock import TmdbMock
 
 
 def test_set_number_of_watched_episodes():
     tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
+    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
     app.configure()
     tmdb = TmdbMock(tmdb_key, db)
     database = Database(db)

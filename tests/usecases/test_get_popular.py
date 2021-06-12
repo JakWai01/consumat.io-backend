@@ -3,13 +3,14 @@ from consumatio.usecases.get_popular import get_popular
 import os
 from consumatio.external.db.models import *
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
 
 
 def test_get_popular_movie():
     tmdb_key = os.getenv("TMDB_KEY")
     app = App(
         tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        DEFAULT_DATABASE_URI,
         None, False)
     app.configure()
 
@@ -938,7 +939,7 @@ def test_get_popular_tv():
     tmdb_key = os.getenv("TMDB_KEY")
     app = App(
         tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
+        DEFAULT_DATABASE_URI,
         None, False)
     app.configure()
 
