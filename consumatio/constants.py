@@ -5,3 +5,5 @@ TMDB_API_PREFIX = "https://api.themoviedb.org/3"
 TMDB_FRONTEND_PREFIX = "https://www.themoviedb.org"
 
 DEFAULT_DATABASE_URI = "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres"
+
+TESTING_SECRET_KEY = "mysecret"

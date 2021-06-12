@@ -6,15 +6,11 @@ from consumatio.external.db.db import Database
 from consumatio.external.db.models import *
 from consumatio.usecases.set_favorite import set_favorite
 from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_set_favorite_movie():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-    tmdb = TmdbMock(tmdb_key, db)
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_favorite(tmdb, database, "83f4a921d36@83f4a921d36.com", "Movie", 12,
                  None, None, True)
@@ -39,12 +35,7 @@ def test_set_favorite_movie():
 
 
 def test_set_favorite_tv():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-    tmdb = TmdbMock(tmdb_key, db)
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_favorite(tmdb, database, "83f4a921d36@83f4a921d36.com", "TV", 1399,
                  None, None, True)
@@ -69,12 +60,7 @@ def test_set_favorite_tv():
 
 
 def test_set_favorite_season():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-    tmdb = TmdbMock(tmdb_key, db)
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_favorite(tmdb, database, "83f4a921d36@83f4a921d36.com", "Season", 1399,
                  1, None, True)
@@ -99,12 +85,7 @@ def test_set_favorite_season():
 
 
 def test_set_favorite_episode():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(tmdb_key, "mysecret", DEFAULT_DATABASE_URI, None, False)
-    app.configure()
-    tmdb = TmdbMock(tmdb_key, db)
-    database = Database(db)
-    app.app.app_context().push()
+    tmdb, database, db = setup_app()
 
     set_favorite(tmdb, database, "83f4a921d36@83f4a921d36.com", "Episode",
                  1399, 1, 1, True)

@@ -5,18 +5,11 @@ from consumatio.constants import DEFAULT_DATABASE_URI
 from consumatio.external.db.models import *
 from consumatio.usecases.get_by_rating import get_by_rating
 from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_get_by_rating_movie():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        DEFAULT_DATABASE_URI,
-        None, False)
-    app.configure()
-
-    app.app.app_context().push()
-    tmdb = TmdbMock(tmdb_key, db)
+    tmdb = setup_app()[0]
 
     dict = {
         'total_pages':
@@ -469,15 +462,7 @@ def test_get_by_rating_movie():
 
 
 def test_get_by_rating_tv():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        DEFAULT_DATABASE_URI,
-        None, False)
-    app.configure()
-
-    app.app.app_context().push()
-    tmdb = TmdbMock(tmdb_key, db)
+    tmdb = setup_app()[0]
 
     dict = {
         'total_pages':
