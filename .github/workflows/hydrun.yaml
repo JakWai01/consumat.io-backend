@@ -19,6 +19,14 @@ jobs:
         run: |
           curl -L -o /tmp/hydrun https://github.com/pojntfx/hydrun/releases/download/latest/hydrun.linux-$(uname -m)
           sudo install /tmp/hydrun /usr/local/bin
+      - name: Start database
+        run: |
+          docker volume create consumatio-postgres
+          docker network create consumatio-backend-testing
+          docker run --network consumatio-backend-testing --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres -e POSTGRES_PASSWORD=consumatio-postgres -e POSTGRES_DB=consumatio-postgres -p 5432:5432 -v consumatio-postgres:/var/lib/postgresql/data postgres
+          sleep 5 # Wait for the DB to start
+      - name: Test with hydrun
+        run: hydrun --extraArgs='--network consumatio-backend-testing -e DATABASE_URI=postgresql://consumatio-postgres:consumatio-postgres@consumatio-postgres:5432/consumatio-postgres' -a amd64,arm64,arm/v7 './Hydrunfile test'
       - name: Build backend binary with hydrun
         run: hydrun -a amd64,arm64,arm/v7 './Hydrunfile binary'
       - name: Fix permissions for built binary
