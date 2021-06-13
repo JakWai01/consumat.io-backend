@@ -166,10 +166,10 @@ class Database():
         """
         self.check_all_media_types(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
-        return media_data.user_data_id
+        return media_data.user_data_id_content
 
     def rating_exists(self: object, user_id: int, media: str,
                       media_id: int) -> bool:
@@ -182,10 +182,10 @@ class Database():
         """
         self.check_all_media_types(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
-        rating = media_data.rating
+        rating = media_data.rating_content
         if rating is None:
             logger.info("rating doesn't exist in database")
             return False
@@ -194,13 +194,13 @@ class Database():
             return True
 
     def rating(self: object, user_id: int, media: str, media_id: int,
-               rating: float) -> None:
+               rating: int) -> None:
         """
         Add rating for a certain media to the database
         :param user_id: <int> User id of a user
         :param media: <str> Type of the media to set rating for ("Movie", "TV")
         :param media_id: <int> Id of the media to set rating for
-        :param rating: <float> Rating to add to the database
+        :param rating: <int> Rating to add to the database
         :return: None
         """
         self.check_all_media_types(media)
@@ -243,7 +243,7 @@ class Database():
         """
         self.check_root_media_type(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
         watch_status = media_data.watch_status_content
@@ -273,28 +273,6 @@ class Database():
         media_data.watch_status_content = watch_status
         self.db.session.commit()
         logger.info("watchStatus succesful entered in database")
-
-    def favorite_exists(self: object, user_id: int, media: str,
-                        media_id: int) -> bool:
-        """
-        Check if favorite is specified for a certain media
-        :param user_id: <int> User id of a user
-        :param media: <str> Type of the media ("Movie", "TV", "Season", "Episode")
-        :param media_id: <int> Id of the media to check watch status for
-        :return: True if favorite exists, False if not
-        """
-        self.check_all_media_types(media)
-        media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
-            media_type_content=media,
-            media_id_content=media_id).first()
-        favorite = media_data.favorite
-        if favorite is None:
-            logger.info("favorite doesnt exist in database")
-            return False
-        else:
-            logger.info("favorite exists in database")
-            return True
 
     def favorite(self: object, user_id: int, media: str, media_id: int,
                  favorite: bool) -> None:
