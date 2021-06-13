@@ -1,200 +1,215 @@
 from consumatio.external.db.db import *
 import datetime
-import os
 import pytest
 from consumatio.external.db.models import db
 from consumatio.app import App
 from tests.utils.setup_app import setup_app
 
-# def test_cache():
-#     database = setup_app()[1]
 
-#     query_param = "dummy_query_cache"
-#     body_param = "dummy_body_cache"
+def test_cache():
+    database = setup_app()[1]
 
-#     database.cache(query_param, body_param)
+    query_param = "dummy_query_cache"
+    body_param = "dummy_body_cache"
 
-#     query = Cache.query.filter_by(
-#         query_content=query_param).first().body_content
+    database.cache(query_param, body_param)
 
-#     assert query == body_param
+    query = Cache.query.filter_by(
+        query_content=query_param).first().body_content
 
-# def test_is_cached_doesnt_exist():
-#     database = setup_app()[1]
+    assert query == body_param
 
-#     query_param = "dummy_query_is_cached_doesnt_exist"
 
-#     return_value = database.is_cached(query_param)
+def test_is_cached_doesnt_exist():
+    database = setup_app()[1]
 
-#     assert return_value is False
+    query_param = "dummy_query_is_cached_doesnt_exist"
 
-# def test_is_cached_too_old():
-#     database = setup_app()[1]
+    return_value = database.is_cached(query_param)
 
-#     query_param = "dummy_query_is_cached_too_old"
-#     body_param = "dummy_body_is_cached_too_old"
+    assert return_value is False
 
-#     database.cache(query_param, body_param)
 
-#     Cache.query.filter(Cache.query_content ==
-#                        query_param).first().last_changed = datetime.datetime(
-#                            2021, 1, 20)
+def test_is_cached_too_old():
+    database = setup_app()[1]
 
-#     return_value = database.is_cached(query_param)
+    query_param = "dummy_query_is_cached_too_old"
+    body_param = "dummy_body_is_cached_too_old"
 
-#     assert return_value is False
+    database.cache(query_param, body_param)
 
-# def test_is_cached_exists():
-#     database = setup_app()[1]
+    Cache.query.filter(Cache.query_content ==
+                       query_param).first().last_changed = datetime.datetime(
+                           2021, 1, 20)
 
-#     query_param = "dummy_query_is_cached_exists"
-#     body_param = "dummy_body_is_cached_exists"
+    return_value = database.is_cached(query_param)
 
-#     database.cache(query_param, body_param)
+    assert return_value is False
 
-#     return_value = database.is_cached(query_param)
 
-#     assert return_value is True
+def test_is_cached_exists():
+    database = setup_app()[1]
 
-# def test_get_from_cache():
-#     database = setup_app()[1]
+    query_param = "dummy_query_is_cached_exists"
+    body_param = "dummy_body_is_cached_exists"
 
-#     query_param = "dummy_query_is_chached_exists"
-#     body_param = "dummy_body_is_chached_exists"
+    database.cache(query_param, body_param)
 
-#     database.cache(query_param, body_param)
+    return_value = database.is_cached(query_param)
 
-#     return_value = database.get_from_cache(query_param)
+    assert return_value is True
 
-#     assert return_value == body_param
 
-# def test_user():
-#     database = setup_app()[1]
+def test_get_from_cache():
+    database = setup_app()[1]
 
-#     user = "dummy_user"
+    query_param = "dummy_query_is_chached_exists"
+    body_param = "dummy_body_is_chached_exists"
 
-#     database.user(user)
+    database.cache(query_param, body_param)
 
-#     query = User.query.filter_by(
-#         external_id_content=user).first().external_id_content
+    return_value = database.get_from_cache(query_param)
 
-#     assert query == user
+    assert return_value == body_param
 
-# def test_user_exists():
-#     database = setup_app()[1]
 
-#     user = "dummy_user"
+def test_user():
+    database = setup_app()[1]
 
-#     database.user(user)
+    user = "dummy_user"
 
-#     return_value = database.user_exists(user)
+    database.user(user)
 
-#     assert return_value is True
+    query = User.query.filter_by(
+        external_id_content=user).first().external_id_content
 
-# def test_user_exists_not():
-#     database = setup_app()[1]
+    assert query == user
 
-#     user = "dummy_user"
 
-#     return_value = database.user_exists(user)
+def test_user_exists():
+    database = setup_app()[1]
 
-#     assert return_value is False
+    user = "dummy_user"
 
-# def test_get_user_id():
-#     database = setup_app()[1]
+    database.user(user)
 
-#     user = "dummy_user"
+    return_value = database.user_exists(user)
 
-#     database.user(user)
+    assert return_value is True
 
-#     return_value = database.get_user_id(user)
 
-#     assert return_value is 1
+def test_user_exists_not():
+    database = setup_app()[1]
 
-# def test_user_country():
-#     database = setup_app()[1]
+    user = "dummy_user"
 
-#     user = "dummy_user"
-#     country = "DG"
+    return_value = database.user_exists(user)
 
-#     database.user(user)
-#     database.user_country(database.get_user_id(user), country)
+    assert return_value is False
 
-#     query = User.query.filter_by(external_id_content=user).first().country
 
-#     assert query == country
+def test_get_user_id():
+    database = setup_app()[1]
 
-# def test_user_language():
-#     database = setup_app()[1]
+    user = "dummy_user"
 
-#     user = "dummy_user"
-#     language = "de"
+    database.user(user)
 
-#     database.user(user)
-#     database.user_language(database.get_user_id(user), language)
+    return_value = database.get_user_id(user)
 
-#     query = User.query.filter_by(external_id_content=user).first().language
+    assert return_value is 1
 
-#     assert query == language
 
-# def test_media_data_exists():
-#     database = setup_app()[1]
+def test_user_country():
+    database = setup_app()[1]
 
-#     user = "dummy_user"
-#     database.user(user)
+    user = "dummy_user"
+    country = "DG"
 
-#     database.media_data(database.get_user_id(user), "Movie", 12, None)
+    database.user(user)
+    database.user_country(database.get_user_id(user), country)
 
-#     return_value = database.media_data_exists(database.get_user_id(user),
-#                                               "Movie", 12)
+    query = User.query.filter_by(external_id_content=user).first().country
 
-#     assert return_value is True
+    assert query == country
 
-# def test_media_data_exists_not():
-#     database = setup_app()[1]
 
-#     user = "dummy_user"
-#     database.user(user)
+def test_user_language():
+    database = setup_app()[1]
 
-#     return_value = database.media_data_exists(database.get_user_id(user),
-#                                               "Movie", 12)
+    user = "dummy_user"
+    language = "de"
 
-#     assert return_value is False
+    database.user(user)
+    database.user_language(database.get_user_id(user), language)
 
-# def test_media_data_exists_exception():
-#     database = setup_app()[1]
+    query = User.query.filter_by(external_id_content=user).first().language
 
-#     user = "dummy_user"
-#     database.user(user)
+    assert query == language
 
-#     database.media_data(database.get_user_id(user), "Movie", 12, None)
 
-#     with pytest.raises(InvalidParameter):
-#         database.media_data_exists(database.get_user_id(user),
-#                                    "dsfa23sdf234sdf", 12)
+def test_media_data_exists():
+    database = setup_app()[1]
 
-# def test_media_data():
-#     database = setup_app()[1]
+    user = "dummy_user"
+    database.user(user)
 
-#     user = "dummy_user"
-#     database.user(user)
+    database.media_data(database.get_user_id(user), "Movie", 12, None)
 
-#     database.media_data(database.get_user_id(user), "Movie", 12, None)
+    return_value = database.media_data_exists(database.get_user_id(user),
+                                              "Movie", 12)
 
-#     return_value = MediaData.query.filter_by(
-#         user_data_id_content=1).first().user_id_content_media_data
+    assert return_value is True
 
-#     assert return_value == 1
 
-# def test_media_data_exception():
-#     database = setup_app()[1]
+def test_media_data_exists_not():
+    database = setup_app()[1]
 
-#     user = "dummy_user"
-#     database.user(user)
+    user = "dummy_user"
+    database.user(user)
 
-#     with pytest.raises(InvalidParameter):
-#         database.media_data(database.get_user_id(user), "asdf324kjl12h1l", 12,
-#                             None)
+    return_value = database.media_data_exists(database.get_user_id(user),
+                                              "Movie", 12)
+
+    assert return_value is False
+
+
+def test_media_data_exists_exception():
+    database = setup_app()[1]
+
+    user = "dummy_user"
+    database.user(user)
+
+    database.media_data(database.get_user_id(user), "Movie", 12, None)
+
+    with pytest.raises(InvalidParameter):
+        database.media_data_exists(database.get_user_id(user),
+                                   "dsfa23sdf234sdf", 12)
+
+
+def test_media_data():
+    database = setup_app()[1]
+
+    user = "dummy_user"
+    database.user(user)
+
+    database.media_data(database.get_user_id(user), "Movie", 12, None)
+
+    return_value = MediaData.query.filter_by(
+        user_data_id_content=1).first().user_id_content_media_data
+
+    assert return_value == 1
+
+
+def test_media_data_exception():
+    database = setup_app()[1]
+
+    user = "dummy_user"
+    database.user(user)
+
+    with pytest.raises(InvalidParameter):
+        database.media_data(database.get_user_id(user), "asdf324kjl12h1l", 12,
+                            None)
 
 
 def test_get_media_data_id():
