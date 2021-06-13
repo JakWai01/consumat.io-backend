@@ -20,7 +20,7 @@ class Database():
         self.db.session.add(cache)
         self.db.session.commit()
 
-        logger.info("Query was saved in database")
+        logger.info("Query was saved in the database")
 
     def is_cached(self: object, query: str) -> bool:
         """
@@ -31,16 +31,18 @@ class Database():
         cached = Cache.query.filter_by(query_content=query).first()
 
         if cached == None:
-            logger.info("Query doesn't exist in database")
+            logger.info("Query doesn't exist in the database")
 
             return False
-        elif (cached.last_changed - datetime.datetime.now()).days >= 10:
+        elif cached.last_changed < datetime.datetime.now(
+        ) - datetime.timedelta(days=10):
             logger.info("Query is stale")
 
             self.db.session.delete(cached)
+            db.session.commit()
             return False
         else:
-            logger.info("Query exists in database")
+            logger.info("Query exists in the database")
             return True
 
     def get_from_cache(self: object, query: str) -> str:
@@ -49,7 +51,7 @@ class Database():
         :param query: <str> tmdb query string
         :return: <str> body of query
         """
-        logger.info("Query was loaded from database")
+        logger.info("Query was loaded from the database")
 
         return Cache.query.filter_by(query_content=query).first().body_content
 
@@ -71,10 +73,10 @@ class Database():
         """
         user = User.query.filter_by(external_id_content=external_id).first()
         if user is None:
-            logger.info("User doesn't exist in database")
+            logger.info("User doesn't exist in the database")
             return False
         else:
-            logger.info("User exists in database")
+            logger.info("User exists in the database")
             return True
 
     def get_user_id(self: object, external_id: str) -> int:
@@ -83,11 +85,12 @@ class Database():
         :param external_id: <str> External id provided by OAuth
         :return: <int> Internal user id of a user
         """
-        logger.info("user_id was loaded from database")
+        logger.info("user_id was loaded from the database")
         user = User.query.filter_by(external_id_content=external_id).first()
         return user.user_id_content
 
     def get_user(self: object, external_id: str) -> object:
+        logger.info("user was loaded from the database")
         return User.query.filter_by(external_id_content=external_id).first()
 
     def user_country(self: object, external_id: str, country: str) -> None:
@@ -145,10 +148,15 @@ class Database():
         :return: None
         """
         self.check_all_media_types(media)
-        media_data = MediaData(None, None, media_id, media, user_id, None,
-                               tv_code)
+        number_of_watched_episodes = None
+        if media == "Season":
+            number_of_watched_episodes = 0
+        media_data = MediaData(None, None, media_id, media, user_id,
+                               number_of_watched_episodes, tv_code)
         self.db.session.add(media_data)
         self.db.session.commit()
+
+        logger.info("media_data successfully entered into the database")
 
     def get_media_data_id(self: object, user_id: int, media: str,
                           media_id: int) -> int:
@@ -161,10 +169,11 @@ class Database():
         """
         self.check_all_media_types(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
-        return media_data.user_data_id
+        logger.info("media_data_id was loaded from the database")
+        return media_data.user_data_id_content
 
     def rating_exists(self: object, user_id: int, media: str,
                       media_id: int) -> bool:
@@ -177,25 +186,25 @@ class Database():
         """
         self.check_all_media_types(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
-        rating = media_data.rating
+        rating = media_data.rating_content
         if rating is None:
-            logger.info("rating doesn't exist in database")
+            logger.info("rating doesn't exist in the database")
             return False
         else:
-            logger.info("rating exists in database")
+            logger.info("rating exists in the database")
             return True
 
     def rating(self: object, user_id: int, media: str, media_id: int,
-               rating: float) -> None:
+               rating: int) -> None:
         """
         Add rating for a certain media to the database
         :param user_id: <int> User id of a user
         :param media: <str> Type of the media to set rating for ("Movie", "TV")
         :param media_id: <int> Id of the media to set rating for
-        :param rating: <float> Rating to add to the database
+        :param rating: <int> Rating to add to the database
         :return: None
         """
         self.check_all_media_types(media)
@@ -224,7 +233,7 @@ class Database():
         media_data.number_of_watched_episodes = number_of_watched_episodes
         self.db.session.commit()
         logger.info(
-            "number of watched episodes successfully entered into the database"
+            "number_of_watched_episodes successfully entered into the database"
         )
 
     def watch_status_exists(self: object, user_id: int, media: str,
@@ -238,7 +247,7 @@ class Database():
         """
         self.check_root_media_type(media)
         media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
+            user_data_id_content=user_id,
             media_type_content=media,
             media_id_content=media_id).first()
         watch_status = media_data.watch_status_content
@@ -267,29 +276,7 @@ class Database():
             media_id_content=media_id).first()
         media_data.watch_status_content = watch_status
         self.db.session.commit()
-        logger.info("watchStatus succesful entered in database")
-
-    def favorite_exists(self: object, user_id: int, media: str,
-                        media_id: int) -> bool:
-        """
-        Check if favorite is specified for a certain media
-        :param user_id: <int> User id of a user
-        :param media: <str> Type of the media ("Movie", "TV", "Season", "Episode")
-        :param media_id: <int> Id of the media to check watch status for
-        :return: True if favorite exists, False if not
-        """
-        self.check_all_media_types(media)
-        media_data = MediaData.query.filter_by(
-            user_id_content=user_id,
-            media_type_content=media,
-            media_id_content=media_id).first()
-        favorite = media_data.favorite
-        if favorite is None:
-            logger.info("favorite doesnt exist in database")
-            return False
-        else:
-            logger.info("favorite exists in database")
-            return True
+        logger.info("watchStatus succesful entered into the database")
 
     def favorite(self: object, user_id: int, media: str, media_id: int,
                  favorite: bool) -> None:
@@ -308,7 +295,7 @@ class Database():
             media_id_content=media_id).first()
         media_data.favorite_content = favorite
         self.db.session.commit()
-        logger.info("favorite succesful entered in database")
+        logger.info("favorite succesful entered into the database")
 
     def check_watch_status(self: object, watch_status: str) -> None:
         """
