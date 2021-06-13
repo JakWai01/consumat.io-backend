@@ -57,7 +57,7 @@ $ git clone https://github.com/alphahorizonio/consumat.io-backend.git
 $ cd consumat.io-backend
 # Start the database
 $ docker volume create consumatio-postgres
-$ docker run --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres -e POSTGRES_PASSWORD=consumatio-postgres -e POSTGRES_DB=consumatio-postgres -p 5432:5432 -v consumatio-postgres:/var/lib/postgresql/data postgres
+$ docker run --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres -e POSTGRES_PASSWORD=consumatio-postgres -e POSTGRES_DB=consumatio-postgres -p 5432:5432 -v consumatio-postgres:/var/lib/postgresql/data postgres postgres -N 512
 # Install dependencies
 $ make depend
 # Run tests
