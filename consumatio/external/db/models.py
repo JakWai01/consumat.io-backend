@@ -34,7 +34,7 @@ class MediaData(db.Model):
     __tablename__ = 'media_data'
     user_data_id_content = db.Column(db.Integer, primary_key=True)
     watch_status_content = db.Column(db.String(255), nullable=True)
-    rating_content = db.Column(db.Float, nullable=True)
+    rating_content = db.Column(db.Integer, nullable=True)
     media_id_content = db.Column(db.Integer, nullable=False)
     media_type_content = db.Column(db.String(30), nullable=False)
     user_id_content_media_data = db.Column(
