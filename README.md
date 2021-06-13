@@ -60,6 +60,8 @@ $ docker volume create consumatio-postgres
 $ docker run --name consumatio-postgres -d -e POSTGRES_USER=consumatio-postgres -e POSTGRES_PASSWORD=consumatio-postgres -e POSTGRES_DB=consumatio-postgres -p 5432:5432 -v consumatio-postgres:/var/lib/postgresql/data postgres
 # Install dependencies
 $ make depend
+# Run tests
+$ TMDB_KEY="mytmdbkey" BACKEND_SECRET="mysecret" make test
 # Start the backend
 $ TMDB_KEY="mytmdbkey" BACKEND_SECRET="mysecret" make dev
 ```

@@ -1,3 +1,4 @@
+from consumatio.constants import TMDB_FRONTEND_PREFIX
 from consumatio.entities.tv import TV
 from consumatio.external.db.models import MediaData, User
 
@@ -47,8 +48,7 @@ def get_tv(external_id: str, tmdb: object, code: int, db: object) -> dict:
         "creators": dict_tv_details.get("creators"),
         "number_of_episodes": dict_tv_details.get("number_of_episodes"),
         "number_of_seasons": dict_tv_details.get("number_of_seasons"),
-        "tmdb_url":
-        f'https://www.themoviedb.org/tv/{dict_tv_details.get("code")}',
+        "tmdb_url": f'{TMDB_FRONTEND_PREFIX}/tv/{dict_tv_details.get("code")}',
         "watch_status": watch_status,
         "rating_user": rating,
         "favorite": favorite,
