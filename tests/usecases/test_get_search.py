@@ -1,20 +1,15 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.usecases.get_search import get_search
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.models import *
+from consumatio.usecases.get_search import get_search
+from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_get_search():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    app.app.app_context().push()
-    tmdb = TmdbMock(tmdb_key, db)
+    tmdb = setup_app()[0]
 
     dict = {
         'total_pages':
@@ -361,3 +356,4 @@ def test_get_search():
     }
 
     assert dict == get_search("da39a3ee5e@da39a3ee5e.com", tmdb, "test", 1, db)
+

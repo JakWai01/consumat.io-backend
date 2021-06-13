@@ -1,20 +1,15 @@
-from tests.tmdb.tmdb_mock import TmdbMock
-from consumatio.usecases.get_episode import get_episode
 import os
-from consumatio.external.db.models import *
+
 from consumatio.app import App
+from consumatio.constants import DEFAULT_DATABASE_URI
+from consumatio.external.db.models import *
+from consumatio.usecases.get_episode import get_episode
+from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.setup_app import setup_app
 
 
 def test_get_episode():
-    tmdb_key = os.getenv("TMDB_KEY")
-    app = App(
-        tmdb_key, "mysecret",
-        "postgresql://consumatio-postgres:consumatio-postgres@localhost:5432/consumatio-postgres",
-        None, False)
-    app.configure()
-
-    app.app.app_context().push()
-    tmdb = TmdbMock(tmdb_key, db)
+    tmdb = setup_app()[0]
 
     dict = {
         'air_date':
