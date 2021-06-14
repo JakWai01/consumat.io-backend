@@ -1,8 +1,6 @@
 from consumatio.external.db.db import *
 import datetime
 import pytest
-from consumatio.external.db.models import db
-from consumatio.app import App
 from tests.utils.setup_app import setup_app
 
 

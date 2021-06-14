@@ -1,10 +1,9 @@
 import os
-
 from consumatio.app import App
 from consumatio.constants import DEFAULT_DATABASE_URI, TESTING_SECRET_KEY
 from consumatio.external.db.db import Database
 from consumatio.external.db.models import *
-from tests.tmdb.tmdb_mock import TmdbMock
+from tests.utils.tmdb_mock import TmdbMock
 
 
 def setup_app():
