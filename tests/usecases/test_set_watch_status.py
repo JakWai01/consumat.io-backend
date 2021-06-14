@@ -1,13 +1,7 @@
-import os
-
 import pytest
-from consumatio.app import App
-from consumatio.constants import DEFAULT_DATABASE_URI
 from consumatio.exceptions.invalid_parameter import InvalidParameter
-from consumatio.external.db.db import Database
 from consumatio.external.db.models import *
 from consumatio.usecases.set_watch_status import set_watch_status
-from tests.tmdb.tmdb_mock import TmdbMock
 from tests.utils.setup_app import setup_app
 
 
