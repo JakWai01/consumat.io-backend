@@ -7,7 +7,7 @@ def set_watch_status(database: object, external_id: str, code: int, media: str,
     :param code: <int> Code of the media to set watchStatus for
     :param media: <str> Type of media
     :param watchStatus: <str> WatchStatus, one of ["Movie", "TV", "Season", "Episode"]
-    :return: <dict: Successful response
+    :return: <dict> Successful response
     """
     user_id = 0
 
