@@ -13,7 +13,7 @@ def get_watch_count(tmdb: object, external_id: str, type: str,
     :return: <int> Count of media watched
     """
     count = 0
-    if type in "MovieTV":
+    if type == "Movie" or type == "TV":
         results = db.session.query(MediaData).join(User).filter(
             User.user_id_content == MediaData.user_id_content_media_data,
             MediaData.media_type_content == type,
@@ -21,7 +21,7 @@ def get_watch_count(tmdb: object, external_id: str, type: str,
             MediaData.watch_status_content == 'Finished').all()
 
         count = len(results)
-    elif type in "SeasonEpisode":
+    elif type == "Season" or type == "Episode":
         raise InvalidParameter("Can't query watchCount for", type)
     else:
         results = db.session.query(MediaData).join(User).filter(
