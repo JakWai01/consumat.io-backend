@@ -1,12 +1,6 @@
-import os
-
-from consumatio.app import App
-from consumatio.constants import DEFAULT_DATABASE_URI
-from consumatio.external.db.db import Database
 from consumatio.external.db.models import *
 from consumatio.usecases.set_number_of_watched_episodes import \
     set_number_of_watched_episodes
-from tests.tmdb.tmdb_mock import TmdbMock
 from tests.utils.setup_app import setup_app
 
 

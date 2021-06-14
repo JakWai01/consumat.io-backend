@@ -1,9 +1,5 @@
-from tests.tmdb.tmdb_mock import TmdbMock
 from consumatio.usecases.get_popular import get_popular
-import os
 from consumatio.external.db.models import *
-from consumatio.app import App
-from consumatio.constants import DEFAULT_DATABASE_URI
 from tests.utils.setup_app import setup_app
 
 
