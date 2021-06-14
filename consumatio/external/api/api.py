@@ -24,8 +24,6 @@ from consumatio.usecases.set_country import *
 from consumatio.usecases.set_language import *
 from consumatio.usecases.get_user_i18n import *
 from flask import request
-
-# IS THIS CLEAN?
 from consumatio.external.db.models import db
 
 
