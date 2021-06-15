@@ -90,12 +90,16 @@ class Database():
         return user.user_id_content
 
     def get_user(self: object, external_id: str) -> object:
+        """
+        Get the user to the corresponding external id
+        :param external_id: <str> External id provided by OAuth
+        :return: <int> Internal user id of a user
+        """
         if not self.user_exists(external_id):
             self.user(external_id)
-        else:
-            logger.info("user was loaded from the database")
-            return User.query.filter_by(
-                external_id_content=external_id).first()
+
+        logger.info("user was loaded from the database")
+        return User.query.filter_by(external_id_content=external_id).first()
 
     def user_country(self: object, external_id: str, country: str) -> None:
         """
