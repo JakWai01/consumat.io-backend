@@ -11,6 +11,12 @@ def get_user_i18n(external_id: str, db: object) -> dict:
 
     user = db.session.query(User).filter_by(
         external_id_content=external_id).first()
+        
+    if user is None:
+        user = User(external_id)
+        db.session.add(user)
+        db.session.commit()
+
     user_country = user.country
     user_language = user.language
 
