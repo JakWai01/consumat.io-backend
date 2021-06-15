@@ -19,7 +19,11 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
     """
     dict_search_details = tmdb.get_search_result(external_id, keyword, page)
 
-    results = dict_search_details["results"]
+    results = []
+
+    if len(dict_search_details) != 0:
+        results = dict_search_details.get("results")
+
     result_list = []
     for result in results:
         if "first_air_date" in result:
@@ -118,9 +122,11 @@ def get_search(external_id: str, tmdb: object, keyword: str, page: int,
 
         result_list.append(dict)
 
-    dict = {
-        "total_pages": dict_search_details["total_pages"],
-        "results": result_list
-    }
+    pages = 0
+
+    if len(dict_search_details) != 0:
+        pages = dict_search_details["total_pages"]
+
+    dict = {"total_pages": pages, "results": result_list}
 
     return dict
