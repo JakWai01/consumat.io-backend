@@ -92,6 +92,8 @@ class Database():
     def get_user(self: object, external_id: str) -> object:
         if not self.user_exists(external_id):
             self.user(external_id)
+            return User.query.filter_by(
+                external_id_content=external_id).first()
         else:
             logger.info("user was loaded from the database")
             return User.query.filter_by(
