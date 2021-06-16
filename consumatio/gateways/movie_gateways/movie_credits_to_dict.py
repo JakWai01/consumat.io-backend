@@ -23,7 +23,7 @@ def movie_credits_to_dict(data: dict) -> dict:
     for crewmember in crew:
         if crewmember.get("job") == "Director":
             director = {
-                "code": castmember.get("id"),
+                "code": crewmember.get("id"),
                 "name": crewmember.get("name"),
                 "image_path": crewmember.get("profile_path")
             }
