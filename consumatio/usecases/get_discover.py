@@ -44,7 +44,7 @@ def get_discover(external_id: str, tmdb: object, type: str, person: int,
         return tmdb.get_movies_with(external_id, person, page)
 
     if len(results) == 0:
-        return get_popular(external_id, tmdb, type, page)
+        return get_popular(external_id, tmdb, type, page, db)
 
     else:
         for result in results:
