@@ -12,13 +12,13 @@ def get_by_rating(external_id: str, tmdb: object, type: str, vote_avg: float,
     Make all relevant API request for this usecase (items by rating) and assemble them into a dictionary
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
-    :param type: <str> Popular item type "movie" or "tv"
-    :param vote_avg: <float> filter media with average rating greater than set value
-    :param vote_count: <int> minimum number of votes
-    :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
+    :param type: <str> Popular item type "Movie" or "TV"
+    :param vote_avg: <float> Filter media with average rating greater than set value
+    :param vote_count: <int> Minimum number of votes
+    :param released_from: <str> Search for media released after specified date (YYYY-MM-DD)
     :param page: <int> Search page (minimum:1 maximum:1000)
     :param db: <object> Database object
-    :return: <dict> popular media
+    :return: <dict> Popular media
     """
     dict = {}
     if type == "Movie":

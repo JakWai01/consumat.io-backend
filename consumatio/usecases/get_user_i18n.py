@@ -1,4 +1,4 @@
-from consumatio.external.db.models import MediaData, User
+from consumatio.external.db.models import User
 
 
 def get_user_i18n(external_id: str, db: object) -> dict:
@@ -6,12 +6,12 @@ def get_user_i18n(external_id: str, db: object) -> dict:
     Get i18n  for current user
     :param external_id: <str> External ID provided by OAuth
     :param db: <object> Database object
-    :return: <dict> dict with country and language fields
+    :return: <dict> Dict with country and language fields
     """
 
     user = db.session.query(User).filter_by(
         external_id_content=external_id).first()
-        
+
     if user is None:
         user = User(external_id)
         db.session.add(user)

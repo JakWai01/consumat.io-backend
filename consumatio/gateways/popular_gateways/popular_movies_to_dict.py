@@ -1,5 +1,4 @@
 from consumatio.constants import TMDB_FRONTEND_PREFIX
-from consumatio.external.db.models import *
 
 
 def popular_movies_to_dict(data: dict) -> dict:

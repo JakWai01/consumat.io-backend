@@ -5,7 +5,7 @@ from consumatio.external.db.models import MediaData, User
 
 def get_movie(external_id: str, tmdb: object, code: int, db: object) -> dict:
     """
-    Make all relevant API requests (details, images, providers, credits) and assemble a Movie
+    Make all relevant API requests (details, providers, credits) and assemble a Movie
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object
     :param code: <int> Id of the movie to get data for

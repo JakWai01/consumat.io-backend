@@ -10,11 +10,11 @@ def get_discover(external_id: str, tmdb: object, type: str, person: int,
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object 
     :param type: <str> Type of the media to query
-    :param person: <int> TMDB code of a person to get media w/ them (e.g. acotr or director)
+    :param person: <int> TMDB code of a person to get media w/ them (e.g. actor or director)
     :param similar_to: <int> TMDB code of a movie/tv show to get similar media
     :param page: <int> Search page (minimum:1 maximum:1000)
     :param db: <object> Database object
-    :return: <list> List of the media requested with respect to the values of watchStatus and favorite
+    :return: <dict> Result dictionary 
     """
     results = []
     total_pages = 0
@@ -61,8 +61,8 @@ def get_discover(external_id: str, tmdb: object, type: str, person: int,
 def get_recommended(list: list, external_id: str, tmdb: object,
                     type: str) -> list:
     """
-    handle the 'logic' to find recommended media based on user ratings
-    :param list: <list> list of codes to query TMDB API with
+    Handle the 'logic' to find recommended media based on user ratings
+    :param list: <list> List of codes to query TMDB API with
     :param external_id: <str> External ID provided by OAuth
     :param tmdb: <object> Tmdb object 
     :param type: <str> Type of the media to query
@@ -98,6 +98,15 @@ def get_similar(code: int,
                 tmdb: object,
                 type: str,
                 page=1) -> dict:
+    """
+    Get similar media like the one provided
+    :param code: <int> Id of TV or Movie
+    :param external_id: <str> External ID of the user provided by OAuth
+    :param tmdb: <object> Tmdb object
+    :param type: <str> Type of the Media ("Movie" or "TV")
+    :param page: <int> How many pages should be displayed
+    :return: <dict> Recommended Media
+    """
     similar_media = {}
 
     if type == "Movie":
@@ -110,9 +119,9 @@ def get_similar(code: int,
 
 def divide_chunks(list: list, n: int):
     """
-    divide list in equally sized parts
-    :param list: <list> any list
-    :param n: <int> size of the chunks
+    Divide list in equally sized parts
+    :param list: <list> Any list
+    :param n: <int> Size of the chunks
     """
     for i in range(0, len(list), n):
         yield list[i:i + n]
@@ -120,10 +129,10 @@ def divide_chunks(list: list, n: int):
 
 def time_delta(date_added: datetime.datetime) -> datetime.timedelta:
     """
-    calculate the time difference for any given time and now
-    :param date_added: <datetime> datetime object
-    :param n: <int> size of the chunks
-    :return: <timedelta> timedelta object
+    Calculate the time difference for any given time and now
+    :param date_added: <datetime> Datetime object
+    :param n: <int> Size of the chunks
+    :return: <timedelta> Timedelta object
     """
     today = datetime.datetime.now().date()
     delta = today - date_added.date()
