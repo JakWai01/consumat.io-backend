@@ -7,7 +7,7 @@ def get_watch_time(tmdb: object, external_id: str, type: str,
                    db: object) -> int:
     """
     Get time of watched media of a certain type ("Movie", "TV")
-    :param tmdb: <object> TMDB object to make API requests
+    :param tmdb: <object> Tmdb object
     :param external_id: <str> External id of the user
     :param type: <str> Type of the media to get count for (e.g. "Movie", "Season" or "Drama")
     :param db: <object> Database object
