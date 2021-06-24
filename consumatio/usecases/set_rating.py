@@ -2,12 +2,11 @@ def set_rating(database: object, external_id: str, media: str, code: int,
                rating: int) -> dict:
     """
     Set rating for a particular Movie/ TV Show
-    :param tmdb: <object> TMDB object to make API requests
     :param database: <object> Database object to access the database
     :param external_id: <str> External ID provided by OAuth
     :param media: <str> Type of media to set rating for
     :param code: <int> Code of the media
-    :param rating: <int> rating
+    :param rating: <int> Rating
     :return: <dict> Successful response
     """
     user_id = 0
