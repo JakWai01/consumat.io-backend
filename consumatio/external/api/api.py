@@ -100,10 +100,10 @@ def register_query_resolvers(query, tmdb):
     @query.field("popular")
     def resolve_popular(*_, type: str, page: int) -> dict:
         """
-        API endpoint for "popular" queries.
-        :param type: <str> Choose between "tv" or "movie" to get popular results
+        API endpoint to get "popular" productions.
+        :param type: <str> Media type, choose between "TV", "Movie"
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> Details of the movie/tv
+        :return: <dict> Results of either popular TV shows or movies
         """
         logger = get_logger_instance()
         logger.info("Popular was queried -> type:'{}'".format(type))
@@ -115,11 +115,11 @@ def register_query_resolvers(query, tmdb):
                          page: int) -> dict:
         """
         Get list of recommended media based on user ratings/favorites (popular as fallback)
-        :param type: <str> Type of the media to query
-        :param person: <int> TMDB code of a person to get media w/ them (e.g. acotr or director)
-        :param similar_to: <int> TMDB code of a movie/tv show to get similar media
+        :param type: <str> Media type, choose between "TV", "Movie"
+        :param person: <int> TMDB code of a person to get media w/ them (e.g. actor or director)
+        :param similarTo: <int> TMDB code of a movie/TV show to search similar media
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> recommended media with respect to the values of watchStatus, favorites and rating
+        :return: <dict> Recommended media with respect to the user's watchStatus, favorites and ratings
         """
         logger = get_logger_instance()
         logger.info("Discover was queried -> type:'{}'".format(type))
@@ -131,13 +131,13 @@ def register_query_resolvers(query, tmdb):
     def resolve_by_rating(*_, type: str, tmdbRating: float, minVotes: int,
                           releasedFrom: str, page: int) -> dict:
         """
-        API endpoint for (top) rated queries.
-        :param type: <str> Popular item type "movie" or "tv"
-        :param vote_avg: <float> filter media with average rating greater than set value
-        :param vote_count: <int> minimum number of votes
-        :param released_from: <str> search for media released after specified date (YYYY-MM-DD)
+        API endpoint to filter media based on rating.
+        :param type: <str> Media type, choose between "TV", "Movie"
+        :param tmdbRating: <float> Filter media with average rating greater than set value
+        :param minVotes: <int> Filter results by minimum amount of votes
+        :param releasedFrom: <str> Search for media released after specified date (YYYY-MM-DD)
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> Details of the movie/tv
+        :return: <dict> Results of either TV shows or movies filtered by ratings
         """
         logger = get_logger_instance()
         logger.info("byRating was queried -> type:'{}'".format(type))
@@ -150,7 +150,7 @@ def register_query_resolvers(query, tmdb):
         """
         API endpoint for "tvSeasons" queries.
         :param code: <int> Code of the TV show to get the seasons for
-        :return: list of dicts consisting of seasons
+        :return: <list> List of dicts consisting of seasons
         """
         logger = get_logger_instance()
         logger.info("TVSeasons was queried -> code:'{}'".format(code))
@@ -163,7 +163,7 @@ def register_query_resolvers(query, tmdb):
         API endpoint for "seasonEpisodes" queries.
         :param code: <int> Code of the TV show to get the episodes for 
         :param seasonNumber: <int> Number of the season to get the episodes for
-        :return: list of dicts consisting of episodes
+        :return: <dict> List of dicts consisting of episodes
         """
         logger = get_logger_instance()
         logger.info(
@@ -176,7 +176,7 @@ def register_query_resolvers(query, tmdb):
     def resolve_watch_count(*_, type: str) -> int:
         """
         API endpoint for "watchCount" queries.
-        :param type: <str> Type to return count for (Movie, TV, genre, Episode)
+        :param type: <str> Media type, choose between "TV", "Movie", "Season" and "Episode"
         :return: <int> Count of watched media of provided type
         """
         logger = get_logger_instance()
@@ -188,7 +188,7 @@ def register_query_resolvers(query, tmdb):
     def resolve_watch_time(*_, type: str) -> int:
         """
         API endpoint for "watchTime" queries.
-        :param type: <str> Type to return count for (Movie, TV)
+        :param type: <str> Media type, choose between "TV", "Movie"
         :return: <int> Runtime of watched media of provided type
         """
         logger = get_logger_instance()
@@ -200,9 +200,9 @@ def register_query_resolvers(query, tmdb):
     def resolve_list(*_, type: str, watchStatus: str, favorite: bool) -> dict:
         """
         API endpoint for "list" queries.
-        :param type: <str> Choose between "tv", "movie", "season" and "episode"
-        :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished" or "any"
-        :param favorite: <bool> to query media marked as favorite (best used with watchStatus = "any")
+        :param type: <str> Media type, choose between "TV", "Movie", "Season" and "Episode"
+        :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished" or null
+        :param favorite: <bool> Boolean to query media marked as favorite (best used with watchStatus = null)
         :return: <dict> Movie, TV, Season or Episode
         """
         logger = get_logger_instance()
@@ -215,7 +215,7 @@ def register_query_resolvers(query, tmdb):
     def resolve_user(*_) -> dict:
         """
         Get user preferences
-        :return: <dict> currently country & language fields
+        :return: <dict> Currently returns user's country & language settings
         """
         logger = get_logger_instance()
         logger.info("user was queried")
@@ -227,6 +227,15 @@ def register_mutation_resolvers(mutation, tmdb, database):
     @mutation.field("favorite")
     def resolve_favorite(*_, code: int, type: str, favorite: bool,
                          seasonNumber: int, episodeNumber: int) -> dict:
+        """
+        Mutation endpoint to set meida as favorite.
+        :param code: <int> TMDB code of the item to set as favorite 
+        :param type: <str> Media type, choose between "TV", "Movie", "Season" and "Episode"
+        :param favorite: <bool> Boolean to set favorite to
+        :param seasonNumber: <int> Number of season if type is season else set to null
+        :param episodeNumber: <int> Number of episode if type is episode else set to null
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info(
             "favorite was queried -> type:'{}', code:'{}', seasonNumber:'{}', episodeNumber:'{}', favorite:'{}'"
@@ -237,6 +246,13 @@ def register_mutation_resolvers(mutation, tmdb, database):
 
     @mutation.field("rating")
     def resolve_rating(*_, code: int, type: str, rating: int) -> dict:
+        """
+        Mutation endpoint to rate media.
+        :param code: <int> TMDB code of the item
+        :param type: <str> Media type, choose between "TV", "Movie"
+        :param rating: <int> Rating of media to store for user.
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info(
             "rating was queried -> type:'{}', code:'{}', rating:'{}'".format(
@@ -248,6 +264,13 @@ def register_mutation_resolvers(mutation, tmdb, database):
     def resolve_number_of_watched_episodes(
             *_, code: int, seasonNumber: int,
             numberOfWatchedEpisodes: int) -> dict:
+        """
+        Mutation endpoint to set amount of watched episodes
+        :param code: <int> TMDB code of the item
+        :param seasonNumber: <int> Number of season the episodes are part of
+        :param numberOfWatchedEpisodes: <int> Amount of watched episodes
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info(
             "number of watched episodes was queried -> code:'{}', seasonNumber:'{}', numberOfWatchedEpisodes:'{}'"
@@ -260,6 +283,13 @@ def register_mutation_resolvers(mutation, tmdb, database):
     @mutation.field("watchStatus")
     def resolve_watch_status(*_, code: int, type: str,
                              watchStatus: str) -> dict:
+        """
+        Mutation endpoint to set the watchStatus of a TV show or movie
+        :param code: <int> TMDB code of the item to change the watchStatus for
+        :param type: <str> Media type, choose between "TV", "Movie", "Season" and "Episode"
+        :param watchStatus: <str> Choose between "Plan to watch", "Watching", "Dropped" and "Finished"
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info(
             "watchStatus was queried -> code:'{}', type:'{}', watchStatus:'{}'"
@@ -269,6 +299,11 @@ def register_mutation_resolvers(mutation, tmdb, database):
 
     @mutation.field("country")
     def resolve_country(*_, country: str) -> dict:
+        """
+        Mutation endpoint to set the current user's preferred country
+        :param country: <str> ISO 3166-1 alpha-2 country code (e.g. 'DE' or 'US')
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info("country was queried -> country:'{}'".format(country))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
@@ -276,6 +311,11 @@ def register_mutation_resolvers(mutation, tmdb, database):
 
     @mutation.field("language")
     def resolve_language(*_, language: str) -> dict:
+        """
+        Mutation endpoint to set the current user's preferred language
+        :param language: <str> RFC 5646 BCP language tag (e.g. 'de-DE' or 'en-US')
+        :return: <dict> Dict containing status of mutation
+        """
         logger = get_logger_instance()
         logger.info("language was queried -> language:'{}'".format(language))
         external_id = request.headers.get(CONSUMATIO_NAMESPACE_HEADER_KEY)
