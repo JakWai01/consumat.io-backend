@@ -9,8 +9,8 @@ def register_routes(app, schema, backend_secret):
     @app.route("/", methods=["GET"])
     def graphql_playground() -> str:
         """
-        If get request was made on "/", route to playground.
-        :return: <str>, <statuscode> Return playground html with status code 200
+        If get request was made on "/", route to the GraphQL playground.
+        :return: <str>, <statuscode> Return playground HTML with HTTP status code 200
         """
         logger = get_logger_instance()
         logger.debug("Routed to playground -> code:{}".format(200))
@@ -21,7 +21,7 @@ def register_routes(app, schema, backend_secret):
     def graphql_server() -> str:
         """
         If post request was made on "/", resolve the queries.
-        :return: <str>, <statuscode> Return response to request with statuscode (200 or 400)
+        :return: <str>, <statuscode> Return response to request with HTTP status code (200 or 400)
         """
         data = request.get_json()
 
