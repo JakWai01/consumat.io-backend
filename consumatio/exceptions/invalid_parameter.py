@@ -1,5 +1,5 @@
 class InvalidParameter(Exception):
     """
-    Exception raised when invalid parameters where provided
+    Exception raised when invalid parameters were provided
     """
     pass

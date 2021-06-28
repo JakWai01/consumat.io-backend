@@ -181,7 +181,7 @@ class Tmdb():
                           page: int) -> dict:
         """
         Fetch tmdb search endpoint
-        :param external_id: External representation of user
+        :param user: External representation of user
         :param keyword: <str> Search string
         :return: <dict> Search results
         """
@@ -195,7 +195,7 @@ class Tmdb():
         Fetch tmdb popular movies endpoint
         :param user: <str> External representation of the user
         :param page: <int> Search page (minimum:1 maximum:1000) 
-        :return: <dict> movie results
+        :return: <dict> Movie results
         """
         logger.info("Fetch 'popular_movies' from tmdb")
         query = f'{TMDB_API_PREFIX}/movie/popular?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&page={page}&include_adult=false'
@@ -204,9 +204,10 @@ class Tmdb():
 
     def get_popular_tv(self: object, user: str, page: int) -> dict:
         """
-        Fetch tmdb popular tv shows endpoint
+        Fetch tmdb popular TV shows endpoint
+        :param user: <str> External representation of the user
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> tv results
+        :return: <dict> TV results
         """
         logger.info("Fetch 'popular_tv' from tmdb")
         query = f'{TMDB_API_PREFIX}/tv/popular?api_key={self.api_key}&language={self.get_language(user)}&page={page}&include_adult=false'
@@ -217,10 +218,13 @@ class Tmdb():
                              votes: int, released_from: str,
                              page: int) -> dict:
         """
-        Fetch movies by tmdb rating (desc)
-        :param user: External representation of user
+        Fetch movies by tmdb ratings (in descending order)
+        :param user: <str> External representation of the user
+        :param vote_avg: <float> Filter media with average rating greater than set value
+        :param votes: <int>Filter results by minimum amount of votes
+        :param released_from: <str> Search for media released after specified date (YYYY-MM-DD)
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> tv results
+        :return: <dict> Results of either TV shows or movies filtered by ratings
         """
         logger.info("Fetch 'movies_by_rating' from tmdb")
         query = f'{TMDB_API_PREFIX}/discover/movie?api_key={self.api_key}&language={self.get_language(user)}&region={self.get_country(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&primary_release_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}'
@@ -230,10 +234,13 @@ class Tmdb():
     def get_tv_by_rating(self: object, user: str, vote_avg: float, votes: int,
                          released_from: str, page: int) -> dict:
         """
-        Fetch tv by tmdb rating (desc)
-        :param user: External representation of user
+        Fetch TV shows by tmdb ratings (in descending order)
+        :param user: <str> External representation of the user
+        :param vote_avg: <float> Filter media with average rating greater than set value
+        :param votes: <int>Filter results by minimum amount of votes
+        :param released_from: <str> Search for media released after specified date (YYYY-MM-DD)
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> tv results
+        :return: <dict> Results of either TV shows or movies filtered by ratings
         """
         logger.info("Fetch 'tv_by_rating' from tmdb")
         query = f'{TMDB_API_PREFIX}/discover/tv?api_key={self.api_key}&language={self.get_language(user)}&sort_by=vote_average.desc&include_adult=false&include_video=false&page={page}&first_air_date.gte={released_from}&vote_count.gte={votes}&vote_average.gte={vote_avg}&watch_region={self.get_country(user)}'
@@ -243,11 +250,11 @@ class Tmdb():
     def get_recommended_movies(self: object, user: str, code: int,
                                page: int) -> dict:
         """
-        Fetch similar movies from tmdb by movie id
+        Fetch tmdb movie recommendations similar to a specific movie 
         :param user: External representation of user
-        :param code: <int> id of the movie to fetch recommended items for
+        :param code: <int> Id of the movie to fetch recommended items for
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> movie results
+        :return: <dict> Recommended movie results
         """
         logger.info("Fetch 'recommended_movies' from tmdb")
         query = f'https://api.themoviedb.org/3/movie/{code}/recommendations?api_key={self.api_key}&language={self.get_language(user)}&page={page}'
@@ -256,11 +263,11 @@ class Tmdb():
 
     def get_movies_with(self: object, user: str, code: int, page: int) -> dict:
         """
-        Fetch similar movies from tmdb by movie id
+        Fetch movies with a specific cast/production member
         :param user: External representation of user
-        :param code: <int> id of the person to fetch recommended items for
+        :param code: <int> Id of the person to look for in movies
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> movie results
+        :return: <dict> Movie results
         """
         logger.info("Fetch 'movies_with' from tmdb")
         query = f'https://api.themoviedb.org/3/discover/movie?api_key={self.api_key}&language={self.get_language(user)}&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page={page}&with_people={code}&watch_region={self.get_country(user)}'
@@ -270,11 +277,11 @@ class Tmdb():
     def get_recommended_tv(self: object, user: str, code: int,
                            page: int) -> dict:
         """
-        Fetch similar movies from tmdb by movie id
+        Fetch tmdb TV recommendations similar to a specific show 
         :param user: External representation of user
-        :param code: <int> id of the tv show to fetch recommended items for
+        :param code: <int> Id of the TV show to fetch recommended items for
         :param page: <int> Search page (minimum:1 maximum:1000)
-        :return: <dict> tv results
+        :return: <dict> Recommended TV show results
         """
         logger.info("Fetch 'recommended_tv' from tmdb")
         query = f'https://api.themoviedb.org/3/tv/{code}/recommendations?api_key={self.api_key}&language={self.get_language(user)}&page={page}'
@@ -283,7 +290,7 @@ class Tmdb():
 
     def get_data(self: object, query: str, db: object) -> dict:
         """
-        Check if data is cached and get the data then either from the cache or by making a new API request.
+        Gets API response from cache or makes new API request
         :param query: <str> API query
         :param db: <object> Database object
         :return: <dict> Return response of the query
@@ -296,11 +303,21 @@ class Tmdb():
         return data
 
     def get_country(self: object, external_id: str) -> str:
+        """
+        Gets specified user's country preference
+        :param external_id: External representation of user
+        :return: <str> Returns ISO 3166-1 alpha-2 country code (e.g. 'DE' or 'US')
+        """
         user = self.db.get_user(external_id)
 
         return user.country
 
     def get_language(self: object, external_id: str) -> str:
+        """
+        Gets specified user's language preference
+        :param external_id: External representation of user
+        :return: <str> Returns RFC 5646 BCP language tag (e.g. 'de-DE' or 'en-US')
+        """
         user = self.db.get_user(external_id)
 
         return user.language
